@@ -39,7 +39,7 @@ function extractShortsId(url: string): string | null {
 
     try {
       // Send POST request to the backend
-      const response = await fetch('http://13.53.190.218:8000/download', {
+      const response = await fetch('https://backendeasyfetch.zapto.org/download', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
