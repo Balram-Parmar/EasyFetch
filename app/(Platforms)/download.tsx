@@ -36,7 +36,7 @@ function extractShortsId(url: string): string | null {
     setIsDownloading(true);
     setProgress(0);
     setStatusMessage('Starting download process...');
-  
+
     try {
       const response = await fetch('https://backendeasyfetch.zapto.org/download', {
         method: 'POST',
@@ -45,69 +45,60 @@ function extractShortsId(url: string): string | null {
         },
         body: JSON.stringify({ url: downloadUrl }),
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
-      // Try to get the total size from the Content-Length header
-      const contentLengthHeader = response.headers.get('Content-Length');
-      const totalBytes = contentLengthHeader ? parseInt(contentLengthHeader, 10) : null;
-  
+
       const reader = response.body?.getReader();
       if (!reader) throw new Error('Response body is null');
-  
+
       let receivedBytes = 0;
       const chunks: Uint8Array[] = [];
-  
+
       while (true) {
         const { done, value } = await reader.read();
-  
+
         if (done) {
           setStatusMessage('Processing downloaded content...');
           break;
         }
-  
+
         chunks.push(value);
         receivedBytes += value.length;
-  
-        // Calculate progress: if totalBytes is available, use it; otherwise, use a simulated calculation.
-        let calculatedProgress = 0;
-        if (totalBytes) {
-          calculatedProgress = Math.min((receivedBytes / totalBytes) * 100, 99);
-        } else {
-          // Fallback simulation: adjust this factor as needed for your content sizes.
-          calculatedProgress = Math.min((receivedBytes / (1024 * 1024)) * 5, 99);
-        }
-        setProgress(calculatedProgress);
-  
-        if (calculatedProgress < 33) {
+        
+        // Update progress based on chunks received
+        // Since we don't know the total size, we'll use a simulated progress
+        const simulatedProgress = Math.min((receivedBytes / (1024 * 1024)) * 5, 99);
+        setProgress(simulatedProgress);
+
+        if (simulatedProgress < 33) {
           setStatusMessage('Downloading video content...');
-        } else if (calculatedProgress < 66) {
+        } else if (simulatedProgress < 66) {
           setStatusMessage('Processing video data...');
         } else {
           setStatusMessage('Almost done...');
         }
       }
-  
+
       // Create and download the file
       const blob = new Blob(chunks, { type: 'video/webm' });
-      const blobUrl = window.URL.createObjectURL(blob);
+      const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = blobUrl;
+      a.href = url;
       a.download = `${shortsId}.webm`;
       document.body.appendChild(a);
       a.click();
-      window.URL.revokeObjectURL(blobUrl);
+      window.URL.revokeObjectURL(url);
       a.remove();
-  
+
       setProgress(100);
       setStatusMessage('Download complete!');
       setTimeout(() => {
         setStatusMessage('');
         setProgress(0);
       }, 3000);
-  
+
     } catch (error) {
       console.error('Download error:', error);
       setStatusMessage('Error downloading video. Please try again.');
@@ -118,7 +109,7 @@ function extractShortsId(url: string): string | null {
       setIsDownloading(false);
     }
   };
-  
+
 
   return (
     <div className="flex flex-col gap-4 p-6 bg-white rounded-2xl shadow-md dark:bg-card">
