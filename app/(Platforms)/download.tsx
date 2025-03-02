@@ -66,8 +66,8 @@ export const Download = () => {
       document.body.removeChild(link);
 
       // Update status message and clear it after 3 seconds
-      setStatusMessage("Starting Download...");
-      setTimeout(() => setStatusMessage(""), 3000);
+      setStatusMessage("Starting Download Please Wait...");
+      // setTimeout(() => setStatusMessage(""), 3000);
     } catch (error) {
       console.error("Error processing request:", error);
       setStatusMessage("Error processing request. Please try again.");
