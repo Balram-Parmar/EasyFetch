@@ -1,87 +1,82 @@
 "use client";
-
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Download = () => {
-  // State variables
-  const [url, setUrl] = useState(""); // Tracks the input value
-  const [isDownloading, setIsDownloading] = useState(false); // Indicates processing status
-  const [statusMessage, setStatusMessage] = useState(""); // Status message for user feedback
+  const [a, setA] = useState("");
+  const [b, setB] = useState(false);
+  const [c, setC] = useState("");
 
-  // Extract YouTube Shorts ID from URL
-  function extractShortsId(url: string): string | null {
-    const youtubeShortsRegex = /(?:\/shorts\/|youtube\.com\/shorts\/)([\w-]{11})(?:[\/?#&]|$)/i;
-    const match = url.match(youtubeShortsRegex);
-    return match ? match[1] : null;
+  function d(u) {
+    const r = /(?:\/shorts\/|youtube\.com\/shorts\/)([\w-]{11})(?:[\/?#&]|$)/i;
+    const m = u.match(r);
+    return m ? m[1] : null;
   }
 
-  // Handle the download process
-  const handleDownload = async (downloadUrl: string) => {
-    const shortsId = extractShortsId(downloadUrl);
-    if (!shortsId) {
-      setStatusMessage("Not a valid YouTube Shorts URL. Please enter a valid Shorts URL.");
-      setTimeout(() => setStatusMessage(""), 3000);
+  const e = async (u) => {
+    const id = d(u);
+    if (!id) {
+      setC(atob("Tm90IGEgdmFsaWQgWW91VHViZSBTaG9ydHMgVVJMLiBQbGVhc2UgZW50ZXIgYSB2YWxpZCBTaG9ydHMgVVJMLg=="));
+      setTimeout(() => setC(""), 3000);
       return;
     }
-    if (!downloadUrl) return;
-
-    setIsDownloading(true);
-    setStatusMessage("Processing Your Request...");
-
+    if (!u) return;
+    setB(true);
+    setC(atob("UHJvY2Vzc2luZyBZb3VyIFJlcXVlc3QuLi4="));
     try {
-      const response = await fetch("https://backendeasyfetch.zapto.org/download", {
+      const res = await fetch(`${atob("aHR0cHM6Ly8=")}${atob("YmFja2VuZGVhc3lmZXRjaA==")}${atob("LnphcHRvLm9yZy8=")}${atob("ZG93bmxvYWQ=")}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
           "Cache-Control": "no-cache",
           "Pragma": "no-cache",
-        
         },
         body: JSON.stringify({
-          
-        url: downloadUrl,
-        token: (Date.now()/1000).toString()
-
+          url: u,
+          token: (Date.now() / 1000).toString()
         }),
       });
-
-
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
       }
-
-      const data = await response.json();
-
-      // Create an anchor element to initiate download
+      const data = await res.json();
       const link = document.createElement("a");
-      link.href = data.download_link; // e.g., "https://backendeasyfetch.zapto.org/download/file/{video_id}"
-      link.download = `${shortsId}.webm`; // Suggest a filename (optional, as backend may set it)
+      link.href = data.download_link;
+      link.download = `${id}.webm`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
-      // Update status message and clear it after 3 seconds
-      setStatusMessage("Starting Download...");
-      setTimeout(() => setStatusMessage(""), 3000);
-    } catch (error) {
-      console.error("Error processing request:", error);
-      setStatusMessage("Error processing request. Please try again.");
-      setTimeout(() => setStatusMessage(""), 5000);
+      setC(atob("U3RhcnRpbmcgRG93bmxvYWQuLi4="));
+      setTimeout(() => setC(""), 3000);
+    } catch (err) {
+      console.error("Error processing request:", err);
+      setC(atob("RXJyb3IgcHJvY2Vzc2luZyByZXF1ZXN0LiBQbGVhc2UgdHJ5IGFnYWluLg=="));
+      setTimeout(() => setC(""), 5000);
     } finally {
-      setIsDownloading(false);
+      setB(false);
+    }
+  };
+
+  const m = (event) => {
+    event.preventDefault();
+    const pasted = event.clipboardData.getData("text");
+    setA(pasted);
+    e(pasted);
+  };
+
+  const o = (event) => {
+    if (event.key === "Enter") {
+      e(a);
+      setA("");
     }
   };
 
   return (
     <div className="flex flex-col gap-4 p-6 bg-white rounded-2xl shadow-md dark:bg-card">
       <h2 className="text-2xl font-bold mb-2 text-gray-800 dark:text-white">Video Downloader</h2>
-
-      {/* Input Box with Icon */}
       <div className="relative">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <Search className="w-5 h-5 text-gray-400" />
@@ -90,33 +85,21 @@ export const Download = () => {
           type="text"
           placeholder="Paste your YouTube URL here..."
           className="w-full pl-10 pr-4 py-5 text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          onPaste={(e) => {
-            e.preventDefault();
-            const pastedText = e.clipboardData.getData("text");
-            setUrl(pastedText);
-            handleDownload(pastedText);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleDownload(url);
-              setUrl("");
-            }
-          }}
+          value={a}
+          onChange={(e) => setA(e.target.value)}
+          onPaste={m}
+          onKeyDown={o}
         />
       </div>
-
-      {/* Download Button */}
       <Button
         onClick={() => {
-          handleDownload(url);
-          setUrl("");
+          e(a);
+          setA("");
         }}
-        disabled={isDownloading}
+        disabled={b}
         className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:shadow-[0_0_20px_rgba(16,185,129,0.7)] transition-all duration-300"
       >
-        {isDownloading ? (
+        {b ? (
           <>
             <Loader2 className="w-5 h-5 animate-spin" />
             Processing...
@@ -128,11 +111,9 @@ export const Download = () => {
           </>
         )}
       </Button>
-
-      {/* Status Message */}
-      {statusMessage && (
+      {c && (
         <div className="text-sm text-center mt-2 text-gray-600 dark:text-gray-300">
-          {statusMessage}
+          {c}
         </div>
       )}
     </div>
