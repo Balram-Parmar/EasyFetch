@@ -27,88 +27,95 @@ function extractShortsId(url: string): string | null {
     const shortsId = extractShortsId(downloadUrl);
     if (!shortsId) {
       setStatusMessage('Not a valid YouTube Shorts URL. Please enter a valid Shorts URL.');
-      setTimeout(() => {
-        setStatusMessage('');
-      }, 3000);
+      setTimeout(() => setStatusMessage(''), 3000);
       return;
     }
     if (!downloadUrl) return;
+    
     setIsDownloading(true);
     setProgress(0);
     setStatusMessage('Starting download process...');
-
+  
     try {
       const response = await fetch('https://backendeasyfetch.zapto.org/download', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ url: downloadUrl }),
       });
-
+  
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
+  
+      // Get the total file size from the Content-Length header if provided
+      const totalBytesHeader = response.headers.get('Content-Length');
+      const totalBytes = totalBytesHeader ? parseInt(totalBytesHeader, 10) : null;
+  
       const reader = response.body?.getReader();
       if (!reader) throw new Error('Response body is null');
-
+  
       let receivedBytes = 0;
       const chunks: Uint8Array[] = [];
-
+  
       while (true) {
         const { done, value } = await reader.read();
-
+  
         if (done) {
           setStatusMessage('Processing downloaded content...');
           break;
         }
-
+  
         chunks.push(value);
         receivedBytes += value.length;
-        
-        // Update progress based on chunks received
-        // Since we don't know the total size, we'll use a simulated progress
-        const simulatedProgress = Math.min((receivedBytes / (1024 * 1024)) * 5, 99);
-        setProgress(simulatedProgress);
-
-        if (simulatedProgress < 33) {
+  
+        // Calculate progress using the actual file size if available
+        let calculatedProgress = 0;
+        if (totalBytes) {
+          calculatedProgress = Math.min((receivedBytes / totalBytes) * 100, 99);
+        } else {
+          // Fallback: simulate progress if totalBytes is unavailable.
+          calculatedProgress = Math.min((receivedBytes / (1024 * 1024)) * 10, 99);
+        }
+        setProgress(calculatedProgress);
+  
+        // Update status messages based on progress thresholds
+        if (calculatedProgress < 33) {
           setStatusMessage('Downloading video content...');
-        } else if (simulatedProgress < 66) {
+        } else if (calculatedProgress < 66) {
           setStatusMessage('Processing video data...');
         } else {
           setStatusMessage('Almost done...');
         }
       }
-
-      // Create and download the file
+  
+      // Create a blob from the downloaded chunks and initiate the download
       const blob = new Blob(chunks, { type: 'video/webm' });
-      const url = window.URL.createObjectURL(blob);
+      const blobUrl = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url;
+      a.href = blobUrl;
       a.download = `${shortsId}.webm`;
       document.body.appendChild(a);
       a.click();
-      window.URL.revokeObjectURL(url);
+      window.URL.revokeObjectURL(blobUrl);
       a.remove();
-
+  
       setProgress(100);
       setStatusMessage('Download complete!');
       setTimeout(() => {
         setStatusMessage('');
         setProgress(0);
       }, 3000);
-
     } catch (error) {
       console.error('Download error:', error);
       setStatusMessage('Error downloading video. Please try again.');
-      setTimeout(() => {
-        setStatusMessage('');
-      }, 5000);
+      setTimeout(() => setStatusMessage(''), 5000);
     } finally {
       setIsDownloading(false);
     }
   };
+  
 
 
   return (
