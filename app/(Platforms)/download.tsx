@@ -32,13 +32,12 @@ function extractShortsId(url: string): string | null {
       }, 3000);
       return;
     }
-    if (!downloadUrl) return; // Exit if no URL is provided
-    setIsDownloading(true);   // Start download state
-    setProgress(0);           // Reset progress
-    setStatusMessage('Preparing to download your video, this may take up to 15 seconds...'); // Initial status
+    if (!downloadUrl) return;
+    setIsDownloading(true);
+    setProgress(0);
+    setStatusMessage('Starting download process...');
 
     try {
-      // Send POST request to the backend
       const response = await fetch('https://backendeasyfetch.zapto.org/download', {
         method: 'POST',
         headers: {
@@ -48,67 +47,66 @@ function extractShortsId(url: string): string | null {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // Read the file stream and update progress
-      if (!response.body) throw new Error('Response body is null');
-      const reader = response.body.getReader();
-      const contentLength = +(response.headers.get('Content-Length') ?? 0); // Total file size
-      let receivedLength = 0; // Bytes received
-      const chunks = [];      // Store file chunks
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error('Response body is null');
 
-      setStatusMessage('Downloading video content...'); // Update status message
+      let receivedBytes = 0;
+      const chunks: Uint8Array[] = [];
 
       while (true) {
         const { done, value } = await reader.read();
+
         if (done) {
-          setStatusMessage('Completing download, preparing file...'); // Final status
-          break; // Exit when download is complete
+          setStatusMessage('Processing downloaded content...');
+          break;
         }
+
         chunks.push(value);
-        receivedLength += value.length;
-        const currentProgress = (receivedLength / contentLength) * 100;
-        setProgress(currentProgress); // Update progress percentage
+        receivedBytes += value.length;
         
-        // Update status message based on progress
-        if (currentProgress > 75) {
-          setStatusMessage('Almost there, finalizing your download...');
-        } else if (currentProgress > 50) {
-          setStatusMessage('Download more than halfway complete...');
-        } else if (currentProgress > 25) {
-          setStatusMessage('Download in progress, please wait...');
+        // Update progress based on chunks received
+        // Since we don't know the total size, we'll use a simulated progress
+        const simulatedProgress = Math.min((receivedBytes / (1024 * 1024)) * 5, 99);
+        setProgress(simulatedProgress);
+
+        if (simulatedProgress < 33) {
+          setStatusMessage('Downloading video content...');
+        } else if (simulatedProgress < 66) {
+          setStatusMessage('Processing video data...');
+        } else {
+          setStatusMessage('Almost done...');
         }
       }
 
-      // Create a Blob and trigger the save dialog
-      const blob = new Blob(chunks);
-      const urlBlob = window.URL.createObjectURL(blob);
+      // Create and download the file
+      const blob = new Blob(chunks, { type: 'video/webm' });
+      const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = urlBlob;
-    
-      a.download = `${shortsId}.webm`; // Default filename (adjust as needed)
+      a.href = url;
+      a.download = `${shortsId}.webm`;
       document.body.appendChild(a);
       a.click();
+      window.URL.revokeObjectURL(url);
       a.remove();
-      window.URL.revokeObjectURL(urlBlob); // Clean up
-      setStatusMessage('Download complete!'); // Success message
-      
-      // Clear success message after 3 seconds
+
+      setProgress(100);
+      setStatusMessage('Download complete!');
       setTimeout(() => {
         setStatusMessage('');
+        setProgress(0);
       }, 3000);
-      
+
     } catch (error) {
-      console.error('Error downloading video:', error);
-      setStatusMessage('Error downloading video. Please try again.'); // Error message
-      // Clear error message after 5 seconds
+      console.error('Download error:', error);
+      setStatusMessage('Error downloading video. Please try again.');
       setTimeout(() => {
         setStatusMessage('');
       }, 5000);
     } finally {
-      setIsDownloading(false); // Reset download state
-      setProgress(0);          // Reset progress after a delay
+      setIsDownloading(false);
     }
   };
 
