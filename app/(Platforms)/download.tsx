@@ -43,7 +43,7 @@ export const Download = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
+        
           "Cache-Control": "no-cache",
           "Pragma": "no-cache",
         },
@@ -59,15 +59,15 @@ export const Download = () => {
 
       const data = await response.json();
 
-      // Initiate download
-      const link = document.createElement("a");
-      link.href = data.download_link;
-      link.download = `${shortsId}.webm`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      if (data.status === 'success') {
+        // Open download link in new tab
+        const downloadLink = `https://backendeasyfetch.zapto.org/download/file/${shortsId}`;
+        window.open(downloadLink, '_blank');
+        setStatusMessage("Download started successfully.");
+      } else {
+        throw new Error('Invalid response from server');
+      }
 
-      setStatusMessage("Download started successfully.");
       setTimeout(() => setStatusMessage(""), 3000);
     } catch (error) {
       console.error("Error processing request:", error);
