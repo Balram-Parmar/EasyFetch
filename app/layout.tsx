@@ -73,7 +73,7 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={metadata.twitter?.title?.toString()} />
         <meta name="twitter:description" content={metadata.twitter?.description?.toString()} />
-        <meta name="twitter:image" content={Array.isArray(metadata.twitter?.images) ? metadata.twitter.images[0]?.toString() : metadata.twitter?.images?.toString()} />
+        <meta name="twitter:image" content={Array.isArray(metadata.twitter?.images) ? metadata.twitter?.images[0]?.toString() : metadata.twitter?.images?.toString() ?? ''} />
       </head>
       <body className={`${inter.className} min-h-screen`}>
         {children}
