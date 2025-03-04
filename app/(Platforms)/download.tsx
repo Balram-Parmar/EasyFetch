@@ -6,10 +6,9 @@ import { Search, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Download = () => {
-  // State variables
-  const [url, setUrl] = useState(""); // Tracks the input value
-  const [isDownloading, setIsDownloading] = useState(false); // Indicates processing status
-  const [statusMessage, setStatusMessage] = useState(""); // Status message for user feedback
+  const [url, setUrl] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
 
   // Extract YouTube Shorts ID from URL
   function extractShortsId(url: string): string | null {
@@ -20,16 +19,24 @@ export const Download = () => {
 
   // Handle the download process
   const handleDownload = async (downloadUrl: string) => {
-    const shortsId = extractShortsId(downloadUrl);
-    if (!shortsId) {
-      setStatusMessage("Not a valid YouTube Shorts URL. Please enter a valid Shorts URL.");
+    // Check if URL is empty
+    if (!downloadUrl) {
+      setStatusMessage("Please enter a YouTube Shorts URL.");
       setTimeout(() => setStatusMessage(""), 3000);
       return;
     }
-    if (!downloadUrl) return;
 
-    setIsDownloading(true);
-    setStatusMessage("Processing Your Request...");
+    // Validate URL
+    const shortsId = extractShortsId(downloadUrl);
+    if (!shortsId) {
+      setStatusMessage("Invalid YouTube Shorts URL. Please enter a valid Shorts URL.");
+      setTimeout(() => setStatusMessage(""), 3000);
+      return;
+    }
+
+    // Start processing
+    setIsProcessing(true);
+    setStatusMessage("Processing your request...");
 
     try {
       const response = await fetch("https://backendeasyfetch.zapto.org/download", {
@@ -39,17 +46,12 @@ export const Download = () => {
           "Accept": "application/json",
           "Cache-Control": "no-cache",
           "Pragma": "no-cache",
-        
         },
         body: JSON.stringify({
-          
-        url: downloadUrl,
-        token: (Date.now()/1000).toString()
-
+          url: downloadUrl,
+          token: (Date.now() / 1000).toString(),
         }),
       });
-
-
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -57,23 +59,22 @@ export const Download = () => {
 
       const data = await response.json();
 
-      // Create an anchor element to initiate download
+      // Initiate download
       const link = document.createElement("a");
-      link.href = data.download_link; // e.g., "https://backendeasyfetch.zapto.org/download/file/{video_id}"
-      link.download = `${shortsId}.webm`; // Suggest a filename (optional, as backend may set it)
+      link.href = data.download_link;
+      link.download = `${shortsId}.webm`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
 
-      // Update status message and clear it after 3 seconds
-      setStatusMessage("Starting Download Please Wait...");
-      // setTimeout(() => setStatusMessage(""), 3000);
+      setStatusMessage("Download started successfully.");
+      setTimeout(() => setStatusMessage(""), 3000);
     } catch (error) {
       console.error("Error processing request:", error);
       setStatusMessage("Error processing request. Please try again.");
       setTimeout(() => setStatusMessage(""), 5000);
     } finally {
-      setIsDownloading(false);
+      setIsProcessing(false);
     }
   };
 
@@ -113,10 +114,10 @@ export const Download = () => {
           handleDownload(url);
           setUrl("");
         }}
-        disabled={isDownloading}
+        disabled={isProcessing}
         className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:shadow-[0_0_20px_rgba(16,185,129,0.7)] transition-all duration-300"
       >
-        {isDownloading ? (
+        {isProcessing ? (
           <>
             <Loader2 className="w-5 h-5 animate-spin" />
             Processing...

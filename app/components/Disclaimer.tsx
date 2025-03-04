@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Disclaimer = () => {
   return (
     <p className="text-sm text-gray-700 mt-4 max-w-2xl mx-auto">

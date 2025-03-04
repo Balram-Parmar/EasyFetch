@@ -1,8 +1,3 @@
-'use client'
-import React from 'react'
-
-
-
 import { FaYoutube, FaInstagram, FaTiktok, FaLock, FaBolt, FaDownload, FaGoogleDrive } from "react-icons/fa"
 // import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
