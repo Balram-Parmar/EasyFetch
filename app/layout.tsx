@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "YouTube Shorts No Watermark",
     "Shorts to MP3 Converter",
     "Online YouTube Shorts Downloader",
-    "Private YouTube Shorts Download",
+   
     "FHD YouTube Shorts Downloader",
     "Anonymous YouTube Shorts Downloader",
     "Download Shorts Video Online"
