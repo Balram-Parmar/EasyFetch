@@ -34,15 +34,15 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
-            
-            <Link href="https://discord.gg/dqZ9B3ASFp">
-            <Button 
+
+            <Link href="https://discord.gg/dqZ9B3ASFp" target="_blank" rel="noopener noreferrer">
+              <Button 
               variant="ghost" 
               size="icon"
               className="text-gray-300 hover:text-green-400 hover:bg-green-500/10"
-            >
+              >
               <FaDiscord className="h-6 w-6" />
-            </Button>
+              </Button>
             </Link>
 
             <Link href="/contactus">
