@@ -329,7 +329,7 @@ import  Header  from '../components/Header';
                   
                   <div className="p-4 bg-gray-800 rounded-lg border border-gray-700 inline-block">
                     <p className="text-gray-300">
-                      Email: <a href="mailto:privacy@easyfetch.me" className="text-green-500 hover:underline">privacy@easyfetch.me</a>
+                      Email: <a href="mailto:xorvfx@gmail.com" className="text-green-500 hover:underline">privacy@easyfetch.me</a>
                     </p>
                   </div>
                   

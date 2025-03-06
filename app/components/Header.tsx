@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Github } from 'lucide-react';
+import { FaDiscord } from "react-icons/fa";
 
 const Header = () => {
   return (
@@ -16,7 +16,7 @@ const Header = () => {
           </Link>
           
           {/* Navigation Links */}
-          <nav className="hidden md:flex items-center space-x-8">
+          {/* <nav className="hidden md:flex items-center space-x-8">
             <Link 
               href="/features" 
               className="text-gray-300 hover:text-green-400 transition-colors"
@@ -35,7 +35,7 @@ const Header = () => {
             >
               FAQ
             </Link>
-          </nav>
+          </nav> */}
 
           {/* Right side buttons */}
           <div className="flex items-center space-x-4">
@@ -44,8 +44,9 @@ const Header = () => {
               size="icon"
               className="text-gray-300 hover:text-green-400 hover:bg-green-500/10"
             >
-              <Github className="h-5 w-5" />
+          <FaDiscord className="h-6 w-6" />
             </Button>
+            <Link href="/contactus">
             <Button 
               className="bg-emerald-500 hover:bg-emerald-600 text-white
               shadow-[0_0_15px_rgba(16,185,129,0.5)] 
@@ -54,6 +55,7 @@ const Header = () => {
             >
               Contact Us
             </Button>
+            </Link>
           </div>
         </div>
       </div>

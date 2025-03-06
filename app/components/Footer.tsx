@@ -12,7 +12,7 @@ export const Footer = () => {
           About EasyFetch
         </h3>
         <p className="text-gray-400 mb-4">
-          Your secure and private solution for downloading videos from popular platforms without compromising your personal data.
+          A simple and efficient tool for downloading YouTube Shorts videos. Fast, secure, and no personal data required.
         </p>
         <div className="flex space-x-4">
           {/* Social Media Icons */}
@@ -58,21 +58,8 @@ export const Footer = () => {
                   About Us
                 </Link>
               </li>
-              <li>
-                <Link href="/features" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Features
-                </Link>
-              </li>
-              <li>
-                <Link href="/how-it-works" className="text-gray-400 hover:text-green-500 transition-colors">
-                  How It Works
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Blog
-                </Link>
-              </li>
+          
+           
             </ul>
           </div>
 
@@ -92,21 +79,8 @@ export const Footer = () => {
                   Terms of Service
                 </Link>
               </li>
-              <li>
-                <Link href="/copyrightinformation" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Copyright Information
-                </Link>
-              </li>
-              <li>
-                <Link href="/DMCA" className="text-gray-400 hover:text-green-500 transition-colors">
-                  DMCA
-                </Link>
-              </li>
-              <li>
-                <Link href="/cookiepolicy" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Cookie Policy
-                </Link>
-              </li>
+            
+           
             </ul>
           </div>
 
@@ -117,38 +91,23 @@ export const Footer = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/contact" className="text-gray-400 hover:text-green-500 transition-colors">
+                <Link href="/contactus" className="text-gray-400 hover:text-green-500 transition-colors">
                   Contact Us
                 </Link>
               </li>
-              <li>
-                <Link href="/help" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="text-gray-400 hover:text-green-500 transition-colors">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="/report" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Report an Issue
-                </Link>
-              </li>
-              <li>
-                <Link href="/feedback" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Feedback
-                </Link>
+              <li  >
+  <Link className='text-gray-400 hover:text-green-500 transition-colors'href="aboutus">
+        About Us
+          </Link>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
+        <div className="mt-8 pt-8 border-t border-gray-800">
           <div className="text-sm text-gray-500 leading-relaxed">
-            <p className="mb-4">
+            <p className="mb-1">
               This website is not affiliated with or endorsed by YouTube, Instagram, TikTok, or any other platform. Our use of the name "EasyFetch" is for context, not claiming any ownership. It remains the property of the copyright holder.
             </p>
             <p className="mb-4">
