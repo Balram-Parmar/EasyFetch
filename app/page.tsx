@@ -1,6 +1,6 @@
 import Header from './components/Header';
 import{ Footer }from './components/Footer';
-import { SelectPlatform } from './Select';
+import { SelectPlatform } from './components/Select';
 import Common from './components/common';
 import Disclaimer from './components/Disclaimer';
 

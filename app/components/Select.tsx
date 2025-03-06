@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Link from 'next/link';
-import { platforms } from './data/platforms';
+import { platforms } from '../data/platforms';
 
 export const SelectPlatform = () => {
   return (

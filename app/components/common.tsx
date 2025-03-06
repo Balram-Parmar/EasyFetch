@@ -138,7 +138,7 @@ const Common = () => {
             </div>
 
             {/* FAQ Section */}
-            <div className="mt-16 max-w-7xl mx-auto mb-16">
+            <div id='faq'className="mt-16 max-w-7xl mx-auto mb-16">
               <div className="p-6 md:p-8 rounded-xl bg-card border border-gray-800">
                 <div className="flex items-center gap-3 mb-8">
                   <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center">

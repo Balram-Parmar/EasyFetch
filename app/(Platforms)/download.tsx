@@ -4,6 +4,7 @@ import { useState, ReactNode } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { METHODS } from "node:http";
 
 export const Download = () => {
   const [url, setUrl] = useState<string>("");
@@ -16,9 +17,20 @@ export const Download = () => {
   };
 
   function extractShortsId(url: string): string | null {
-    const youtubeShortsRegex = /^(https?:\/\/)?(www\.)?youtube\.com\/shorts\/([\w-]{11})(\/|$)/i;
-    const match = url.match(youtubeShortsRegex);
-    return match ? match[3] : null;
+    // YouTube URL patterns
+    const patterns = [
+      // Shorts format
+      /^(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([\w-]{11})(?:\/|$)/i,
+    ];
+
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match && match[1]) {
+        return match[1];
+      }
+    }
+
+    return null;
   }
 
   const handleDownload = async (inputUrl: string) => {
@@ -40,41 +52,34 @@ export const Download = () => {
       setStatusMessage("Processing your request...");
       setProgress(0);
 
-      const downloadUrl = `https://backendeasyfetch.zapto.org/download/file/${videoId}`;
-      const response = await fetch(downloadUrl);
+      const downloadUrl = `https://backendeasyfetch.zapto.org/download`;
+      const response = await fetch(downloadUrl, {
+        method: 'POST',
+        body: JSON.stringify({ url: inputUrl }),
+     headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+     }
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const totalLength = parseInt(response.headers.get('content-length') || '0', 10);
-      let receivedLength = 0;
-      const chunks: BlobPart[] = [];
-
-      const reader = response.body?.getReader();
-      if (!reader) throw new Error('No readable stream');
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        chunks.push(value);
-        receivedLength += value.byteLength || 0;
-        setProgress((receivedLength / totalLength) * 100);
+      const data = await response.json();
+      
+      if (data.message === "success") {
+        setStatusMessage(
+          <Button
+        onClick={() => window.open(`https://backendeasyfetch.zapto.org/download/file/${videoId}`, '_blank')}
+        className="bg-emerald-500 hover:bg-emerald-600 text-white"
+          >
+        Download Video
+          </Button>
+        );
+      } else {
+        throw new Error("Failed to process video");
       }
-
-      const blob = new Blob(chunks);
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `youtube_shorts_${videoId}.mp4`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-
-      setStatusMessage("Download completed! Check your downloads folder.");
-      clearStatusMessage(5000);
     } catch (error) {
       setStatusMessage(`Error: ${error instanceof Error ? error.message : "Unknown error"}`);
       clearStatusMessage(5000);
