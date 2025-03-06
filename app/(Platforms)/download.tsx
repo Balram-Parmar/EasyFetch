@@ -17,8 +17,12 @@ export const Download = () => {
   function extractShortsId(url: string): string | null {
     // YouTube URL patterns
     const patterns = [
-      // Shorts format
-      /^(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([\w-]{11})(?:\/|$)/i,
+      // Shorts format with or without query parameters
+      /^(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([\w-]{11})(?:\?[^/]*)?$/i,
+      // Mobile shorts format
+      /^(?:https?:\/\/)?(?:m\.)?youtube\.com\/shorts\/([\w-]{11})(?:\?[^/]*)?$/i,
+      // Alternative shorts format
+      /^(?:https?:\/\/)?youtu\.be\/([\w-]{11})(?:\?[^/]*)?$/i
     ];
 
     for (const pattern of patterns) {
