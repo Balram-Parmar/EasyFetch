@@ -97,14 +97,14 @@ const ContactUs = () => {
               </p>
               <div className="mt-8 flex flex-col md:flex-row justify-center items-center gap-6">
                 <a
-                  href="mailto:contact@easyfetch.com"
+                  href="mailto:xorvfx@gmail.com"
                   className="flex items-center gap-2 bg-gray-800 border border-gray-700 px-6 py-3 rounded-lg hover:border-green-500 transition-colors"
                 >
                   <FaEnvelope className="w-5 h-5 text-green-500" />
-                  <span>contact@easyfetch.com</span>
+                  <span>xorvfx@gmail.com</span>
                 </a>
                 <a
-                  href="https://discord.com/invite/easyfetch"
+                  href="https://discord.gg/dqZ9B3ASFp"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 bg-gray-800 border border-gray-700 px-6 py-3 rounded-lg hover:border-green-500 transition-colors"
@@ -117,7 +117,7 @@ const ContactUs = () => {
           </section>
 
           {/* Contact Form Section */}
-          <section className="mt-16">
+          {/* <section className="mt-16">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent text-center">
                 Send Us a Message
@@ -157,7 +157,10 @@ const ContactUs = () => {
                 </button>
               </form>
             </div>
-          </section>
+          </section> */}
+
+
+
         </div>
       </main>
     </>

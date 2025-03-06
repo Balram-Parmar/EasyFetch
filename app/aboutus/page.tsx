@@ -141,7 +141,7 @@ const AboutUs = () => {
               </p>
               <div className="mt-8">
                 <a
-                  href="/contact"
+                  href="/contactus"
                   className="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
                 >
                   Contact Us
