@@ -1,16 +1,14 @@
 "use client";
-
 import { useState, ReactNode } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { METHODS } from "node:http";
 
 export const Download = () => {
   const [url, setUrl] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string | ReactNode>("");
-  const [progress, setProgress] = useState<number>(0);
+
 
   const clearStatusMessage = (timeout: number = 3000) => {
     setTimeout(() => setStatusMessage(""), timeout);
@@ -50,16 +48,15 @@ export const Download = () => {
     try {
       setIsProcessing(true);
       setStatusMessage("Processing your request...");
-      setProgress(0);
+    
 
       const downloadUrl = `https://backendeasyfetch.zapto.org/download`;
       const response = await fetch(downloadUrl, {
         method: 'POST',
         body: JSON.stringify({ url: inputUrl }),
-     headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-     }
+headers: {
+  'Content-Type': 'application/json'
+}
       });
 
       if (!response.ok) {
@@ -71,10 +68,10 @@ export const Download = () => {
       if (data.message === "success") {
         setStatusMessage(
           <Button
-        onClick={() => window.open(`https://backendeasyfetch.zapto.org/download/file/${videoId}`, '_blank')}
+        onClick={() => window.open(`https://backendeasyfetch.zapto.org/videos/${videoId}.mp4`, '_blank')}
         className="bg-emerald-500 hover:bg-emerald-600 text-white"
           >
-        Download Video
+       Click To Get Video
           </Button>
         );
       } else {
@@ -85,14 +82,15 @@ export const Download = () => {
       clearStatusMessage(5000);
     } finally {
       setIsProcessing(false);
-      setProgress(0);
+    
+      setUrl("");
     }
   };
 
   return (
     <div className="flex flex-col gap-4 p-6 bg-white rounded-2xl shadow-md dark:bg-card">
       <h2 className="text-2xl font-bold mb-2 text-gray-800 dark:text-white">
-        Video Downloader
+        YT Shorts Video Downloader
       </h2>
 
       <div className="relative">
@@ -135,15 +133,6 @@ export const Download = () => {
         )}
         Download Now
       </Button>
-
-      {progress > 0 && (
-        <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-700 mt-4">
-          <div
-            className="h-full rounded-full bg-emerald-500"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      )}
 
       {statusMessage && (
         <div className="text-sm text-center mt-2 text-gray-600 dark:text-gray-300">
