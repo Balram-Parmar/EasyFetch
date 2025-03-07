@@ -20,9 +20,9 @@ const Header = () => {
           </Link>
 
           {/* Construction Notice - Hide on mobile */}
-          <span className="hidden md:block font-bold text-red-500">
+          {/* <span className="hidden md:block font-bold text-red-500">
             Website is under construction
-          </span>
+          </span> */}
 
           {/* Mobile Menu Button */}
           <button
