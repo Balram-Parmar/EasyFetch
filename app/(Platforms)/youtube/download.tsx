@@ -72,7 +72,7 @@ headers: {
       if (data.message === "success") {
         setStatusMessage(
           <Button
-        onClick={() => window.open(`https://apieasyfetch.duckdns.org/v/${videoId}.mp4`, '_blank')}
+        onClick={() => window.open(`https://apieasyfetch.duckdns.org/v/${videoId}.mp4`, '_blank' , 'noopener,noreferrer')}
         className="bg-emerald-500 hover:bg-emerald-600 text-white"
           >
        Click To Get Video
