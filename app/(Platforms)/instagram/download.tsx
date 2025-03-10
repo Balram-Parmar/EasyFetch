@@ -9,20 +9,20 @@ export const Download = () => {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string | ReactNode>("");
 
-
   const clearStatusMessage = (timeout: number = 3000) => {
-    setTimeout(() => setStatusMessage(""), timeout);
+    const timeoutId = setTimeout(() => setStatusMessage(""), timeout);
+    return () => clearTimeout(timeoutId);
   };
 
   function extractShortsId(url: string): string | null {
-    // YouTube URL patterns
+    // Instagram Reel URL patterns
     const patterns = [
-      // Shorts format with or without query parameters
-      /^(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([\w-]{11})(?:\?[^/]*)?$/i,
-      // Mobile shorts format
-      /^(?:https?:\/\/)?(?:m\.)?youtube\.com\/shorts\/([\w-]{11})(?:\?[^/]*)?$/i,
-      // Alternative shorts format
-      /^(?:https?:\/\/)?youtu\.be\/([\w-]{11})(?:\?[^/]*)?$/i
+      // Standard reel format
+      /^(?:https?:\/\/)?(?:www\.)?instagram\.com\/reel\/([\w-]+)(?:\/)?(?:\?.*)?$/i,
+      // Mobile reel format
+      /^(?:https?:\/\/)?(?:www\.)?instagram\.com\/p\/([\w-]+)(?:\/)?(?:\?.*)?$/i,
+      // Short format
+      /^(?:https?:\/\/)?(?:www\.)?instagr\.am\/p\/([\w-]+)(?:\/)?(?:\?.*)?$/i
     ];
 
     for (const pattern of patterns) {
@@ -36,57 +36,83 @@ export const Download = () => {
   }
 
   const handleDownload = async (inputUrl: string) => {
-    if (!inputUrl.trim()) {
-      setStatusMessage("Please enter a YouTube Shorts URL.");
-      clearStatusMessage();
-      return;
+    if (!inputUrl) {
+      setStatusMessage("Please enter an Instagram URL.");
+      const cleanup = clearStatusMessage();
+      return () => cleanup();
     }
 
     const videoId = extractShortsId(inputUrl);
     if (!videoId) {
-      setStatusMessage("Invalid YouTube Shorts URL");
-      clearStatusMessage(5000);
-      return;
+      setStatusMessage("Invalid Instagram URL");
+      const cleanup = clearStatusMessage(5000);
+      return () => cleanup();
     }
 
     try {
       setIsProcessing(true);
       setStatusMessage("Processing your request...");
-    
 
-      const downloadUrl = `https://backendeasyfetch.zapto.org/download`;
-      const response = await fetch(downloadUrl, {
-        method: 'POST',
-        body: JSON.stringify({ url: inputUrl }),
-headers: {
-  'Content-Type': 'application/json'
-}
-      });
+      const command = `${inputUrl} -f bestvideo+bestaudio`;
+      const encodedCommand = encodeURIComponent(command);
+      const downloadUrl = `https://ytdlp.online/stream?command=${encodedCommand}`;
 
+      const response = await fetch(downloadUrl,{ 
+        method: "GET",
+        mode: 'cors',
+        headers :{
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+          'Accept-Language': 'en-US,en;q=0.5',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Origin': 'http://localhost:3000',
+          'Referer': 'http://localhost:3000/',
+        }
+       });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-      
-      if (data.message === "success") {
-        setStatusMessage(
-          <Button
-        onClick={() => window.open(`https://backendeasyfetch.zapto.org/videos/${videoId}.mp4`, '_blank')}
-        className="bg-emerald-500 hover:bg-emerald-600 text-white"
-          >
-       Click To Get Video
-          </Button>
-        );
-      } else {
-        throw new Error("Failed to process video");
+      const reader = response.body?.getReader();
+      while (true) {
+        const { done, value } = await reader!.read();
+        if (done) break;
+        
+        const text = new TextDecoder().decode(value);
+        const lines = text.split('\n');
+        
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const content = line.slice(6);
+            if (content.includes('href="/download/')) {
+              // Extract download link and create clickable element
+              const match = content.match(/href="(\/download\/[^"]+)"/);
+              if (match) {
+                const downloadPath = match[1];
+                setStatusMessage(
+                  <a 
+                    href={`https://ytdlp.online${downloadPath}`} 
+                    className="text-blue-500 hover:text-blue-700 underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Click here to download
+                  </a>
+                );
+                return;
+              }
+            } else if (!content.includes('Command execution completed')) {
+              setStatusMessage(content.replace(/<[^>]*>/g, ''));
+            }
+          }
+        }
       }
+
     } catch (error) {
       setStatusMessage(`Error: ${error instanceof Error ? error.message : "Unknown error"}`);
       clearStatusMessage(5000);
     } finally {
       setIsProcessing(false);
-    
       setUrl("");
     }
   };
@@ -94,7 +120,7 @@ headers: {
   return (
     <div className="flex flex-col gap-4 p-6 bg-white rounded-2xl shadow-md dark:bg-card">
       <h2 className="text-2xl font-bold mb-2 text-gray-800 dark:text-white">
-        YT Shorts Video Downloader
+        Instagram Video Downloader
       </h2>
 
       <div className="relative">
@@ -103,7 +129,7 @@ headers: {
         </div>
         <Input
           type="text"
-          placeholder="Paste your YouTube Shorts URL here..."
+          placeholder="Paste your Instagram URL here..."
           className="w-full pl-10 pr-4 py-5 text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           value={url}
           onChange={(e) => setUrl(e.target.value)}

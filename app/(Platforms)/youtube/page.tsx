@@ -1,7 +1,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Download } from "../download"
+import { Download } from "./download"
 import { Card, CardContent} from "@/components/ui/card"
 import { FaYoutube}from "react-icons/fa"
 import Disclaimer from "@/app/components/Disclaimer"
@@ -40,7 +40,7 @@ export default function Page() {
                       bg-gradient-to-r from-red-500 to-red-600 
                       bg-clip-text text-transparent
                      ">
-          YouTube Downloader
+          YouTube Shorts Downloader
         </h1>
       </div>
 
