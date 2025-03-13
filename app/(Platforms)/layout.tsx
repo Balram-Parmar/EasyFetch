@@ -1,8 +1,5 @@
 import React from 'react';
-import Header from '../components/Header';
-import { Footer } from '../components/Footer';
-import Common from "../components/common";
-
+import Common from '../components/common';
 export default function RootLayout({
     children,
   }: {
@@ -10,10 +7,10 @@ export default function RootLayout({
   }) {
     return (
       <div>
-        <Header/>
+        
           {children}
-          <Common/>
-          <Footer/>
+         <Common/>
+        
           </div>
 
     );

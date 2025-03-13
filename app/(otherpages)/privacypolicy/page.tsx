@@ -1,11 +1,9 @@
-import Link from "next/link";
-import  Header  from '../../components/Header';
 
 {/* Privacy Policy Page */}
  function page() {
     return (
       <>
-<Header/>
+
       <main className="bg-gray-950 min-h-screen mt-10">
         <div className="container mx-auto px-4 py-16">
           {/* Header Section */}

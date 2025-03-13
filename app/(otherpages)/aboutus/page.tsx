@@ -1,20 +1,10 @@
-import Head from "next/head";
+
 import { FaGlobe, FaLock, FaRocket, FaUsers } from "react-icons/fa";
 
 const AboutUs = () => {
   return (
     <>
-      <Head>
-        <title>About Us | EasyFetch – Privacy-First YouTube Shorts Downloader</title>
-        <meta
-          name="description"
-          content="Learn more about EasyFetch, a privacy-first YouTube Shorts Downloader. Discover our story, mission, values, and meet the team behind the fast, secure video download service."
-        />
-        <meta
-          name="keywords"
-          content="About Us, EasyFetch, YouTube Shorts Downloader, privacy-first, video downloader, mission, team, values"
-        />
-      </Head>
+    
       <main>
         <div className="container mx-auto px-4 py-20">
           {/* Page Header */}

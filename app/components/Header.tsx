@@ -9,7 +9,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="w-full border-b border-gray-800/30 bg-black/10 backdrop-blur-lg fixed top-0 z-50">
+    <header className="w-full border-b border-gray-800/90 bg-black/10 backdrop-blur-lg fixed top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}

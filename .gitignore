@@ -18,7 +18,8 @@ app/(Platforms)/copydownload.txt
 # misc
 .DS_Store
 *.pem
-
+test
+test.pub
 # debug
 npm-debug.log*
 yarn-debug.log*

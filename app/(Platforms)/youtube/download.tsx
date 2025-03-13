@@ -99,8 +99,8 @@ export const Download = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-6 bg-white rounded-2xl shadow-md dark:bg-card">
-      <h2 className="text-2xl font-bold mb-2 text-gray-800 dark:text-white">
+    <div className="flex flex-col gap-4  bg-white rounded-2xl shadow-md dark:bg-card">
+      <h2 className="text-base sm:text-2xl font-bold mb-2 text-gray-800 dark:text-white">
         YT Shorts Video Downloader
       </h2>
 
@@ -111,7 +111,7 @@ export const Download = () => {
         <Input
           type="text"
           placeholder="Paste your YouTube Shorts URL here..."
-          className="w-full pl-10 pr-4 py-5 text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          className="w-full pl-10 pr-4 py-5 text-xs sm:text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           onPaste={(e) => {

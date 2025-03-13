@@ -1,20 +1,10 @@
-import Head from "next/head";
+
 import { FaEnvelope, FaDiscord, FaCommentAlt, FaBug, FaHandshake, FaRegSmile } from "react-icons/fa";
 
 const ContactUs = () => {
   return (
     <>
-      <Head>
-        <title>Contact Us | EasyFetch – Get in Touch</title>
-        <meta
-          name="description"
-          content="Have a question, feedback, or need support? Contact EasyFetch for feedback, sponsorship inquiries, error reports, or just to chat. Reach us via email or Discord."
-        />
-        <meta
-          name="keywords"
-          content="Contact Us, EasyFetch, feedback, sponsorship, error report, chat, email, Discord"
-        />
-      </Head>
+
       <main>
         <div className="container mx-auto px-4 py-20">
           {/* Header */}

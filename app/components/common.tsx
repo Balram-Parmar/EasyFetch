@@ -1,101 +1,102 @@
-import Head from "next/head";
+
 import { FaYoutube, FaInstagram, FaTiktok, FaLock, FaBolt, FaDownload } from "react-icons/fa";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const Common = () => {
-  let font: string = "bg-gradient-to-r from-[#61FF7E] to-[#5EEB5B] bg-clip-text text-transparent";
+ 
   
   return (
     <>
-      <Head>
-        <title>YouTube Shorts Downloader | EasyFetch – Fast & Private Downloads</title>
-        <meta name="description" content="Download YouTube Shorts in Full HD & 4K quickly and privately with EasyFetch. Our YouTube Shorts Downloader offers fast, secure, and free downloads with no registration required." />
-        <meta name="keywords" content="YouTube Shorts Downloader, Download YouTube Shorts, YouTube Shorts HD, YouTube Shorts 4K, Fast YouTube Downloader, private video downloader, EasyFetch" />
-      </Head>
+
       <main>
-        <div className="container mx-auto px-4 py-20">
+        <div className="container mx-auto px-4 py-5">
           <div className="text-center ">
             
             {/* Features */}
-            <div className="grid md:grid-cols-3 gap-8 mt-32 max-w-7xl mx-auto">
-              {/* Card 1: Ease of Use */}
-              <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
-                <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
-                  <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5z M8 3v2m8-2v2" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Ease of Use</h3>
-                <p className="text-gray-400">
-                  Our intuitive, user-friendly interface is designed for everyone—even when downloading YouTube Shorts. Simply paste your link, choose your preferred format, and download instantly!
-                </p>
-              </div>
+            
+            <div className="max-w-7xl mx-auto mt-28">
+  <h2 className="text-base sm:text-3xl font-bold text-center mb-8  bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">Features of Easy Fetch</h2>
+  <div id="feature cards" className="grid md:grid-cols-3 gap-8">
+    {/* Card 1: Ease of Use */}
+    <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+      <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5z M8 3v2m8-2v2" />
+        </svg>
+      </div>
+      <h3 className="text-xl font-semibold mb-2">Ease of Use</h3>
+      <p className="text-gray-400">
+        Our intuitive, user-friendly interface is designed for everyone—even when downloading YouTube Shorts. Simply paste your link, choose your preferred format, and download instantly!
+      </p>
+    </div>
 
-              {/* Card 2: Full HD & 4K Downloads */}
-              <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
-                <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
-                  <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Full HD & 4K Downloads</h3>
-                <p className="text-gray-400">
-                  Enjoy the best quality downloads—whether it's standard HD or stunning 4K for your favorite YouTube Shorts.
-                </p>
-              </div>
+    {/* Card 2: Full HD & 4K Downloads */}
+    <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+      <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+      </div>
+      <h3 className="text-xl font-semibold mb-2">Full HD & 4K Downloads</h3>
+      <p className="text-gray-400">
+        Enjoy the best quality downloads—whether it's standard HD or stunning 4K for your favorite YouTube Shorts.
+      </p>
+    </div>
 
-              {/* Card 3: Lightning Fast */}
-              <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
-                <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
-                  <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Lightning Fast</h3>
-                <p className="text-gray-400">
-                  Experience lightning-fast downloads, optimized for YouTube Shorts and all other video formats.
-                </p>
-              </div>
+    {/* Card 3: Lightning Fast */}
+    <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+      <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      </div>
+      <h3 className="text-xl font-semibold mb-2">Lightning Fast</h3>
+      <p className="text-gray-400">
+        Experience lightning-fast downloads, optimized for YouTube Shorts and all other video formats.
+      </p>
+    </div>
 
-              {/* Card 4: 100% Private */}
-              <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
-                <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
-                  <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">100% Private</h3>
-                <p className="text-gray-400">
-                  Your downloads—whether YouTube Shorts or longer videos—are completely anonymous. We don't track or store any data.
-                </p>
-              </div>
+    {/* Card 4: 100% Private */}
+    <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+      <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+      </div>
+      <h3 className="text-xl font-semibold mb-2">100% Private</h3>
+      <p className="text-gray-400">
+        Your downloads—whether YouTube Shorts or longer videos—are completely anonymous. We don't track or store any data.
+      </p>
+    </div>
 
-              {/* Card 5: Multiple Formats */}
-              <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
-                <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
-                  <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Multiple Formats</h3>
-                <p className="text-gray-400">
-                  Download YouTube Shorts and other videos in MP4, MP3, and more—ensuring you get the format that suits your device.
-                </p>
-              </div>
+    {/* Card 5: Multiple Formats */}
+    <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+      <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+        </svg>
+      </div>
+      <h3 className="text-xl font-semibold mb-2">Multiple Formats</h3>
+      <p className="text-gray-400">
+        Download YouTube Shorts and other videos in MP4, MP3, and more—ensuring you get the format that suits your device.
+      </p>
+    </div>
 
-              {/* Card 6: No Registration Required */}
-              <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
-                <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
-                  <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">No Registration Required</h3>
-                <p className="text-gray-400">
-                  Download YouTube Shorts and other videos instantly without signing up or sharing any personal information.
-                </p>
-              </div>
-            </div>
+    {/* Card 6: No Registration Required */}
+    <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+      <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+      </div>
+      <h3 className="text-xl font-semibold mb-2">No Registration Required</h3>
+      <p className="text-gray-400">
+        Download YouTube Shorts and other videos instantly without signing up or sharing any personal information.
+      </p>
+    </div>
+  </div>
+</div>
+
 
             {/* What is EasyFetch */}
             <div className="mt-32 max-w-7xl mx-auto">
@@ -106,14 +107,14 @@ const Common = () => {
                   </h2>
                 </div>
                 
-                <div className="text-left space-y-6">
-                  <p className="text-gray-400 leading-relaxed text-lg">
+                <div className="text-left space-y-6  text-base sm:text-lg">
+                  <p className="text-gray-400 leading-relaxed ">
                     <span className="font-semibold text-green-400">EasyFetch</span> is a privacy-first downloader designed not only for traditional videos but also for the popular <span className="font-medium text-white">YouTube Shorts Downloader</span>. Enjoy fast, secure downloads in the highest quality available—be it Full HD, 4K, or optimized formats for YouTube Shorts.
                   </p>
-                  <p className="text-gray-400 leading-relaxed text-lg">
+                  <p className="text-gray-400 leading-relaxed">
                     We serve your need for quick access to trending YouTube Shorts without compromising your data. Minimal ads support our free service, ensuring that your experience remains uninterrupted.
                   </p>
-                  <p className="text-gray-400 leading-relaxed text-lg">
+                  <p className="text-gray-400 leading-relaxed">
                     Compare our privacy-first approach with other services. With <span className="font-semibold text-green-400">EasyFetch</span>, you stay in control—no tracking, no data collection, just safe and reliable downloads.
                   </p>
                 </div>
@@ -122,15 +123,15 @@ const Common = () => {
                   <div className="flex flex-wrap gap-3">
                     <div className="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-lg border border-gray-700 hover:border-green-500 transition-colors">
                       <FaYoutube className="w-5 h-5 text-red-500" />
-                      <span>YouTube & Shorts</span>
+                      <h4 className="m-0">YouTube & Shorts</h4>
                     </div>
                     <div className="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-lg border border-gray-700 hover:border-green-500 transition-colors">
                       <FaInstagram className="w-5 h-5 text-pink-500" />
-                      <span>Instagram (Comming soon)</span>
+                      <h4 className="m-0">Instagram (Comming soon)</h4>
                     </div>
                     <div className="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-lg border border-gray-700 hover:border-green-500 transition-colors">
                       <FaTiktok className="w-5 h-5 text-blue-500" />
-                      <span>TikTok (Comming soon)</span>
+                      <h4 className="m-0">TikTok (Comming soon)</h4>
                     </div>
                   </div>
                 </div>
@@ -160,7 +161,7 @@ const Common = () => {
                             <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
                               <FaLock className="w-4 h-4 text-green-500" />
                             </div>
-                            <span className="text-lg font-medium">Is it legal to download YouTube videos and Shorts?</span>
+                            <span className="text-base  font-thin sm:text-lg sm:font-medium">Is it legal to download YouTube videos and Shorts?</span>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
@@ -176,7 +177,7 @@ const Common = () => {
                             <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
                               <FaDownload className="w-4 h-4 text-green-500" />
                             </div>
-                            <span className="text-lg font-medium">What formats does EasyFetch support?</span>
+                            <span className="text-base  font-thin sm:text-lg sm:font-medium">What formats does EasyFetch support?</span>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
@@ -194,7 +195,7 @@ const Common = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" />
                               </svg>
                             </div>
-                            <span className="text-lg font-medium">Can I download entire YouTube playlists including Shorts?</span>
+                            <span className="text-base  font-thin sm:text-lg sm:font-medium">Can I download entire YouTube playlists including Shorts?</span>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
@@ -210,7 +211,7 @@ const Common = () => {
                             <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
                               <FaBolt className="w-4 h-4 text-green-500" />
                             </div>
-                            <span className="text-lg font-medium">Is there a download limit?</span>
+                            <span className="text-base  font-thin sm:text-lg sm:font-medium">Is there a download limit?</span>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
@@ -226,7 +227,7 @@ const Common = () => {
                             <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
                               <FaLock className="w-4 h-4 text-green-500" />
                             </div>
-                            <span className="text-lg font-medium">How does EasyFetch protect my privacy?</span>
+                            <span className="text-base  font-thin sm:text-lg sm:font-medium">How does EasyFetch protect my privacy?</span>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">

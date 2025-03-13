@@ -11,7 +11,7 @@ export default function Page() {
     <div className="container mx-auto px-4 py-15 mt-24">
    
   
-      <div className="max-w-4xl mx-auto ">
+      <div className="max-w-4xl mx-auto">
  
       <div className="max-w-4xl mx-auto">
     <div className="flex flex-col sm:flex-row items-center gap-4 mb-12">
@@ -28,7 +28,7 @@ export default function Page() {
       </Link>
 
       {/* Title Section */}
-      <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
+      <div className="flex flex-col sm:flex-row items-center w-full">
         {/* Icon Container */}
         <div className="p-3 rounded-xl bg-black/20 backdrop-blur-lg 
                         border border-gray-800/30 shadow-lg">
@@ -36,7 +36,7 @@ export default function Page() {
         </div>
         
         {/* Animated Gradient Title */}
-        <h1 className="text-4xl sm:text-5xl font-bold text-center 
+        <h1 className="text-2xl sm:text-4xl font-bold text-center 
                       bg-gradient-to-r from-red-500 to-red-600 
                       bg-clip-text text-transparent
                      ">
@@ -48,7 +48,7 @@ export default function Page() {
   </div>
 
         {/* Download Section */}
-        <Card className="mb-8">
+        <Card >
 
           
           <CardContent className="pt-6">

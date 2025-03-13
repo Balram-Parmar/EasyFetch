@@ -1,5 +1,4 @@
-import Header from './components/Header';
-import{ Footer }from './components/Footer';
+
 import { SelectPlatform } from './components/Select';
 import Common from './components/common';
 import Disclaimer from './components/Disclaimer';
@@ -7,7 +6,7 @@ import Disclaimer from './components/Disclaimer';
 export default function Page() {
   return (
     <>
-    <Header/>
+   
   <div className='text-center mt-24'>
     <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent pb-1">
     Download YouTube Shorts!
@@ -25,7 +24,7 @@ export default function Page() {
     </div>
 
     <Common/>
-    <Footer/>
+   
     </>
   )
 }
