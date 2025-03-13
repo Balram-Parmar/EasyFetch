@@ -54,7 +54,7 @@ export const Download = () => {
       setStatusMessage("Processing your request...");
     
 
-      const downloadUrl = `https://apieasyfetch.duckdns.org/download`;
+      const downloadUrl = `https://https://easyfetchbackend.ddns.net/download`;
       const response = await fetch(downloadUrl, {
         method: 'POST',
         body: JSON.stringify({ url: inputUrl }),
@@ -72,7 +72,7 @@ headers: {
       if (data.message === "success") {
         setStatusMessage(
           <Button
-        onClick={() => window.open(`https://apieasyfetch.duckdns.org/v/${videoId}.mp4`, '_blank' , 'noopener,noreferrer')}
+        onClick={() => window.open(`https://https://easyfetchbackend.ddns.net/v/${videoId}.mp4`, '_blank' , 'noopener,noreferrer')}
         className="bg-emerald-500 hover:bg-emerald-600 text-white"
           >
        Click To Get Video
