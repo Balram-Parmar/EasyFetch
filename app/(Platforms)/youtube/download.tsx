@@ -9,7 +9,6 @@ export const Download = () => {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string | ReactNode>("");
 
-
   const clearStatusMessage = (timeout: number = 3000) => {
     setTimeout(() => setStatusMessage(""), timeout);
   };
@@ -35,6 +34,14 @@ export const Download = () => {
     return null;
   }
 
+  // Function to trigger the download
+  const triggerDownload = (url: string) => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = ""; // Use the server's default filename
+    link.click();
+  };
+
   const handleDownload = async (inputUrl: string) => {
     if (!inputUrl.trim()) {
       setStatusMessage("Please enter a YouTube Shorts URL.");
@@ -52,31 +59,31 @@ export const Download = () => {
     try {
       setIsProcessing(true);
       setStatusMessage("Processing your request...");
-    
 
-      const response = await fetch('https://easyfetchbackend.ddns.net/download', {
-        method: 'POST',
+      const response = await fetch("https://easyfetchbackend.ddns.net/download", {
+        method: "POST",
         headers: {
-       "accept": "application/json",
-        "Content-Type": "application/json",
+          "accept": "application/json",
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url: inputUrl })
+        body: JSON.stringify({ url: inputUrl }),
       });
-
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
-      
+
       if (data.message === "success") {
         setStatusMessage(
           <Button
-        onClick={() => window.open(`https://easyfetchbackend.ddns.net/v/${videoId}.mp4`, '_blank' , 'noopener,noreferrer')}
-        className="bg-emerald-500 hover:bg-emerald-600 text-white"
+            onClick={() =>
+              triggerDownload(`https://easyfetchbackend.ddns.net/v/${videoId}.mp4`)
+            }
+            className="bg-emerald-500 hover:bg-emerald-600 text-white"
           >
-       Click To Get Video
+            Click To Download Video
           </Button>
         );
       } else {
@@ -87,7 +94,6 @@ export const Download = () => {
       clearStatusMessage(5000);
     } finally {
       setIsProcessing(false);
-    
       setUrl("");
     }
   };
