@@ -57,8 +57,8 @@ export const Download = () => {
       const response = await fetch('https://easyfetchbackend.ddns.net/download', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-      
+       "accept": "application/json",
+        "Content-Type": "application/json",
         },
         body: JSON.stringify({ url: inputUrl })
       });
