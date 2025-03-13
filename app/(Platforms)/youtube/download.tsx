@@ -58,10 +58,8 @@ export const Download = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Access-Control-Allow-Origin': 'https://www.easyfetch.me'
+      
         },
-        credentials: 'include',
         body: JSON.stringify({ url: inputUrl })
       });
 
