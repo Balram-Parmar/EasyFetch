@@ -305,4 +305,5 @@ const Common = () => {
     );
 };
 
+export const getStaticProps = async () => { };
 export default Common;
