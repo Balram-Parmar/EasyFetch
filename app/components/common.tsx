@@ -1,252 +1,308 @@
-
-import { FaYoutube, FaInstagram, FaTiktok, FaLock, FaBolt, FaDownload } from "react-icons/fa";
+import { FaYoutube, FaInstagram, FaTiktok, FaLock, FaBolt, FaDownload, FaUsers, FaClock, FaCloudDownloadAlt } from "react-icons/fa";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const Common = () => {
- 
-  
-  return (
-    <>
+    return (
+        <>
+            <main>
+                <div className="container mx-auto px-4 py-5">
+                    <div className="text-center">
+                        {/* Hero Section */}
+                        <div className="max-w-7xl mx-auto mt-20">
+                            <h2 className="text-base sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">
+                                The Ultimate YouTube Shorts Experience
+                            </h2>
+                            <p className="text-gray-400 text-lg leading-relaxed">
+                                Welcome to EasyFetch – your all-in-one <strong>youtube short video downloader</strong> and <strong>youtube shorts download app</strong> designed to let you <strong>download youtube shorts video</strong> and <strong>download youtube short video</strong> effortlessly. Whether you want to <strong>download youtube shorts</strong> in full HD, or simply <strong>save youtube shorts</strong> for later viewing, our platform is built with cutting-edge technology to ensure you have the <strong>best youtube shorts downloader</strong> experience.
+                            </p>
+                        </div>
 
-      <main>
-        <div className="container mx-auto px-4 py-5">
-          <div className="text-center ">
-            
-            {/* Features */}
-            
-            <div className="max-w-7xl mx-auto mt-28">
-  <h2 className="text-base sm:text-3xl font-bold text-center mb-8  bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">Features of Easy Fetch</h2>
-  <div id="feature cards" className="grid md:grid-cols-3 gap-8">
-    {/* Card 1: Ease of Use */}
-    <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
-      <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
-        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5z M8 3v2m8-2v2" />
-        </svg>
-      </div>
-      <h3 className="text-xl font-semibold mb-2">Ease of Use</h3>
-      <p className="text-gray-400">
-        Our intuitive, user-friendly interface is designed for everyone—even when downloading YouTube Shorts. Simply paste your link, choose your preferred format, and download instantly!
-      </p>
-    </div>
+                        {/* Features Section */}
+                        <div className="max-w-7xl mx-auto mt-20">
+                            <h2 className="text-base sm:text-3xl font-bold text-center mb-8 bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">
+                                Powerful Features & Advanced Tools
+                            </h2>
+                            <div className="grid md:grid-cols-3 gap-8">
+                                {/* Feature Card 1 */}
+                                <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+                                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+                                        <FaYoutube className="w-6 h-6 text-green-500" />
+                                    </div>
+                                    <h3 className="text-xl font-semibold mb-2">Universal Download Capabilities</h3>
+                                    <p className="text-gray-400">
+                                        Our service works as a robust <strong>youtube shorts downloader online</strong> that enables you to <strong>download youtube short</strong> content in a variety of ways, whether it is <strong>download youtube short video</strong> from individual posts or entire playlists.
+                                    </p>
+                                </div>
 
-    {/* Card 2: Full HD & 4K Downloads */}
-    <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
-      <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
-        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-        </svg>
-      </div>
-      <h3 className="text-xl font-semibold mb-2">Full HD & 4K Downloads</h3>
-      <p className="text-gray-400">
-        Enjoy the best quality downloads—whether it's standard HD or stunning 4K for your favorite YouTube Shorts.
-      </p>
-    </div>
+                                {/* Feature Card 2 */}
+                                <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+                                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+                                        <FaDownload className="w-6 h-6 text-green-500" />
+                                    </div>
+                                    <h3 className="text-xl font-semibold mb-2">High Definition & Multiple Formats</h3>
+                                    <p className="text-gray-400">
+                                        Enjoy options such as <strong>youtube shorts download hd</strong> with our <strong>1080p youtube shorts downloader</strong> and even <strong>yt shorts downloader 4k</strong>. Convert your files with our <strong>yt shorts downloader mp4 converter</strong> and switch easily between <strong>mp4 downloader youtube shorts</strong> and other formats.
+                                    </p>
+                                </div>
 
-    {/* Card 3: Lightning Fast */}
-    <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
-      <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
-        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      </div>
-      <h3 className="text-xl font-semibold mb-2">Lightning Fast</h3>
-      <p className="text-gray-400">
-        Experience lightning-fast downloads, optimized for YouTube Shorts and all other video formats.
-      </p>
-    </div>
+                                {/* Feature Card 3 */}
+                                <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+                                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+                                        <FaBolt className="w-6 h-6 text-green-500" />
+                                    </div>
+                                    <h3 className="text-xl font-semibold mb-2">Lightning-Fast & Free Downloads</h3>
+                                    <p className="text-gray-400">
+                                        With our <strong>yt shorts downloader free download hd</strong> service, you can <strong>download youtube shorts free</strong> at incredible speeds. Whether you’re using it as a <strong>youtube shorts downloader</strong> or a <strong>yt shorts downloader</strong>, performance is our promise.
+                                    </p>
+                                </div>
 
-    {/* Card 4: 100% Private */}
-    <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
-      <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
-        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-        </svg>
-      </div>
-      <h3 className="text-xl font-semibold mb-2">100% Private</h3>
-      <p className="text-gray-400">
-        Your downloads—whether YouTube Shorts or longer videos—are completely anonymous. We don't track or store any data.
-      </p>
-    </div>
+                                {/* Feature Card 4 - Batch Downloads (SEO Optimized) */}
+                                <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+                                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+                                        <FaUsers className="w-6 h-6 text-green-500" /> {/* Icon for groups/batch */}
+                                    </div>
+                                    <h3 className="text-xl font-semibold mb-2">Bulk YouTube Shorts Downloader</h3>
+                                    <p className="text-gray-400">
+                                        Save time with our <strong>bulk youtube shorts downloader</strong>.  Download entire playlists or multiple <strong>youtube shorts videos</strong> at once.  Ideal for content creators and users who need to <strong>download youtube shorts in bulk</strong>.  This feature is a powerful <strong>youtube shorts saver</strong> for large collections.
+                                    </p>
+                                </div>
 
-    {/* Card 5: Multiple Formats */}
-    <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
-      <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
-        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-        </svg>
-      </div>
-      <h3 className="text-xl font-semibold mb-2">Multiple Formats</h3>
-      <p className="text-gray-400">
-        Download YouTube Shorts and other videos in MP4, MP3, and more—ensuring you get the format that suits your device.
-      </p>
-    </div>
+                                {/* Feature Card 5 - Scheduled Downloads (SEO Optimized) */}
+                                <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+                                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+                                        <FaClock className="w-6 h-6 text-green-500" /> {/* Clock icon */}
+                                    </div>
+                                    <h3 className="text-xl font-semibold mb-2">Scheduled YouTube Shorts Downloads</h3>
+                                    <p className="text-gray-400">
+                                        Set it and forget it!  Our <strong>scheduled youtube shorts downloader</strong> lets you queue up <strong>youtube short video downloads</strong> for later.  Perfect for users with limited bandwidth or those who want to <strong>download youtube shorts</strong> during off-peak hours.  A convenient <strong>youtube shorts download online</strong> solution.
+                                    </p>
+                                </div>
 
-    {/* Card 6: No Registration Required */}
-    <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
-      <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
-        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-        </svg>
-      </div>
-      <h3 className="text-xl font-semibold mb-2">No Registration Required</h3>
-      <p className="text-gray-400">
-        Download YouTube Shorts and other videos instantly without signing up or sharing any personal information.
-      </p>
-    </div>
-  </div>
-</div>
+                                {/* Feature Card 6 - Cloud Storage Integration (SEO Optimized)*/}
+                                <div className="p-6 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+                                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center mb-4">
+                                        <FaCloudDownloadAlt className="w-6 h-6 text-green-500" /> {/*Cloud download icon*/}
+                                    </div>
+                                    <h3 className="text-xl font-semibold mb-2">Direct to Cloud YouTube Shorts Saver</h3>
+                                    <p className="text-gray-400">
+                                      Download and <strong>save YouTube Shorts directly to your cloud storage</strong>.  Supports Google Drive, Dropbox, and OneDrive.  Securely <strong>download youtube short video</strong> and access it anywhere.  The ultimate <strong>youtube shorts download app</strong> for cloud users.  Avoid local storage limits.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
+                        {/* How It Works Section */}
+                        <div className="max-w-7xl mx-auto mt-24">
+                            <h2 className="text-base sm:text-3xl font-bold text-center mb-8 bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">
+                                How It Works
+                            </h2>
+                            <p className="text-gray-400 text-lg leading-relaxed mb-6">
+                                Simply paste your video link and choose your desired option – from a quick <strong>youtube short video download</strong> to a full-fledged conversion using <strong>youtube shorts to mp4</strong>. Our platform even supports users who wonder <strong>how to download youtube shorts in gallery</strong> for effortless media management.
+                            </p>
+                            <p className="text-gray-400 text-lg leading-relaxed">
+                                Experience the complete freedom to <strong>download youtube shorts video</strong> across devices. Whether using our <strong>youtube shorts downloader online</strong> tool or exploring options like <strong>download youtube shorts</strong> and <strong>download youtube short</strong>, our service guarantees simplicity and versatility.
+                            </p>
+                        </div>
 
-            {/* What is EasyFetch */}
-            <div className="mt-32 max-w-7xl mx-auto">
-              <div className="p-6 md:p-8 rounded-xl bg-card border border-gray-800">
-                <div className="flex justify-center items-center gap-3 mb-6">
-                  <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">
-                    What is EasyFetch?
-                  </h2>
-                </div>
-                
-                <div className="text-left space-y-6  text-base sm:text-lg">
-                  <p className="text-gray-400 leading-relaxed ">
-                    <span className="font-semibold text-green-400">EasyFetch</span> is a privacy-first downloader designed not only for traditional videos but also for the popular <span className="font-medium text-white">YouTube Shorts Downloader</span>. Enjoy fast, secure downloads in the highest quality available—be it Full HD, 4K, or optimized formats for YouTube Shorts.
-                  </p>
-                  <p className="text-gray-400 leading-relaxed">
-                    We serve your need for quick access to trending YouTube Shorts without compromising your data. Minimal ads support our free service, ensuring that your experience remains uninterrupted.
-                  </p>
-                  <p className="text-gray-400 leading-relaxed">
-                    Compare our privacy-first approach with other services. With <span className="font-semibold text-green-400">EasyFetch</span>, you stay in control—no tracking, no data collection, just safe and reliable downloads.
-                  </p>
-                </div>
-                <div className="mt-8">
-                  <p className="text-lg font-semibold mb-4">Supported Platforms:</p>
-                  <div className="flex flex-wrap gap-3">
-                    <div className="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-lg border border-gray-700 hover:border-green-500 transition-colors">
-                      <FaYoutube className="w-5 h-5 text-red-500" />
-                      <h4 className="m-0">YouTube & Shorts</h4>
+                        {/* Supported Platforms & Integrations */}
+                        <div className="mt-24 max-w-7xl mx-auto">
+                            <div className="p-6 md:p-8 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+                                <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent mb-6">
+                                    Multi-Platform Integration
+                                </h2>
+                                <p className="text-gray-400 text-lg leading-relaxed mb-4">
+                                    Our service doubles as a <strong>youtube shorts saver</strong> and a <strong>youtube short video download</strong> solution that integrates seamlessly with various platforms. Whether you’re using our <strong>yt shorts downloader online</strong> or testing out our beta features, you get top-notch performance.
+                                </p>
+                                <div className="flex flex-wrap gap-3 justify-center">
+                                    <div className="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-lg border border-gray-700 hover:border-green-500 transition-colors">
+                                        <FaYoutube className="w-5 h-5 text-red-500" />
+                                        <h4 className="m-0">YouTube & Shorts</h4>
+                                    </div>
+                                    <div className="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-lg border border-gray-700 hover:border-green-500 transition-colors">
+                                        <FaInstagram className="w-5 h-5 text-pink-500" />
+                                        <h4 className="m-0">Instagram (Coming soon)</h4>
+                                    </div>
+                                    <div className="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-lg border border-gray-700 hover:border-green-500 transition-colors">
+                                        <FaTiktok className="w-5 h-5 text-blue-500" />
+                                        <h4 className="m-0">TikTok (Coming soon)</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Advanced Tools Section */}
+                        <div className="max-w-7xl mx-auto mt-24">
+                            <div className="p-6 md:p-8 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+                                <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent mb-6">
+                                    Advanced Tools & Converters
+                                </h2>
+                                <p className="text-gray-400 text-lg leading-relaxed mb-4">
+                                    Unlock the full potential of our platform with our industry-leading <strong>mp4 downloader youtube shorts</strong> and <strong>yt shorts downloader 1080p</strong> options. Convert your videos with ease using our state-of-the-art <strong>yt shorts downloader mp4 converter</strong>, and experience a new way to <strong>download youtube shorts</strong> and <strong>download youtube short</strong> in multiple resolutions.
+                                </p>
+                                <p className="text-gray-400 text-lg leading-relaxed">
+                                    For enthusiasts looking to <strong>download youtube shorts free</strong> without any hidden costs, our system is optimized to deliver rapid results—making it the go-to <strong>youtube shorts downloader</strong> in today’s digital landscape.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Community & Reviews Section */}
+                        <div className="max-w-7xl mx-auto mt-24">
+                            <div className="p-6 md:p-8 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+                                <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent mb-6">
+                                    Community Love & Reviews
+                                </h2>
+                                <p className="text-gray-400 text-lg leading-relaxed mb-4">
+                                    Praised by users on forums and social media, including <strong>yt shorts downloader reddit</strong>, our platform is known as the ultimate tool to <strong>download youtube short video</strong> content. Users call us a reliable <strong>youtube shorts download</strong> solution that excels in performance and ease of use.
+                                </p>
+                                <p className="text-gray-400 text-lg leading-relaxed">
+                                    Join the community that trusts us as their personal <strong>youtube shorts saver</strong> and explore endless possibilities in media management.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* FAQ Section */}
+                        <div id="faq" className="mt-24 max-w-7xl mx-auto mb-16">
+                            <div className="p-6 md:p-8 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+                                <div className="flex items-center gap-3 mb-8">
+                                    <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center">
+                                        <FaLock className="w-6 h-6 text-green-500" />
+                                    </div>
+                                    <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">
+                                        Frequently Asked Questions
+                                    </h2>
+                                </div>
+                                <div className="space-y-4">
+                                    <Accordion type="single" collapsible className="w-full">
+                                        <AccordionItem value="faq-1" className="border-b border-gray-800 last:border-0">
+                                            <AccordionTrigger className="px-4 py-4 hover:bg-gray-800/50 hover:no-underline">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
+                                                        <FaLock className="w-4 h-4 text-green-500" />
+                                                    </div>
+                                                    <span className="text-base font-thin sm:text-lg sm:font-medium">
+                                                        Is it legal to download content using this tool?
+                                                    </span>
+                                                </div>
+                                            </AccordionTrigger>
+                                            <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
+                                                <div className="pl-11">
+                                                    Our service functions as a personal <strong>youtube short video downloader</strong> and <strong>youtube shorts download app</strong> designed solely for personal use. Redistribution or commercial use may infringe on copyrights.
+                                                </div>
+                                            </AccordionContent>
+                                        </AccordionItem>
+
+                                        <AccordionItem value="faq-2" className="border-b border-gray-800 last:border-0">
+                                            <AccordionTrigger className="px-4 py-4 hover:bg-gray-800/50 hover:no-underline">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
+                                                        <FaDownload className="w-4 h-4 text-green-500" />
+                                                    </div>
+                                                    <span className="text-base font-thin sm:text-lg sm:font-medium">
+                                                        What formats can I choose from?
+                                                    </span>
+                                                </div>
+                                            </AccordionTrigger>
+                                            <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
+                                                <div className="pl-11">
+                                                    We support multiple formats: from <strong>yt shorts downloader 1080p</strong> and <strong>yt shorts downloader 4k</strong> to converting files using <strong>youtube shorts to mp4</strong> and the <strong>mp4 downloader youtube shorts</strong> option.
+                                                </div>
+                                            </AccordionContent>
+                                        </AccordionItem>
+
+                                        <AccordionItem value="faq-3" className="border-b border-gray-800 last:border-0">
+                                            <AccordionTrigger className="px-4 py-4 hover:bg-gray-800/50 hover:no-underline">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
+                                                        {/* Corrected SVG Icon for List/Playlist */}
+                                                        <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                                                        </svg>
+                                                    </div>
+                                                    <span className="text-base font-thin sm:text-lg sm:font-medium">
+                                                        Can I download playlists including Shorts?
+                                                    </span>
+                                                </div>
+                                            </AccordionTrigger>
+                                            <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
+                                                <div className="pl-11">
+                                                    Absolutely.  Our tool lets you <strong>download youtube shorts video</strong> individually or in bulk, making it a true <strong>youtube shorts downloader online</strong> solution.
+                                                </div>
+                                            </AccordionContent>
+                                        </AccordionItem>
+
+                                        <AccordionItem value="faq-4" className="border-b border-gray-800 last:border-0">
+                                            <AccordionTrigger className="px-4 py-4 hover:bg-gray-800/50 hover:no-underline">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
+                                                        <FaBolt className="w-4 h-4 text-green-500" />
+                                                    </div>
+                                                    <span className="text-base font-thin sm:text-lg sm:font-medium">
+                                                        Is there any cost or download limit?
+                                                    </span>
+                                                </div>
+                                            </AccordionTrigger>
+                                            <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
+                                                <div className="pl-11">
+                                                    Enjoy unrestricted downloads whether you use our service as a <strong>yt shorts downloader</strong> or opt for our premium <strong>youtube shorts downloader</strong> features. Experience limitless <strong>download youtube shorts</strong> and <strong>download youtube short</strong> without hidden fees.
+                                                </div>
+                                            </AccordionContent>
+                                        </AccordionItem>
+
+                                        <AccordionItem value="faq-5" className="border-b border-gray-800 last:border-0">
+                                            <AccordionTrigger className="px-4 py-4 hover:bg-gray-800/50 hover:no-underline">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
+                                                        <FaDownload className="w-4 h-4 text-green-500" />
+                                                    </div>
+                                                    <span className="text-base font-thin sm:text-lg sm:font-medium">
+                                                        How do I view downloads in my gallery?
+                                                    </span>
+                                                </div>
+                                            </AccordionTrigger>
+                                            <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
+                                                <div className="pl-11">
+                                                    Check out our guide on <strong>how to download youtube shorts in gallery</strong> for tips on saving and organizing your files efficiently.
+                                                </div>
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                    </Accordion>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Tips & Tricks Section */}
+                        <div className="max-w-7xl mx-auto mt-24 mb-16">
+                            <div className="p-6 md:p-8 rounded-xl bg-[hsl(var(--card))] border border-gray-800">
+                                <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent mb-6">
+                                    Tips & Tricks for an Optimal Experience
+                                </h2>
+                                <p className="text-gray-400 text-lg leading-relaxed mb-4">
+                                    Enhance your download experience with these expert tips:
+                                </p>
+                                <ul className="text-gray-400 text-lg list-disc list-inside space-y-2">
+                                    <li>
+                                        Use our platform as a <strong>yt shorts downloader free download hd</strong> tool to instantly <strong>download youtube short video</strong> content.
+                                    </li>
+                                    <li>
+                                        Switch between quality settings like <strong>yt shorts downloader 1080p</strong> and test the <strong>download youtube shorts video</strong> options for a tailored experience.
+                                    </li>
+                                    <li>
+                                        Experience our <strong>youtube shorts download hd</strong> mode and convert using <strong>yt shorts downloader mp4 converter</strong> for optimal clarity.
+                                    </li>
+                                    <li>
+                                        Our system is recognized as a <strong>youtube short video download</strong> and <strong>youtube shorts download</strong> service trusted by communities, including mentions on <strong>yt shorts downloader reddit</strong>.
+                                    </li>
+                                    <li>
+                                        Leverage our quick conversion tool to switch files to <strong>youtube shorts to mp4</strong> and become the go-to <strong>mp4 downloader youtube shorts</strong> solution.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-lg border border-gray-700 hover:border-green-500 transition-colors">
-                      <FaInstagram className="w-5 h-5 text-pink-500" />
-                      <h4 className="m-0">Instagram (Comming soon)</h4>
-                    </div>
-                    <div className="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded-lg border border-gray-700 hover:border-green-500 transition-colors">
-                      <FaTiktok className="w-5 h-5 text-blue-500" />
-                      <h4 className="m-0">TikTok (Comming soon)</h4>
-                    </div>
-                  </div>
                 </div>
-              </div>
-            </div>
-
-            {/* FAQ Section */}
-            <div id='faq'className="mt-16 max-w-7xl mx-auto mb-16">
-              <div className="p-6 md:p-8 rounded-xl bg-card border border-gray-800">
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center">
-                    <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent">
-                    Frequently Asked Questions
-                  </h2>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="border border-gray-800 rounded-lg overflow-hidden">
-                    <Accordion type="single" collapsible className="w-full">
-                      <AccordionItem value="item-1" className="border-b border-gray-800 last:border-0">
-                        <AccordionTrigger className="px-4 py-4 hover:bg-gray-800/50 hover:no-underline">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
-                              <FaLock className="w-4 h-4 text-green-500" />
-                            </div>
-                            <span className="text-base  font-thin sm:text-lg sm:font-medium">Is it legal to download YouTube videos and Shorts?</span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
-                          <div className="pl-11">
-                            Downloading YouTube videos and YouTube Shorts for personal use is generally acceptable. However, redistributing or using copyrighted content for commercial purposes without permission may violate copyright laws. Always respect the content creator’s rights and YouTube’s terms of service.
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                      
-                      <AccordionItem value="item-2" className="border-b border-gray-800 last:border-0">
-                        <AccordionTrigger className="px-4 py-4 hover:bg-gray-800/50 hover:no-underline">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
-                              <FaDownload className="w-4 h-4 text-green-500" />
-                            </div>
-                            <span className="text-base  font-thin sm:text-lg sm:font-medium">What formats does EasyFetch support?</span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
-                          <div className="pl-11">
-                            EasyFetch delivers premium quality downloads with support for Full HD 1080p, 4K resolution, and optimized formats for YouTube Shorts. We support MP4, WebM, 3GP, MP3, and M4A. Available formats depend on the source, but we always deliver the best quality.
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                      
-                      <AccordionItem value="item-3" className="border-b border-gray-800 last:border-0">
-                        <AccordionTrigger className="px-4 py-4 hover:bg-gray-800/50 hover:no-underline">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
-                              <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" />
-                              </svg>
-                            </div>
-                            <span className="text-base  font-thin sm:text-lg sm:font-medium">Can I download entire YouTube playlists including Shorts?</span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
-                          <div className="pl-11">
-                            EasyFetch supports downloading entire YouTube playlists. Paste the playlist URL to get options for individual video downloads or the complete playlist. Note that support for certain features, like batch downloading YouTube Shorts, is coming soon.
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                      
-                      <AccordionItem value="item-4" className="border-b border-gray-800 last:border-0">
-                        <AccordionTrigger className="px-4 py-4 hover:bg-gray-800/50 hover:no-underline">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
-                              <FaBolt className="w-4 h-4 text-green-500" />
-                            </div>
-                            <span className="text-base  font-thin sm:text-lg sm:font-medium">Is there a download limit?</span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
-                          <div className="pl-11">
-                            There is no strict limit on downloading YouTube Shorts or other videos. However, to ensure fair usage, we may implement reasonable restrictions during peak times or for extremely large downloads.
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                      
-                      <AccordionItem value="item-5" className="border-b border-gray-800 last:border-0">
-                        <AccordionTrigger className="px-4 py-4 hover:bg-gray-800/50 hover:no-underline">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-green-500/10">
-                              <FaLock className="w-4 h-4 text-green-500" />
-                            </div>
-                            <span className="text-base  font-thin sm:text-lg sm:font-medium">How does EasyFetch protect my privacy?</span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 pb-4 pt-1 text-gray-400">
-                          <div className="pl-11">
-                            EasyFetch operates on a strict no-logs policy. We do not store your IP address, browsing history, or download details, ensuring your privacy is protected while downloading YouTube Shorts and other videos.
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  </div>
-                </div>
-              </div>
-            </div>
-  
-          </div>
-        </div>
-      </main>
-    </>
-  )
-}
+            </main>
+        </>
+    );
+};
 
 export default Common;

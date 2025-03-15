@@ -63,9 +63,7 @@ const Header = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-4">
-            <span className="block font-bold text-red-500 pb-4">
-              Website is under construction
-            </span>
+         
             <div className="flex flex-col space-y-4">
               <Button 
                 variant="ghost" 
