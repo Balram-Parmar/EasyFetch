@@ -16,20 +16,19 @@ export const Download = () => {
 
   // This function extracts the tweet ID from a Twitter URL.
   // It supports standard tweet URLs.
-function extractTwitterId(url: string): string | null {
-    const tweetPattern = /^(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:#!\/)?\w+\/status\/(\d+)(?:\?[^/]*)?$/i;
-    const imagePattern = /^(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:#!\/)?\w+\/status\/(\d+)\/photo\/\d+(?:\?[^/]*)?$/i;
-
+  function extractTwitterId(url: string): string | null {
+    const tweetPattern = /^(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:#!\/)?\w+\/status\/(\d+)(?:\/(?:\?[^/]*)?)?$/i;
+    const imagePattern = /^(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:#!\/)?\w+\/status\/(\d+)\/photo\/\d+(?:\/(?:\?[^/]*)?)?$/i;
+  
     const tweetMatch = url.match(tweetPattern);
     const imageMatch = url.match(imagePattern);
-
+  
     if (imageMatch && imageMatch[1]) {
-        return imageMatch[1];
+      return imageMatch[1];
     }
-
     return tweetMatch && tweetMatch[1] ? tweetMatch[1] : null;
-}
-
+  }
+  
   const triggerDownload = (downloadUrl: string) => {
     const link = document.createElement("a");
     link.href = downloadUrl;

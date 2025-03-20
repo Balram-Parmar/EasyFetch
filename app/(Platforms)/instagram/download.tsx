@@ -17,10 +17,9 @@ export const Download = () => {
   // It supports Instagram Reel URLs and regular post URLs.
 function extractInstagramId(url: string): string | null {
   const patterns = [
-    /^(?:https?:\/\/)?(?:www\.)?instagram\.com\/reel\/([\w-]+)(?:\?[^/]*)?$/i,
-    /^(?:https?:\/\/)?(?:www\.)?instagram\.com\/p\/([\w-]+)(?:\?[^/]*)?$/i,
-
+    /^(?:https?:\/\/)?(?:www\.)?instagram\.com\/(?:reel|reels|p)\/([\w-]+)(?:\/|\?|$)/i
   ];
+  
 
   for (const pattern of patterns) {
     const match = url.match(pattern);
