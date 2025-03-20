@@ -5,6 +5,8 @@ import { Download } from "./download"
 import { Card, CardContent} from "@/components/ui/card"
 import { FaYoutube}from "react-icons/fa"
 import Disclaimer from "@/app/components/Disclaimer"
+import Common from '../../components/common';
+import { data } from '../../components/data'
 
 
 export default function Page() {
@@ -22,7 +24,7 @@ export default function Page() {
           variant="outline" 
           className="border-gray-800/50 hover:border-red-500/50 
                      hover:scale-[1.02] transition-all duration-200 
-                     backdrop-blur-sm bg-black/5"
+                     backdrop-blur-sm bg-card"
         >
           ← Back to platforms
         </Button>
@@ -62,7 +64,7 @@ export default function Page() {
           </CardContent>
 
         </Card>
-
+        <Common test={data.youtube} />
  
       </div>
     </div>

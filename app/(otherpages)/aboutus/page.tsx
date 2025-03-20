@@ -1,5 +1,9 @@
 
 import { FaGlobe, FaLock, FaRocket, FaUsers } from "react-icons/fa";
+export const metadata = {
+  title: "About Us - EasyFetch",
+  description: "Learn more about EasyFetch, your privacy-first YouTube Shorts downloader and video download solution.",
+};
 
 const AboutUs = () => {
   return (

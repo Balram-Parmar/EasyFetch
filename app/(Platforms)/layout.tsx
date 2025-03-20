@@ -1,5 +1,5 @@
 import React from 'react';
-import Common from '../components/common';
+
 export default function RootLayout({
     children,
   }: {
@@ -7,11 +7,9 @@ export default function RootLayout({
   }) {
     return (
       <div>
-        
-          {children}
-         <Common/>
-        
-          </div>
+        {children}
+       
+      </div>
 
     );
   }

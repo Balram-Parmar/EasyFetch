@@ -9,6 +9,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 1,
         },
         {
+            url: 'https://easyfetch.me/instagram',
+            lastModified: new Date(),
+            changeFrequency: 'monthly', 
+            priority: 1,
+        },
+        {
+            url: 'https://easyfetch.me/twitter',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 1,
+        },
+   
+        {
             url: 'https://easyfetch.me',
             lastModified: new Date(),
             changeFrequency: 'monthly',

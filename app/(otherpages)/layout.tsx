@@ -1,5 +1,5 @@
 import React from 'react';
-
+import  Header  from '../components/Header';
 export default function RootLayout({
     children,
   }: {
@@ -7,7 +7,7 @@ export default function RootLayout({
   }) {
     return (
       <div>
-  
+   <Header />
           {children}
           
       

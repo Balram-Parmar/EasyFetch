@@ -1,5 +1,10 @@
 
 {/* Privacy Policy Page */}
+
+export const metadata = {
+  title: "Privacy Policy - EasyFetch",
+  description: "Learn about EasyFetch's commitment to privacy with our no-logs policy and zero-data collection approach.",
+};
  function page() {
     return (
       <>

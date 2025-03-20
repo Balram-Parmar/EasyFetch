@@ -1,10 +1,21 @@
+import {
+  FaEnvelope,
+  FaDiscord,
+  FaCommentAlt,
+  FaBug,
+  FaHandshake,
+  FaRegSmile,
+} from "react-icons/fa";
 
-import { FaEnvelope, FaDiscord, FaCommentAlt, FaBug, FaHandshake, FaRegSmile } from "react-icons/fa";
+export const metadata = {
+  title: "Contact Us - EasyFetch",
+  description:
+    "Get in touch with us for feedback, sponsorship, error reporting, or just a chat. We're here to help!",
+};
 
 const ContactUs = () => {
   return (
     <>
-
       <main>
         <div className="container mx-auto px-4 py-20">
           {/* Header */}
@@ -13,7 +24,8 @@ const ContactUs = () => {
               Contact Us
             </h1>
             <p className="mt-4 text-gray-400 text-lg">
-              We’re here to help! Whether it’s feedback, sponsorship, error reporting, or just a chat.
+              We’re here to help! Whether it’s feedback, sponsorship, error
+              reporting, or just a chat.
             </p>
           </div>
 
@@ -32,7 +44,8 @@ const ContactUs = () => {
                   <div>
                     <h3 className="text-xl font-semibold mb-1">Feedback</h3>
                     <p className="text-gray-400">
-                      Share your thoughts and help us improve our service. We value every suggestion!
+                      Share your thoughts and help us improve our service. We
+                      value every suggestion!
                     </p>
                   </div>
                 </div>
@@ -42,9 +55,12 @@ const ContactUs = () => {
                     <FaHandshake className="w-6 h-6 text-green-500" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-1">Sponsorship</h3>
+                    <h3 className="text-xl font-semibold mb-1">
+                      Sponsorship
+                    </h3>
                     <p className="text-gray-400">
-                      Interested in collaborating or sponsoring our platform? Let’s explore opportunities together.
+                      Interested in collaborating or sponsoring our platform?
+                      Let’s explore opportunities together.
                     </p>
                   </div>
                 </div>
@@ -54,9 +70,12 @@ const ContactUs = () => {
                     <FaCommentAlt className="w-6 h-6 text-green-500" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-1">Just Chatting</h3>
+                    <h3 className="text-xl font-semibold mb-1">
+                      Just Chatting
+                    </h3>
                     <p className="text-gray-400">
-                      Have a question or just want to say hi? We’re all ears! Drop us a message anytime.
+                      Have a question or just want to say hi? We’re all ears! Drop
+                      us a message anytime.
                     </p>
                   </div>
                 </div>
@@ -66,9 +85,12 @@ const ContactUs = () => {
                     <FaBug className="w-6 h-6 text-green-500" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-1">Error Report</h3>
+                    <h3 className="text-xl font-semibold mb-1">
+                      Error Report
+                    </h3>
                     <p className="text-gray-400">
-                      Encountered an issue? Let us know so we can quickly fix it and keep your experience smooth.
+                      Encountered an issue? Let us know so we can quickly fix it
+                      and keep your experience smooth.
                     </p>
                   </div>
                 </div>
@@ -106,51 +128,7 @@ const ContactUs = () => {
             </div>
           </section>
 
-          {/* Contact Form Section */}
-          {/* <section className="mt-16">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent text-center">
-                Send Us a Message
-              </h2>
-              <form className="mt-8 space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    className="w-full px-4 py-3 bg-[hsl(var(--card))] border border-gray-800 rounded-lg text-gray-400 placeholder-gray-500 focus:outline-none focus:border-green-500"
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    className="w-full px-4 py-3 bg-[hsl(var(--card))] border border-gray-800 rounded-lg text-gray-400 placeholder-gray-500 focus:outline-none focus:border-green-500"
-                  />
-                </div>
-                <input
-                  type="text"
-                  name="subject"
-                  placeholder="Subject"
-                  className="w-full px-4 py-3 bg-[hsl(var(--card))] border border-gray-800 rounded-lg text-gray-400 placeholder-gray-500 focus:outline-none focus:border-green-500"
-                />
-                <textarea
-                  name="message"
-                  rows={5}
-                  placeholder="Your Message"
-                  className="w-full px-4 py-3 bg-[hsl(var(--card))] border border-gray-800 rounded-lg text-gray-400 placeholder-gray-500 focus:outline-none focus:border-green-500"
-                ></textarea>
-                <button
-                  type="submit"
-                  className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
-          </section> */}
-
-
-
+        
         </div>
       </main>
     </>

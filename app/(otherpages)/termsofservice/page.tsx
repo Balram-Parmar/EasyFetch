@@ -1,10 +1,13 @@
-import Link from "next/link";
-import  Header  from '../../components/Header';
 
+
+export const metadata = {
+  title: "Terms of Service - EasyFetch",
+  description: "Review the terms of service for using EasyFetch, including user obligations, service limitations, and legal disclaimers.",
+};
 function TermsPage() {
   return (
     <>
-      <Header />
+     
       <main className="bg-gray-950 min-h-screen mt-10">
         <div className="container mx-auto px-4 py-16">
           {/* Header Section */}

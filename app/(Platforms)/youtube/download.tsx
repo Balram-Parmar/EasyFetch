@@ -3,8 +3,6 @@ import { useState, ReactNode } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { time } from "console";
-import { set } from "date-fns";
 
 export const Download = () => {
   const [url, setUrl] = useState<string>("");
@@ -45,48 +43,47 @@ export const Download = () => {
       clearStatusMessage();
       return;
     }
-  
+
     const videoId = extractShortsId(inputUrl);
     if (!videoId) {
       setStatusMessage("Invalid YouTube Shorts URL");
       clearStatusMessage(5000);
       return;
     }
-  
+
     try {
       setIsProcessing(true);
-      // Start with the initial status message.
       setStatusMessage("Downloading video in mp4 format & Best Quality Available...");
-  
-      // Set timeout messages.
+
       const timer1 = setTimeout(() => {
         setStatusMessage("Please Wait Processing Video...");
       }, 1000);
-  
+
       const timer2 = setTimeout(() => {
         setStatusMessage("Almost Done...");
       }, 3000);
-  
-      // Perform the fetch request.
-      const response = await fetch("https://easyfetchbackend.ddns.net/download", {
+
+     
+
+      const token = btoa(`${inputUrl}youtube`).split("").reverse().join("");
+      const response = await fetch("http://localhost:8000/download", {
         method: "POST",
         headers: {
-          "accept": "application/json",
+          accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url: inputUrl }),
+        body: JSON.stringify({ url: inputUrl, type: "youtube", x: token }),
       });
-  
-      // If response arrives before the timeouts, clear them.
+
       clearTimeout(timer1);
       clearTimeout(timer2);
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       const data = await response.json();
-  
+
       if (data.message === "success") {
         setStatusMessage(
           <Button
@@ -109,23 +106,22 @@ export const Download = () => {
       setUrl("");
     }
   };
-  
+
   return (
-    <div className="flex flex-col gap-4 bg-white rounded-2xl shadow-md dark:bg-card p-6">
-      <h2 className="text-base sm:text-2xl font-bold mb-2 text-gray-800 dark:text-white">
+    <div className="flex flex-col gap-4 bg-white rounded-2xl shadow-md dark:bg-card p-4 sm:p-6">
+      <h2 className="text-lg sm:text-2xl font-bold mb-2 text-gray-800 dark:text-white text-center">
         YT Short Video Downloader
       </h2>
 
-      {/* Input and Button Wrapper */}
-      <div className="flex items-center gap-2">
-        <div className="relative flex-grow">
+      <div className="flex flex-col sm:flex-row items-center gap-2">
+        <div className="relative flex-grow w-full">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <Search className="w-5 h-5 text-gray-400" />
           </div>
           <Input
             type="text"
             placeholder="Paste your YouTube Shorts URL here..."
-            className="w-full pl-10 pr-4 py-5 text-xs sm:text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full pl-10 pr-4 py-3 sm:py-5 text-sm sm:text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             onPaste={(e) => {
@@ -143,14 +139,13 @@ export const Download = () => {
           />
         </div>
 
-        {/* Download Button */}
         <Button
           onClick={() => {
             handleDownload(url);
             setUrl("");
           }}
           disabled={isProcessing}
-          className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:shadow-[0_0_20px_rgba(16,185,129,0.7)] transition-all duration-300 px-5 py-5 rounded-xl"
+          className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:shadow-[0_0_20px_rgba(16,185,129,0.7)] transition-all duration-300 px-4 py-3 sm:px-5 sm:py-5 rounded-xl w-full sm:w-auto"
         >
           {isProcessing ? (
             <Loader2 className="w-5 h-5 animate-spin" />
@@ -160,10 +155,8 @@ export const Download = () => {
         </Button>
       </div>
 
-      {/* Status Message */}
       {statusMessage && (
-        <div className="text-sm text-center mt-2 text-gray-600 dark:text-gray-300">
-        
+        <div className="text-sm sm:text-base text-center mt-2 text-gray-600 dark:text-gray-300">
           {statusMessage}
         </div>
       )}

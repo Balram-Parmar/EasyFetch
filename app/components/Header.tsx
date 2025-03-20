@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FaDiscord } from "react-icons/fa";
 import { Menu, X } from 'lucide-react'; 
-
+import Image from 'next/image';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -13,7 +13,9 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
+
           <Link href="/" className="flex items-center space-x-2">
+         {/* <Image width={32} height={32} src="/logo.png" alt='Easy Fetch LOGO Image' /> */}
             <span className="text-xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
               EasyFetch.me
             </span>
