@@ -66,7 +66,7 @@ function extractInstagramId(url: string): string | null {
       }, 3000);
 
       const token = btoa(`${inputUrl}instagram`).split("").reverse().join("");
-      const response = await fetch("http://easyfetchbackend.ddns.net/download", {
+      const response = await fetch("https://easyfetchbackend.ddns.net/download", {
         method: "POST",
         headers: {
           accept: "application/json",
