@@ -13,7 +13,7 @@ export const SelectPlatform = () => {
   return (
     <Select>
       <SelectTrigger 
-        className="w-full bg-green-500/90 border-gray-800 h-[60px] text-sm md:text-lg focus:ring-green-500 focus:ring-offset-0 focus:border-green-500"
+        className="w-full bg-gray-600 border-gray-800 h-[60px] text-sm md:text-lg focus:ring-green-500 focus:ring-offset-0 focus:border-green-500"
         aria-label="Select platform"
       >
         <span className="text-left " >
