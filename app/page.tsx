@@ -1,77 +1,64 @@
+import { Suspense } from 'react';
 import { SelectPlatform } from './components/Select';
-
 import Disclaimer from './components/Disclaimer';
 
 export default function Page() {
   return (
     <>
-      <div className='text-center mt-24'>
+      <div className="text-center mt-24">
         {/* Existing Hero Section */}
         <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent pb-1">
-         EasyFetch Video Downloader
+          EasyFetch Video Downloader
         </h1>
-        
+
         <p className="text-gray-400 text-lg md:text-2xl max-w-2xl mx-auto font-mono">
-          Download YouTube Shorts,Instagram Reels  in HD FHD 4K MP4 format easily and quickly.  
-          <span className='line-through'>No Tracking</span>, high quality, free to use.
+          Download YouTube Shorts, Instagram Reels in HD FHD 4K MP4 format easily and quickly.  
+          <span className="line-through">No Tracking</span>, high quality, free to use.
         </p>
 
         <div className="w-[86%] md:max-w-[50%] mx-auto mt-12">
-          <SelectPlatform/>
+          <Suspense fallback={<LoadingSpinner />}>
+            <SelectPlatform />
+          </Suspense>
         </div>
-        <Disclaimer/>
+
+        <Suspense fallback={<LoadingText />}>
+          <Disclaimer />
+        </Suspense>
 
         {/* New SEO Sections */}
         <section className="mt-20 px-4">
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-transparent mb-8">
             Multi-Platform Video Download Solution
           </h2>
-          
-            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 text-left">
-            <PlatformFeature 
-              title="YouTube Video Downloader"
-              features={[
-              'Download Shorts, VODs, and Live streams',
-              'MP4/MP3 conversion options',
-              '4K UHD Quality Preservation',
-              '60fps High Frame Rate Support'
-              ]}
-              gradient="from-green-400 to-emerald-600"
-            />
-            
-            <PlatformFeature 
-              title="Instagram Reels Download"
-              features={[
-              'Download Reels & IGTV videos',
-              'Private account support',
-              'Story video archiving',
-              'Metadata preservation'
-              ]}
-              gradient="from-green-400 to-emerald-600"
-            />
 
-            <PlatformFeature 
-              title="X (Twitter) Video Download"
-              features={[
-              'HD Twitter Space recordings',
-              'Thread video compilation',
-              'GIF conversion support',
-              'Batch download capability'
-              ]}
-              gradient="from-green-400 to-emerald-600"
-            />
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 text-left">
+            <Suspense fallback={<LoadingFeature />}>
+              <PlatformFeature 
+                title="YouTube Video Downloader"
+                features={[
+                  'Download Shorts, VODs, and Live streams',
+                  'MP4/MP3 conversion options',
+                  '4K UHD Quality Preservation',
+                  '60fps High Frame Rate Support'
+                ]}
+                gradient="from-green-400 to-emerald-600"
+              />
+            </Suspense>
 
-            <PlatformFeature 
-              title="TikTok Video Downloader"
-              features={[
-              'Watermark-free downloads',
-              'Full music track preservation',
-              'Duet/Stitch video support',
-              'Trending audio extraction'
-              ]}
-              gradient="from-green-400 to-emerald-600"
-            />
-            </div>
+            <Suspense fallback={<LoadingFeature />}>
+              <PlatformFeature 
+                title="Instagram Reels Download"
+                features={[
+                  'Download Reels & IGTV videos',
+                  'Private account support',
+                  'Story video archiving',
+                  'Metadata preservation'
+                ]}
+                gradient="from-green-400 to-emerald-600"
+              />
+            </Suspense>
+          </div>
         </section>
 
         {/* Universal Downloader Section */}
@@ -140,7 +127,9 @@ export default function Page() {
             Start Downloading Now
           </h3>
           <div className="w-[86%] md:max-w-[40%] mx-auto mt-8">
-            <SelectPlatform/>
+            <Suspense fallback={<LoadingButton />}>
+              <SelectPlatform />
+            </Suspense>
           </div>
         </div>
       </div>
@@ -148,7 +137,7 @@ export default function Page() {
   )
 }
 
-// New Component Functions
+// Component Definitions
 function PlatformFeature({ title, features, gradient }: { title: string; features: string[]; gradient: string }) {
   return (
     <div className="p-6 border border-gray-700 rounded-xl hover:border-emerald-400 transition-all">
@@ -187,4 +176,23 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
       <p className="mt-4 text-gray-400">{answer}</p>
     </details>
   )
+}
+
+// Loading Fallback Components
+function LoadingSpinner() {
+  return (
+    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-emerald-400 mx-auto"></div>
+  )
+}
+
+function LoadingText() {
+  return <p className="text-gray-500 text-center">Loading...</p>
+}
+
+function LoadingFeature() {
+  return <div className="h-32 bg-gray-800 animate-pulse rounded-lg"></div>
+}
+
+function LoadingButton() {
+  return <div className="h-12 bg-emerald-500 animate-pulse rounded-md"></div>
 }

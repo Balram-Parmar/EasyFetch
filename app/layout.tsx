@@ -11,43 +11,26 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: {
     template: "%s | EasyFetch",
-    default: "YT Shorts Downloader FHD 100% Free Online - EasyFetch",
+    default: "Download YT Shorts | Insta Reels | X (twitter) Videos FHD 100% Free Online - EasyFetch",
   },
   description:
-    "downloading YouTube Shorts videos in MAXIMUM Quality Available. A simple and efficient tool for downloading YouTube Shorts videos. Fast, secure, and no personal data required.",
+    "EasyFetch offers fast, free downloading of YouTube Shorts, Instagram Reels, and X (Twitter) videos in maximum HD quality. No sign-up, no watermarks, secure and efficient downloading without personal data collection.",
   keywords: [
-    "youtube short video downloader",
-    "download youtube shorts video",
-    "download youtube short video",
-    "youtube shorts download app",
-    "download youtube shorts",
-    "download youtube short",
-    "youtube shorts downloader",
-    "youtube short video download",
-    "youtube shorts download",
-    "youtube shorts to mp4",
-    "save youtube shorts",
-    "youtube shorts saver",
-    "youtube shorts downloader",
-    "youtube shorts downloader online",
-    "youtube shorts download hd",
-    "1080p youtube shorts downloader",
-    "best youtube shorts downloader",
-    "how to download youtube shorts in gallery",
-    "mp4 downloader youtube shorts",
-    "download youtube shorts free",
-    "yt shorts downloader",
-    "yt shorts downloader free download hd",
-    "yt shorts downloader mp4 converter",
-    "yt shorts downloader 1080p",
-    "yt shorts downloader 4k",
-    "yt shorts downloader online",
-    "yt shorts downloader reddit"
+    "youtube shorts downloader", 
+    "instagram reels download", 
+    "twitter video downloader", 
+    "x video download", 
+    "free video downloader", 
+    "HD video download", 
+    "online video downloader", 
+    "social media downloader",
+    "no watermark",
+    "high quality video"
   ],
   openGraph: {
-    title: "YT Shorts Downloader FHD 100% Free Online - EasyFetch",
+    title: "YT Shorts, Instagram Reels & X Videos Downloader - 100% Free, HD Quality",
     description:
-      "A simple and efficient tool for downloading YouTube Shorts videos in Maximum Quality Available. Fast, secure, and no personal data required.",
+      "Fast and secure tool for downloading YouTube Shorts, Instagram Reels, and X (Twitter) videos in maximum quality. No registration, no watermarks, and completely free.",
     url: "https://easyfetch.me",
     siteName: "EasyFetch",
     images: [
@@ -62,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "YT Shorts Downloader FHD 100% Free Online - EasyFetch",
+    title: "YT Shorts, Instagram Reels & X Videos Downloader - 100% Free, HD Quality",
     description:
-      "A simple and efficient tool for downloading YouTube Shorts videos in Maximum Quality Available. Fast, secure, and no personal data required.",
+      "Fast and secure tool for downloading YouTube Shorts, Instagram Reels, and X (Twitter) videos in maximum quality. No registration, no watermarks, and completely free.",
     site: "@yourtwitterhandle",
     creator: "@yourtwitterhandle",
     images: ["https://easyfetch.me/twitter-image.png"],
@@ -77,6 +60,8 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
+
+
 
 export default function RootLayout({
   children,

@@ -6,6 +6,17 @@ import { FaTwitter } from "react-icons/fa"
 import Disclaimer from "@/app/components/Disclaimer"
 import Common from '../../components/common'
 import { data } from '../../components/data'
+import { Metadata } from "next/types"
+
+
+
+export const metadata: Metadata = {
+  title: "X (Twitter) Video Downloader FHD | EasyFetch Media Download",
+  description: "Free online tool to download Twitter videos, photos, and GIFs. Save media from tweets easily with our Twitter downloader.",
+  keywords: "Twitter downloader, X video downloader, tweet media saver, download Twitter videos, Twitter GIF downloader, save Twitter photos, Twitter media extractor, high quality Twitter videos, FHD Twitter download"
+}
+
+
 
 export default function Page() {
   return (

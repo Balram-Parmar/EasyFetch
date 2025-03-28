@@ -29,11 +29,11 @@ export const Download = () => {
 
     return null;
   }
-
   const triggerDownload = (url: string) => {
     const link = document.createElement("a");
     link.href = url;
-    link.download = "";
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
     link.click();
   };
 
@@ -57,11 +57,11 @@ export const Download = () => {
 
       const timer1 = setTimeout(() => {
         setStatusMessage("Please Wait Processing Video...");
-      }, 1000);
+      }, 4000);
 
       const timer2 = setTimeout(() => {
         setStatusMessage("Almost Done...");
-      }, 3000);
+      }, 7000);
 
      
 
@@ -85,10 +85,12 @@ export const Download = () => {
       const data = await response.json();
 
       if (data.message === "success") {
+     
         setStatusMessage(
+         
           <Button
             onClick={() =>
-              triggerDownload(`https://easyfetchbackend.ddns.net/v/${videoId}.mp4`)
+              triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)
             }
             className="bg-emerald-500 hover:bg-emerald-600 text-white"
           >

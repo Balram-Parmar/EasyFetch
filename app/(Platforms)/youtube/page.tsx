@@ -8,6 +8,13 @@ import Disclaimer from "@/app/components/Disclaimer"
 import Common from '../../components/common';
 import { data } from '../../components/data'
 
+// SEO metadata
+export const metadata = {
+  title: "YouTube Shorts Downloader | EasyFetch",
+  description: "Free online tool to download YouTube Shorts videos in high quality. No registration required, fast and easy to use.",
+  keywords: "youtube shorts downloader, download youtube shorts, youtube video downloader, save youtube shorts, free youtube downloader",
+};
+
 
 export default function Page() {
   return (

@@ -7,6 +7,13 @@ import Disclaimer from "@/app/components/Disclaimer";
 import Common from "../../components/common";
 import { data } from "../../components/data";
 
+//Adding metadata for this page
+
+export const metadata = {
+  title: "Instagram Reel Downloader HD Online | EasyFetch Media Downloader",
+  description: "Download Instagram photos, videos, reels, and stories quickly and easily with our free online Instagram downloader. No registration required.",
+  keywords: "Instagram downloader, Instagram video downloader, Instagram reels downloader, download Instagram videos, Instagram photo downloader, Instagram story saver, Instagram media downloader, HD Instagram downloader, save Instagram reels, Instagram content saver, free Instagram downloader, download Instagram posts, Instagram saver online, Instagram video saver, no watermark Instagram downloader, Instagram carousel downloader"
+};
 export default function Page() {
   return (
     <div className="container mx-auto px-4 py-15 mt-24">
