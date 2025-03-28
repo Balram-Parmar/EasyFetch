@@ -29,10 +29,11 @@ export const Download = () => {
     return tweetMatch && tweetMatch[1] ? tweetMatch[1] : null;
   }
   
-  const triggerDownload = (downloadUrl: string) => {
+  const triggerDownload = (url: string) => {
     const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.download = "";
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
     link.click();
   };
 
@@ -80,21 +81,26 @@ export const Download = () => {
       }
 
       const data = await response.json();
+  
 
       if (data.message === "success") {
+   
         setStatusMessage(
+         
           <Button
             onClick={() =>
-              triggerDownload(`https://easyfetchbackend.ddns.net/v/${tweetId}.mp4`)
+              triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)
             }
             className="bg-emerald-500 hover:bg-emerald-600 text-white"
           >
-            Click To Download Media
+            Click To Download Video
           </Button>
         );
       } else {
-        throw new Error("Failed to process media");
+        throw new Error("Failed to process video");
       }
+
+      
     } catch (error) {
       setStatusMessage(
         `Error: ${error instanceof Error ? error.message : "Unknown error"}`
