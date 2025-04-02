@@ -71,10 +71,11 @@ export default function Page() {
 
         {/* Stats Section */}
         <section className="mt-20 px-4" aria-label="Download Statistics">
-          <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 justify-center">
             <StatCard number="1K+" label="Downloads" />
             <StatCard number="4K" label="Max Resolution" />
             <StatCard number="24/7" label="Availability" />
+            <StatCard number="50+" label="Platforms (comming soon)" />
           </div>
         </section>
 
