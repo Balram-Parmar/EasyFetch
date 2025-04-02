@@ -43,7 +43,7 @@ export default function Page() {
               <h1 className="text-2xl sm:text-4xl font-bold text-center 
                              bg-gradient-to-r from-pink-500 to-orange-500 
                              bg-clip-text text-transparent">
-                Instagram Downloader
+                Instagram Reel Downloader
               </h1>
             </div>
           </div>

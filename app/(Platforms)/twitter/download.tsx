@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Search, Loader2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-
 export const Download = () => {
   const [url, setUrl] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
@@ -41,6 +40,13 @@ export const Download = () => {
     if (!inputUrl.trim()) {
       setStatusMessage("Please enter a valid Twitter URL.");
       clearStatusMessage();
+      return;
+    }
+
+    // Check if the URL is for a photo
+    if (/\/photo\/\d+/i.test(inputUrl)) {
+      setStatusMessage("Only videos are supported as of now.");
+      clearStatusMessage(5000);
       return;
     }
 
@@ -82,11 +88,8 @@ export const Download = () => {
 
       const data = await response.json();
   
-
       if (data.message === "success") {
-   
         setStatusMessage(
-         
           <Button
             onClick={() =>
               triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)
@@ -99,8 +102,6 @@ export const Download = () => {
       } else {
         throw new Error("Failed to process video");
       }
-
-      
     } catch (error) {
       setStatusMessage(
         `Error: ${error instanceof Error ? error.message : "Unknown error"}`

@@ -39,15 +39,15 @@ export const Download = () => {
 
   const handleDownload = async (inputUrl: string) => {
     if (!inputUrl.trim()) {
-      setStatusMessage("Please enter a YouTube Shorts URL.");
-      clearStatusMessage();
+      setStatusMessage("Please Enter A YouTube Shorts URL. This i not  a YouTube Shorts URL.");
+     
       return;
     }
 
     const videoId = extractShortsId(inputUrl);
     if (!videoId) {
-      setStatusMessage("Invalid YouTube Shorts URL");
-      clearStatusMessage(5000);
+      setStatusMessage("Invalid YouTube Shorts URL Only, Videos are not yet supported.");
+      
       return;
     }
 
@@ -72,6 +72,7 @@ export const Download = () => {
           accept: "application/json",
           "Content-Type": "application/json",
         },
+     
         body: JSON.stringify({ url: inputUrl, type: "youtube", x: token }),
       });
 

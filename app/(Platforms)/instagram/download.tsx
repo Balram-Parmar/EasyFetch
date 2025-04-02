@@ -13,36 +13,34 @@ export const Download = () => {
     setTimeout(() => setStatusMessage(""), timeout);
   };
 
-  // This function tries to extract an Instagram media ID from an Instagram URL.
-  // It supports Instagram Reel URLs and regular post URLs.
-function extractInstagramId(url: string): string | null {
-  const patterns = [
-    /^(?:https?:\/\/)?(?:www\.)?instagram\.com\/(?:reel|reels|p)\/([\w-]+)(?:\/|\?|$)/i
-  ];
-  
-
-  for (const pattern of patterns) {
-    const match = url.match(pattern);
-    if (match && match[1]) {
-      return match[1];
-    }
+  // This function tries to extract an Instagram Reel ID from an Instagram URL.
+  // It supports only reel URLs.
+  function extractInstagramId(url: string): string | null {
+    // Only accept URLs with /reel/ or /reels/ in the path.
+    const reelPattern = /^(?:https?:\/\/)?(?:www\.)?instagram\.com\/(?:reel|reels)\/([\w-]+)(?:\/|\?|$)/i;
+    const match = url.match(reelPattern);
+    return match && match[1] ? match[1] : null;
   }
 
-  return null;
-}
-
-const triggerDownload = (url: string) => {
-  const link = document.createElement("a");
-  link.href = url;
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.click();
-};
+  const triggerDownload = (url: string) => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.click();
+  };
 
   const handleDownload = async (inputUrl: string) => {
     if (!inputUrl.trim()) {
       setStatusMessage("Please enter a valid Instagram URL.");
       clearStatusMessage();
+      return;
+    }
+
+    // Check if the URL is for a reel. If not, prompt that only reels are supported.
+    if (!/instagram\.com\/(?:reel|reels)\//i.test(inputUrl)) {
+      setStatusMessage("Only reels are supported as of now.");
+      clearStatusMessage(5000);
       return;
     }
 
@@ -85,9 +83,7 @@ const triggerDownload = (url: string) => {
       const data = await response.json();
 
       if (data.message === "success") {
-       
         setStatusMessage(
-         
           <Button
             onClick={() =>
               triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)
@@ -112,7 +108,7 @@ const triggerDownload = (url: string) => {
   return (
     <div className="flex flex-col gap-4 bg-white rounded-2xl shadow-md dark:bg-card p-4 sm:p-6">
       <h2 className="text-lg sm:text-2xl font-bold mb-2 text-gray-800 dark:text-white text-center">
-        Instagram Video Downloader
+        Instagram Reels Downloader
       </h2>
 
       <div className="flex flex-col sm:flex-row items-center gap-2">
@@ -122,7 +118,7 @@ const triggerDownload = (url: string) => {
           </div>
           <Input
             type="text"
-            placeholder="Paste your Instagram URL here..."
+            placeholder="Paste your Instagram Reel URL here..."
             className="w-full pl-10 pr-4 py-3 sm:py-5 text-sm sm:text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
