@@ -128,7 +128,7 @@ export default function Page() {
             <PlatformCard 
               icon="🐦"
               title="Twitter Videos"
-              description="Download Twitter videos in HD"
+              description="Download Twitter videos in FHD"
               gradient="from-blue-400 to-cyan-600"
             />
           </div>
