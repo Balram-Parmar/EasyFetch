@@ -8,9 +8,13 @@ export const Download = () => {
   const [url, setUrl] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string | ReactNode>("");
+  const [error, setError] = useState<string>("");
 
-  const clearStatusMessage = (timeout: number = 3000) => {
-    setTimeout(() => setStatusMessage(""), timeout);
+  const clearStatusMessage = (timeout: number = 5000) => {
+    setTimeout(() => {
+      setStatusMessage("");
+      setError("");
+    }, timeout);
   };
 
   // This function tries to extract an Instagram Reel ID from an Instagram URL.
@@ -31,39 +35,40 @@ export const Download = () => {
   };
 
   const handleDownload = async (inputUrl: string) => {
-    if (!inputUrl.trim()) {
-      setStatusMessage("Please enter a valid Instagram URL.");
-      clearStatusMessage();
-      return;
-    }
-
-    // Check if the URL is for a reel. If not, prompt that only reels are supported.
-    if (!/instagram\.com\/(?:reel|reels)\//i.test(inputUrl)) {
-      setStatusMessage("Only reels are supported as of now.");
-      clearStatusMessage(5000);
-      return;
-    }
-
-    const mediaId = extractInstagramId(inputUrl);
-    if (!mediaId) {
-      setStatusMessage("Invalid Instagram URL");
-      clearStatusMessage(5000);
-      return;
-    }
+    // Reset states
+    setError("");
+    setStatusMessage("");
+    setIsProcessing(true);
 
     try {
-      setIsProcessing(true);
-      setStatusMessage("Downloading video in mp4 format & Best Quality Available...");
+      // Input validation
+      if (!inputUrl.trim()) {
+        throw new Error("Please enter a valid Instagram URL.");
+      }
 
-      const timer1 = setTimeout(() => {
-        setStatusMessage("Please Wait Processing Video...");
-      }, 1000);
+      // URL format validation
+      if (!/instagram\.com\/(?:reel|reels)\//i.test(inputUrl)) {
+        throw new Error("Only Instagram Reels are supported at this time.");
+      }
 
-      const timer2 = setTimeout(() => {
-        setStatusMessage("Almost Done...");
-      }, 3000);
+      const mediaId = extractInstagramId(inputUrl);
+      if (!mediaId) {
+        throw new Error("Invalid Instagram Reel URL. Please check the URL and try again.");
+      }
 
+      // Show initial processing message
+      setStatusMessage("Preparing your download...");
+
+      // Generate secure token
       const token = btoa(`${inputUrl}instagram`).split("").reverse().join("");
+
+      // Set up progress indicators
+      const progressTimers = [
+        setTimeout(() => setStatusMessage("Processing video..."), 1000),
+        setTimeout(() => setStatusMessage("Optimizing quality..."), 3000),
+      ];
+
+      // Make API request
       const response = await fetch("https://easyfetchbackend.ddns.net/download", {
         method: "POST",
         headers: {
@@ -73,31 +78,36 @@ export const Download = () => {
         body: JSON.stringify({ url: inputUrl, type: "instagram", x: token }),
       });
 
-      clearTimeout(timer1);
-      clearTimeout(timer2);
+      // Clear progress timers
+      progressTimers.forEach(timer => clearTimeout(timer));
 
+      // Handle response
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Failed to process video. Please try again.");
       }
 
       const data = await response.json();
 
-      if (data.message === "success") {
-        setStatusMessage(
-          <Button
-            onClick={() =>
-              triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)
-            }
-            className="bg-emerald-500 hover:bg-emerald-600 text-white"
-          >
-            Click To Download Video
-          </Button>
-        );
-      } else {
-        throw new Error("Failed to process video");
+      if (data.message !== "success") {
+        throw new Error("Failed to process video. Please try again.");
       }
+
+      // Success case
+      setStatusMessage(
+        <Button
+          onClick={() => triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)}
+          className="bg-emerald-500 hover:bg-emerald-600 text-white"
+          aria-label="Download video"
+        >
+          Click To Download Video
+        </Button>
+      );
+
     } catch (error) {
-      setStatusMessage(`Error: ${error instanceof Error ? error.message : "Unknown error"}`);
+      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
+      setError(errorMessage);
+      setStatusMessage("");
       clearStatusMessage(5000);
     } finally {
       setIsProcessing(false);
@@ -114,7 +124,7 @@ export const Download = () => {
       <div className="flex flex-col sm:flex-row items-center gap-2">
         <div className="relative flex-grow w-full">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <Search className="w-5 h-5 text-gray-400" />
+            <Search className="w-5 h-5 text-gray-400" aria-hidden="true" />
           </div>
           <Input
             type="text"
@@ -131,27 +141,31 @@ export const Download = () => {
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 handleDownload(url);
-                setUrl("");
               }
             }}
+            aria-label="Instagram Reel URL input"
           />
         </div>
 
         <Button
-          onClick={() => {
-            handleDownload(url);
-            setUrl("");
-          }}
+          onClick={() => handleDownload(url)}
           disabled={isProcessing}
           className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:shadow-[0_0_20px_rgba(16,185,129,0.7)] transition-all duration-300 px-4 py-3 sm:px-5 sm:py-5 rounded-xl w-full sm:w-auto"
+          aria-label={isProcessing ? "Processing video" : "Download video"}
         >
           {isProcessing ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
+            <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
           ) : (
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-5 h-5" aria-hidden="true" />
           )}
         </Button>
       </div>
+
+      {error && (
+        <div className="text-sm sm:text-base text-center mt-2 text-red-500 dark:text-red-400" role="alert">
+          {error}
+        </div>
+      )}
 
       {statusMessage && (
         <div className="text-sm sm:text-base text-center mt-2 text-gray-600 dark:text-gray-300">

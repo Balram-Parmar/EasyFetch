@@ -8,26 +8,31 @@ export const Download = () => {
   const [url, setUrl] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string | ReactNode>("");
+  const [error, setError] = useState<string>("");
 
-  const clearStatusMessage = (timeout: number = 3000) => {
-    setTimeout(() => setStatusMessage(""), timeout);
+  const clearStatusMessage = (timeout: number = 5000) => {
+    setTimeout(() => {
+      setStatusMessage("");
+      setError("");
+    }, timeout);
   };
 
-  // This function extracts the tweet ID from a Twitter URL.
-  // It supports standard tweet URLs.
   function extractTwitterId(url: string): string | null {
-    const tweetPattern = /^(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:#!\/)?\w+\/status\/(\d+)(?:\/(?:\?[^/]*)?)?$/i;
-    const imagePattern = /^(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:#!\/)?\w+\/status\/(\d+)\/photo\/\d+(?:\/(?:\?[^/]*)?)?$/i;
-  
-    const tweetMatch = url.match(tweetPattern);
-    const imageMatch = url.match(imagePattern);
-  
-    if (imageMatch && imageMatch[1]) {
-      return imageMatch[1];
+    // Support both twitter.com and x.com URLs
+    const patterns = [
+      /^(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:i\/web\/status\/|status\/)([\w-]+)(?:\/|\?|$)/i,
+      /^(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:[\w-]+)\/status\/([\w-]+)(?:\/|\?|$)/i
+    ];
+
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match && match[1]) {
+        return match[1];
+      }
     }
-    return tweetMatch && tweetMatch[1] ? tweetMatch[1] : null;
+    return null;
   }
-  
+
   const triggerDownload = (url: string) => {
     const link = document.createElement("a");
     link.href = url;
@@ -37,40 +42,36 @@ export const Download = () => {
   };
 
   const handleDownload = async (inputUrl: string) => {
-    if (!inputUrl.trim()) {
-      setStatusMessage("Please enter a valid Twitter URL.");
-      clearStatusMessage();
-      return;
-    }
-
-    // Check if the URL is for a photo
-    if (/\/photo\/\d+/i.test(inputUrl)) {
-      setStatusMessage("Only videos are supported as of now.");
-      clearStatusMessage(5000);
-      return;
-    }
-
-    const tweetId = extractTwitterId(inputUrl);
-    if (!tweetId) {
-      setStatusMessage("Invalid Twitter URL");
-      clearStatusMessage(5000);
-      return;
-    }
+    // Reset states
+    setError("");
+    setStatusMessage("");
+    setIsProcessing(true);
 
     try {
-      setIsProcessing(true);
-      setStatusMessage("Downloading media in mp4 format & Best Quality Available...");
+      // Input validation
+      if (!inputUrl.trim()) {
+        throw new Error("Please enter a valid Twitter URL.");
+      }
 
-      const timer1 = setTimeout(() => {
-        setStatusMessage("Please Wait Processing Media...");
-      }, 1000);
+      const tweetId = extractTwitterId(inputUrl);
+      if (!tweetId) {
+        throw new Error("Invalid Twitter URL. Please check the URL and try again.");
+      }
 
-      const timer2 = setTimeout(() => {
-        setStatusMessage("Almost Done...");
-      }, 3000);
+      // Show initial processing message
+      setStatusMessage("Preparing your download...");
 
+      // Generate secure token
       const token = btoa(`${inputUrl}twitter`).split("").reverse().join("");
-      const response = await fetch(`https://easyfetchbackend.ddns.net/download`, {
+
+      // Set up progress indicators
+      const progressTimers = [
+        setTimeout(() => setStatusMessage("Processing video..."), 1000),
+        setTimeout(() => setStatusMessage("Optimizing quality..."), 3000),
+      ];
+
+      // Make API request
+      const response = await fetch("https://easyfetchbackend.ddns.net/download", {
         method: "POST",
         headers: {
           accept: "application/json",
@@ -79,33 +80,36 @@ export const Download = () => {
         body: JSON.stringify({ url: inputUrl, type: "twitter", x: token }),
       });
 
-      clearTimeout(timer1);
-      clearTimeout(timer2);
+      // Clear progress timers
+      progressTimers.forEach(timer => clearTimeout(timer));
 
+      // Handle response
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Failed to process video. Please try again.");
       }
 
       const data = await response.json();
-  
-      if (data.message === "success") {
-        setStatusMessage(
-          <Button
-            onClick={() =>
-              triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)
-            }
-            className="bg-emerald-500 hover:bg-emerald-600 text-white"
-          >
-            Click To Download Video
-          </Button>
-        );
-      } else {
-        throw new Error("Failed to process video");
+
+      if (data.message !== "success") {
+        throw new Error("Failed to process video. Please try again.");
       }
-    } catch (error) {
+
+      // Success case
       setStatusMessage(
-        `Error: ${error instanceof Error ? error.message : "Unknown error"}`
+        <Button
+          onClick={() => triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)}
+          className="bg-blue-500 hover:bg-blue-600 text-white"
+          aria-label="Download video"
+        >
+          Click To Download Video
+        </Button>
       );
+
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
+      setError(errorMessage);
+      setStatusMessage("");
       clearStatusMessage(5000);
     } finally {
       setIsProcessing(false);
@@ -116,17 +120,17 @@ export const Download = () => {
   return (
     <div className="flex flex-col gap-4 bg-white rounded-2xl shadow-md dark:bg-card p-4 sm:p-6">
       <h2 className="text-lg sm:text-2xl font-bold mb-2 text-gray-800 dark:text-white text-center">
-        Twitter Media Downloader
+        Twitter Video Downloader
       </h2>
 
       <div className="flex flex-col sm:flex-row items-center gap-2">
         <div className="relative flex-grow w-full">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <Search className="w-5 h-5 text-gray-400" />
+            <Search className="w-5 h-5 text-gray-400" aria-hidden="true" />
           </div>
           <Input
             type="text"
-            placeholder="Paste your Twitter URL here..."
+            placeholder="Paste your Twitter video URL here..."
             className="w-full pl-10 pr-4 py-3 sm:py-5 text-sm sm:text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
@@ -139,27 +143,31 @@ export const Download = () => {
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 handleDownload(url);
-                setUrl("");
               }
             }}
+            aria-label="Twitter video URL input"
           />
         </div>
 
         <Button
-          onClick={() => {
-            handleDownload(url);
-            setUrl("");
-          }}
+          onClick={() => handleDownload(url)}
           disabled={isProcessing}
-          className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:shadow-[0_0_20px_rgba(16,185,129,0.7)] transition-all duration-300 px-4 py-3 sm:px-5 sm:py-5 rounded-xl w-full sm:w-auto"
+          className="bg-blue-500 hover:bg-blue-600 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)] hover:shadow-[0_0_20px_rgba(59,130,246,0.7)] transition-all duration-300 px-4 py-3 sm:px-5 sm:py-5 rounded-xl w-full sm:w-auto"
+          aria-label={isProcessing ? "Processing video" : "Download video"}
         >
           {isProcessing ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
+            <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
           ) : (
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-5 h-5" aria-hidden="true" />
           )}
         </Button>
       </div>
+
+      {error && (
+        <div className="text-sm sm:text-base text-center mt-2 text-red-500 dark:text-red-400" role="alert">
+          {error}
+        </div>
+      )}
 
       {statusMessage && (
         <div className="text-sm sm:text-base text-center mt-2 text-gray-600 dark:text-gray-300">

@@ -2,7 +2,7 @@ import "./globals.css";
 import Script from "next/script";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import { Metadata } from "next";
+import type { Metadata } from 'next'
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -10,58 +10,38 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | EasyFetch",
-    default: "Download YT Shorts | Insta Reels | X (twitter) Videos FHD 100% Free Online - EasyFetch",
+    default: 'EasyFetch Video Downloader',
+    template: '%s | EasyFetch'
   },
-  description:
-    "EasyFetch offers fast, free downloading of YouTube Shorts, Instagram Reels, and X (Twitter) videos in maximum HD quality. No sign-up, no watermarks, secure and efficient downloading without personal data collection.",
-  keywords: [
-    "youtube shorts downloader", 
-    "instagram reels download", 
-    "twitter video downloader", 
-    "x video download", 
-    "free video downloader", 
-    "HD video download", 
-    "online video downloader", 
-    "social media downloader",
-    "no watermark",
-    "high quality video"
-  ],
+  description: 'Free online video downloader for YouTube, Instagram, TikTok and more. Download videos in HD, FHD, 4K quality. No registration required, fast and secure.',
+  keywords: ['video downloader', 'youtube downloader', 'instagram downloader', 'tiktok downloader', 'hd video download', '4k video download', 'free video downloader'],
   openGraph: {
-    title: "YT Shorts, Instagram Reels & X Videos Downloader - 100% Free, HD Quality",
-    description:
-      "Fast and secure tool for downloading YouTube Shorts, Instagram Reels, and X (Twitter) videos in maximum quality. No registration, no watermarks, and completely free.",
-    url: "https://easyfetch.me",
-    siteName: "EasyFetch",
+    title: 'EasyFetch Video Downloader - Download YouTube, Instagram & More in HD',
+    description: 'Free online video downloader for YouTube, Instagram, TikTok and more. Download videos in HD, FHD, 4K quality.',
+    type: 'website',
     images: [
       {
-        url: "https://easyfetch.me/opengraph-image.png",
+        url: '/opengraph-image.png',
         width: 1200,
         height: 630,
+        alt: 'EasyFetch Video Downloader',
       },
     ],
-    locale: "en_US",
-    type: "website",
   },
   twitter: {
-    card: "summary_large_image",
-    title: "YT Shorts, Instagram Reels & X Videos Downloader - 100% Free, HD Quality",
-    description:
-      "Fast and secure tool for downloading YouTube Shorts, Instagram Reels, and X (Twitter) videos in maximum quality. No registration, no watermarks, and completely free.",
-    site: "@yourtwitterhandle",
-    creator: "@yourtwitterhandle",
-    images: ["https://easyfetch.me/twitter-image.png"],
-  },
-  alternates: {
-    canonical: "https://easyfetch.me",
+    card: 'summary_large_image',
+    title: 'EasyFetch Video Downloader - Download YouTube, Instagram & More in HD',
+    description: 'Free online video downloader for YouTube, Instagram, TikTok and more. Download videos in HD, FHD, 4K quality.',
+    images: ['/opengraph-image.png'],
   },
   robots: {
     index: true,
     follow: true,
   },
+  verification: {
+    google: 'your-google-site-verification',
+  },
 };
-
-
 
 export default function RootLayout({
   children,

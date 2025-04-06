@@ -8,16 +8,21 @@ export const Download = () => {
   const [url, setUrl] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string | ReactNode>("");
+  const [error, setError] = useState<string>("");
 
-  const clearStatusMessage = (timeout: number = 3000) => {
-    setTimeout(() => setStatusMessage(""), timeout);
+  const clearStatusMessage = (timeout: number = 5000) => {
+    setTimeout(() => {
+      setStatusMessage("");
+      setError("");
+    }, timeout);
   };
 
-  function extractShortsId(url: string): string | null {
+  function extractYouTubeId(url: string): string | null {
+    // Support both shorts and regular YouTube URLs
     const patterns = [
-      /^(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([\w-]{11})(?:\?[^/]*)?$/i,
-      /^(?:https?:\/\/)?(?:m\.)?youtube\.com\/shorts\/([\w-]{11})(?:\?[^/]*)?$/i,
-      /^(?:https?:\/\/)?youtu\.be\/([\w-]{11})(?:\?[^/]*)?$/i,
+      /^(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([\w-]+)(?:\/|\?|$)/i,
+      /^(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([\w-]+)/i,
+      /^(?:https?:\/\/)?youtu\.be\/([\w-]+)/i
     ];
 
     for (const pattern of patterns) {
@@ -26,9 +31,9 @@ export const Download = () => {
         return match[1];
       }
     }
-
     return null;
   }
+
   const triggerDownload = (url: string) => {
     const link = document.createElement("a");
     link.href = url;
@@ -38,71 +43,74 @@ export const Download = () => {
   };
 
   const handleDownload = async (inputUrl: string) => {
-    if (!inputUrl.trim()) {
-      setStatusMessage("Please Enter A YouTube Shorts URL. This i not  a YouTube Shorts URL.");
-     
-      return;
-    }
-
-    const videoId = extractShortsId(inputUrl);
-    if (!videoId) {
-      setStatusMessage("Invalid YouTube Shorts URL Only, Videos are not yet supported.");
-      
-      return;
-    }
+    // Reset states
+    setError("");
+    setStatusMessage("");
+    setIsProcessing(true);
 
     try {
-      setIsProcessing(true);
-      setStatusMessage("Downloading video in mp4 format & Best Quality Available...");
+      // Input validation
+      if (!inputUrl.trim()) {
+        throw new Error("Please enter a valid YouTube URL.");
+      }
 
-      const timer1 = setTimeout(() => {
-        setStatusMessage("Please Wait Processing Video...");
-      }, 4000);
+      const videoId = extractYouTubeId(inputUrl);
+      if (!videoId) {
+        throw new Error("Invalid YouTube URL. Please check the URL and try again.");
+      }
 
-      const timer2 = setTimeout(() => {
-        setStatusMessage("Almost Done...");
-      }, 7000);
+      // Show initial processing message
+      setStatusMessage("Preparing your download...");
 
-     
-
+      // Generate secure token
       const token = btoa(`${inputUrl}youtube`).split("").reverse().join("");
+
+      // Set up progress indicators
+      const progressTimers = [
+        setTimeout(() => setStatusMessage("Processing video..."), 1000),
+        setTimeout(() => setStatusMessage("Optimizing quality..."), 3000),
+      ];
+
+      // Make API request
       const response = await fetch("https://easyfetchbackend.ddns.net/download", {
         method: "POST",
         headers: {
           accept: "application/json",
           "Content-Type": "application/json",
         },
-     
         body: JSON.stringify({ url: inputUrl, type: "youtube", x: token }),
       });
 
-      clearTimeout(timer1);
-      clearTimeout(timer2);
+      // Clear progress timers
+      progressTimers.forEach(timer => clearTimeout(timer));
 
+      // Handle response
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Failed to process video. Please try again.");
       }
 
       const data = await response.json();
 
-      if (data.message === "success") {
-     
-        setStatusMessage(
-         
-          <Button
-            onClick={() =>
-              triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)
-            }
-            className="bg-emerald-500 hover:bg-emerald-600 text-white"
-          >
-            Click To Download Video
-          </Button>
-        );
-      } else {
-        throw new Error("Failed to process video");
+      if (data.message !== "success") {
+        throw new Error("Failed to process video. Please try again.");
       }
+
+      // Success case
+      setStatusMessage(
+        <Button
+          onClick={() => triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)}
+          className="bg-red-500 hover:bg-red-600 text-white"
+          aria-label="Download video"
+        >
+          Click To Download Video
+        </Button>
+      );
+
     } catch (error) {
-      setStatusMessage(`Error: ${error instanceof Error ? error.message : "Unknown error"}`);
+      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
+      setError(errorMessage);
+      setStatusMessage("");
       clearStatusMessage(5000);
     } finally {
       setIsProcessing(false);
@@ -113,18 +121,18 @@ export const Download = () => {
   return (
     <div className="flex flex-col gap-4 bg-white rounded-2xl shadow-md dark:bg-card p-4 sm:p-6">
       <h2 className="text-lg sm:text-2xl font-bold mb-2 text-gray-800 dark:text-white text-center">
-        YT Short Video Downloader
+        YouTube Shorts Downloader
       </h2>
 
       <div className="flex flex-col sm:flex-row items-center gap-2">
         <div className="relative flex-grow w-full">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <Search className="w-5 h-5 text-gray-400" />
+            <Search className="w-5 h-5 text-gray-400" aria-hidden="true" />
           </div>
           <Input
             type="text"
             placeholder="Paste your YouTube Shorts URL here..."
-            className="w-full pl-10 pr-4 py-3 sm:py-5 text-sm sm:text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full pl-10 pr-4 py-3 sm:py-5 text-sm sm:text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             onPaste={(e) => {
@@ -136,27 +144,31 @@ export const Download = () => {
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 handleDownload(url);
-                setUrl("");
               }
             }}
+            aria-label="YouTube Shorts URL input"
           />
         </div>
 
         <Button
-          onClick={() => {
-            handleDownload(url);
-            setUrl("");
-          }}
+          onClick={() => handleDownload(url)}
           disabled={isProcessing}
-          className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:shadow-[0_0_20px_rgba(16,185,129,0.7)] transition-all duration-300 px-4 py-3 sm:px-5 sm:py-5 rounded-xl w-full sm:w-auto"
+          className="bg-red-500 hover:bg-red-600 text-white shadow-[0_0_15px_rgba(239,68,68,0.5)] hover:shadow-[0_0_20px_rgba(239,68,68,0.7)] transition-all duration-300 px-4 py-3 sm:px-5 sm:py-5 rounded-xl w-full sm:w-auto"
+          aria-label={isProcessing ? "Processing video" : "Download video"}
         >
           {isProcessing ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
+            <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
           ) : (
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-5 h-5" aria-hidden="true" />
           )}
         </Button>
       </div>
+
+      {error && (
+        <div className="text-sm sm:text-base text-center mt-2 text-red-500 dark:text-red-400" role="alert">
+          {error}
+        </div>
+      )}
 
       {statusMessage && (
         <div className="text-sm sm:text-base text-center mt-2 text-gray-600 dark:text-gray-300">
