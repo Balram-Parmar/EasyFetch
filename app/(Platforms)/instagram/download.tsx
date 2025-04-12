@@ -69,7 +69,7 @@ export const Download = () => {
       ];
 
       // Make API request
-      const response = await fetch("https://easyfetchbackend.ddns.net/download", {
+      const response = await fetch("https://easyfetchbackend.ddns.net/insta", {
         method: "POST",
         headers: {
           accept: "application/json",

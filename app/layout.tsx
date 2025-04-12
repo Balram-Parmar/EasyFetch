@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://easyfetch.app'),
   title: {
     default: 'EasyFetch Video Downloader',
     template: '%s | EasyFetch'
