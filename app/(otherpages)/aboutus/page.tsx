@@ -1,4 +1,3 @@
-
 import { FaGlobe, FaLock, FaRocket, FaUsers } from "react-icons/fa";
 export const metadata = {
   title: "About Us - EasyFetch",
@@ -107,7 +106,7 @@ const AboutUs = () => {
                 About the Developer
               </h2>
               <p className="mt-4 text-gray-400 leading-relaxed text-lg">
-                Hi! I'm a solo developer passionate about the web and creating useful tools. EasyFetch is a project born 
+                Hi! I&apos;m a solo developer passionate about the web and creating useful tools. EasyFetch is a project born 
                 from my love for web development and commitment to user privacy. As a one-person team, I handle everything 
                 from development to maintenance, ensuring every aspect meets high quality standards.
               </p>

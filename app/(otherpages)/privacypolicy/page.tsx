@@ -1,4 +1,3 @@
-
 {/* Privacy Policy Page */}
 
 export const metadata = {
@@ -18,7 +17,7 @@ export const metadata = {
             </h1>
             
             <p className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto mt-4 font-mono">
-              At EasyFetch, your privacy isn't just a policy — it's our foundation.
+              At EasyFetch, your privacy isn&apos;t just a policy — it&apos;s our foundation.
             </p>
           </div>
   
@@ -42,7 +41,7 @@ export const metadata = {
               <div className="pl-0 md:pl-16">
                 <p className="text-gray-400 mb-6">
                   In an online world where your data is often treated as a commodity, EasyFetch stands apart. 
-                  Our strict <span className="text-green-500 font-semibold">No-Logs Policy</span> isn't just a feature — it's our core philosophy.
+                  Our strict <span className="text-green-500 font-semibold">No-Logs Policy</span> isn&apos;t just a feature — it&apos;s our core philosophy.
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-6 mb-8">
@@ -51,7 +50,7 @@ export const metadata = {
                       <svg className="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
                       </svg>
-                      What We Don't Collect
+                      What We Don&apos;t Collect
                     </h3>
                     <ul className="space-y-2 text-gray-400">
                       <li className="flex items-start">
@@ -113,10 +112,10 @@ export const metadata = {
                 <h2 className="text-2xl font-bold text-white mb-4">1. Introduction</h2>
                 <div className="p-6 rounded-xl bg-gray-900 border border-gray-800">
                   <p className="text-gray-400 mb-4">
-                    Welcome to EasyFetch's Privacy Policy. This document outlines our fundamental approach to your privacy and explains how we've designed our service to protect your personal information.
+                    Welcome to EasyFetch&apos;s Privacy Policy. This document outlines our fundamental approach to your privacy and explains how we&apos;ve designed our service to protect your personal information.
                   </p>
                   <p className="text-gray-400">
-                    Unlike most online services, EasyFetch was built from the ground up with privacy as its cornerstone. We believe your online activities should remain private, which is why we've implemented a strict no-logs, no-tracking approach to our service.
+                    Unlike most online services, EasyFetch was built from the ground up with privacy as its cornerstone. We believe your online activities should remain private, which is why we&apos;ve implemented a strict no-logs, no-tracking approach to our service.
                   </p>
                 </div>
               </section>
@@ -126,7 +125,7 @@ export const metadata = {
                 <h2 className="text-2xl font-bold text-white mb-4">2. Our Zero-Data Collection Policy</h2>
                 <div className="p-6 rounded-xl bg-gray-900 border border-gray-800">
                   <p className="text-gray-400 mb-6">
-                    <span className="text-green-500 font-semibold">EasyFetch does not collect, store, or process any personal data.</span> This isn't a limited commitment with exceptions—it's absolute. When you use our service:
+                    <span className="text-green-500 font-semibold">EasyFetch does not collect, store, or process any personal data.</span> This isn&apos;t a limited commitment with exceptions—it&apos;s absolute. When you use our service:
                   </p>
                   
                   <div className="space-y-4 mb-6">
@@ -159,7 +158,7 @@ export const metadata = {
                         </svg>
                       </div>
                       <p className="text-gray-400">
-                        <strong className="text-white">No cookies or trackers:</strong> We don't use cookies, pixels, or any tracking technologies to monitor your behavior.
+                        <strong className="text-white">No cookies or trackers:</strong> We don&apos;t use cookies, pixels, or any tracking technologies to monitor your behavior.
                       </p>
                     </div>
                     
@@ -170,14 +169,14 @@ export const metadata = {
                         </svg>
                       </div>
                       <p className="text-gray-400">
-                        <strong className="text-white">No account requirement:</strong> You don't need to create an account or provide any personal information to use our service.
+                        <strong className="text-white">No account requirement:</strong> You don&apos;t need to create an account or provide any personal information to use our service.
                       </p>
                     </div>
                   </div>
                   
                   <div className="p-4 bg-green-500/5 border border-green-500/20 rounded-lg">
                     <p className="text-gray-300 italic">
-                      "We can't share, sell, or disclose what we don't collect. Your privacy is protected not by promises, but by technical design."
+                      &quot;We can&apos;t share, sell, or disclose what we don&apos;t collect. Your privacy is protected not by promises, but by technical design.&quot;
                     </p>
                   </div>
                 </div>
@@ -220,7 +219,7 @@ export const metadata = {
                     <div>
                       <h3 className="text-xl font-semibold text-white mb-2">Advertising</h3>
                       <p className="text-gray-400">
-                        We display a limited number of advertisements to support our free service. However, we've selected advertising partners who respect privacy and do not engage in intrusive tracking practices. These ads operate without access to your personal data.
+                        We display a limited number of advertisements to support our free service. However, we&apos;ve selected advertising partners who respect privacy and do not engage in intrusive tracking practices. These ads operate without access to your personal data.
                       </p>
                     </div>
                     
@@ -268,7 +267,7 @@ export const metadata = {
                     <div>
                       <h3 className="text-lg font-semibold text-white mb-2">Response to Legal Requests</h3>
                       <p className="text-gray-400">
-                        If we receive legal requests for user information, we have a simple response: we have no data to provide. Our no-logs policy means we don't possess user-specific information that could be subject to such requests.
+                        If we receive legal requests for user information, we have a simple response: we have no data to provide. Our no-logs policy means we don&apos;t possess user-specific information that could be subject to such requests.
                       </p>
                     </div>
                     
@@ -287,7 +286,7 @@ export const metadata = {
                 <h2 className="text-2xl font-bold text-white mb-4">6. User Controls</h2>
                 <div className="p-6 rounded-xl bg-gray-900 border border-gray-800">
                   <p className="text-gray-400 mb-6">
-                    Though we don't collect your data, we recommend these additional steps for maximum privacy:
+                    Though we don&apos;t collect your data, we recommend these additional steps for maximum privacy:
                   </p>
                   
                   <div className="grid md:grid-cols-2 gap-4">
@@ -327,7 +326,7 @@ export const metadata = {
                 <h2 className="text-2xl font-bold text-white mb-4">7. Contact Us</h2>
                 <div className="p-6 rounded-xl bg-gray-900 border border-gray-800">
                   <p className="text-gray-400 mb-6">
-                    We welcome questions about our privacy practices. While we've designed our system to collect no personal data, we're happy to address any concerns you might have:
+                    We welcome questions about our privacy practices. While we&apos;ve designed our system to collect no personal data, we&apos;re happy to address any concerns you might have:
                   </p>
                   
                   <div className="p-4 bg-gray-800 rounded-lg border border-gray-700 inline-block">
@@ -350,7 +349,7 @@ export const metadata = {
                     While our commitment to collecting zero data will not change, we may occasionally update this policy for clarity or to reflect minor changes in how our service operates.
                   </p>
                   <p className="text-gray-400 mb-6">
-                    Any updates will be posted on this page with a revised "Last Updated" date at the top. For significant changes, we'll provide a more prominent notice.
+                    Any updates will be posted on this page with a revised &quot;Last Updated&quot; date at the top. For significant changes, we&apos;ll provide a more prominent notice.
                   </p>
                   
                   <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">

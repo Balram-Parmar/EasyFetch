@@ -39,7 +39,7 @@ function ParallelHLSDownloader() {
         ffmpeg.terminate();
       }
     };
-  }, []);
+  }, [ffmpeg]);
 
   const downloadAndProcessChunks = async () => {
     if (!ffmpegLoaded || !ffmpeg) {

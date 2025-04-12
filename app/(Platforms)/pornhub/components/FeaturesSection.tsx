@@ -16,7 +16,7 @@ export const FeaturesSection = () => {
             <div>
               <h3 className="font-semibold text-lg mb-2 text-gray-800 dark:text-white">Secure & Private</h3>
               <p className="text-gray-600 dark:text-gray-300 text-sm">
-                We don't store your videos or personal data. All downloads are processed securely and privately.
+                We don&apos;t store your videos or personal data. All downloads are processed securely and privately.
               </p>
             </div>
           </div>
@@ -80,4 +80,4 @@ export const FeaturesSection = () => {
       </div>
     </section>
   );
-}; 
+};

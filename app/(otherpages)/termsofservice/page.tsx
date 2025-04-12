@@ -1,5 +1,3 @@
-
-
 export const metadata = {
   title: "Terms of Service - EasyFetch",
   description: "Review the terms of service for using EasyFetch, including user obligations, service limitations, and legal disclaimers.",
@@ -39,7 +37,7 @@ function TermsPage() {
               
               <div className="pl-0 md:pl-16">
                 <p className="text-gray-400 mb-6">
-                  These Terms govern your access to and use of EasyFetch's services. Our platform provides tools for content conversion, and by using it, you agree to these legally binding terms.
+                  These Terms govern your access to and use of EasyFetch&apos;s services. Our platform provides tools for content conversion, and by using it, you agree to these legally binding terms.
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-6 mb-8">
@@ -113,7 +111,7 @@ function TermsPage() {
                   </p>
                   <div className="p-4 bg-green-500/5 border border-green-500/20 rounded-lg">
                     <p className="text-gray-300 italic">
-                      "Continued use of the service constitutes ongoing acceptance of these terms and any revisions."
+                      &quot;Continued use of the service constitutes ongoing acceptance of these terms and any revisions.&quot;
                     </p>
                   </div>
                 </div>
@@ -137,7 +135,7 @@ function TermsPage() {
                     </li>
                     <li className="flex items-start">
                       <span className="text-green-500 mr-2">•</span>
-                      <span>Offer service "as is" without warranties</span>
+                      <span>Offer service &quot;as is&quot; without warranties</span>
                     </li>
                   </ul>
                 </div>
@@ -196,21 +194,21 @@ function TermsPage() {
                 <h2 className="text-2xl font-bold text-white mb-4">5. Disclaimers</h2>
                 <div className="p-6 rounded-xl bg-gray-900 border border-gray-800">
                   <p className="text-gray-400 mb-6">
-                    The service is provided "as is" without warranties of any kind:
+                    The service is provided &quot;as is&quot; without warranties of any kind:
                   </p>
                   <div className="space-y-4">
                     <div className="flex items-start">
                       <span className="text-green-500 mr-2 mt-1">•</span>
                       <div>
                         <h3 className="text-lg font-medium text-white">No Guarantees</h3>
-                        <p className="text-gray-400">We don't guarantee accuracy, reliability, or continuous availability</p>
+                        <p className="text-gray-400">We don&apos;t guarantee accuracy, reliability, or continuous availability</p>
                       </div>
                     </div>
                     <div className="flex items-start">
                       <span className="text-green-500 mr-2 mt-1">•</span>
                       <div>
                         <h3 className="text-lg font-medium text-white">Third-Party Content</h3>
-                        <p className="text-gray-400">We're not responsible for content processed through our service</p>
+                        <p className="text-gray-400">We&apos;re not responsible for content processed through our service</p>
                       </div>
                     </div>
                   </div>

@@ -67,7 +67,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li  >
-  <Link className='text-gray-400 hover:text-green-500 transition-colors'href="aboutus">
+  <Link className="text-gray-400 hover:text-green-500 transition-colors" href="aboutus">
         About Us
           </Link>
               </li>
@@ -79,10 +79,10 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-gray-800">
           <div className="text-sm text-gray-500 leading-relaxed">
             <p className="mb-1">
-              This website is not affiliated with or endorsed by YouTube, Instagram, TikTok, or any other platform. Our use of the name "EasyFetch" is for context, not claiming any ownership. It remains the property of the copyright holder.
+              This website is not affiliated with or endorsed by YouTube, Instagram, TikTok, or any other platform. Our use of the name &quot;EasyFetch&quot; is for context, not claiming any ownership. It remains the property of the copyright holder.
             </p>
             <p className="mb-4">
-              EasyFetch.me doesn’t host any copyrighted material. We utilize third-party services to accomplish our goals. All videos and content remain the property of their respective owners.
+              EasyFetch.me doesn&apos;t host any copyrighted material. We utilize third-party services to accomplish our goals. All videos and content remain the property of their respective owners.
             </p>
           </div>
         </div>

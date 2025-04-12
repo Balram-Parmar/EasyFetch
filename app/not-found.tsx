@@ -6,7 +6,7 @@ export default function NotFound() {
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center space-y-4">
         <h1 className="text-4xl font-bold">404 - Platform Not Found</h1>
-        <p className="text-gray-400">The platform you're looking for doesn't exist.</p>
+        <p className="text-gray-400">The platform you&apos;re looking for doesn&apos;t exist.</p>
         <Link href="/">
           <Button>Return Home</Button>
         </Link>
