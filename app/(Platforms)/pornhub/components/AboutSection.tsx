@@ -66,8 +66,10 @@ export const AboutSection = () => {
                 <Image
                   src="/1.png" 
                   alt="Screenshot showing how to copy a Pornhub video URL from the browser address bar" 
-                  className="w-full max-w-2xl mx-auto h-auto shadow-sm"
+                 className="w-full max-w-2xl mx-auto h-auto shadow-sm"
                   loading="lazy"
+                  width={800}
+                  height={450}
                 />
               </div>
               {!showNSFWImages && (
@@ -85,6 +87,8 @@ export const AboutSection = () => {
                   alt="Screenshot showing where to paste the Pornhub URL in our downloader tool" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
                   loading="lazy"
+                  width={800}
+                  height={450}
                 />
               </div>
               {!showNSFWImages && (
@@ -102,6 +106,8 @@ export const AboutSection = () => {
                   alt="Screenshot showing the generated download link that needs to be copied" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
                   loading="lazy"
+                  width={800}
+                  height={450}
                 />
               </div>
               {!showNSFWImages && (
@@ -119,6 +125,8 @@ export const AboutSection = () => {
                   alt="Screenshot showing the HLS Downloader Pro extension in Chrome Web Store" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
                   loading="lazy"
+                  width={800}
+                  height={450}
                 />
               </div>
               {!showNSFWImages && (
@@ -136,6 +144,8 @@ export const AboutSection = () => {
                   alt="Screenshot showing how to access the HLS Downloader Pro extension from browser toolbar" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
                   loading="lazy"
+                  width={800}
+                  height={450}
                 />
               </div>
               {!showNSFWImages && (
@@ -153,6 +163,8 @@ export const AboutSection = () => {
                   alt="Screenshot showing where to paste the copied link in the HLS Downloader Pro extension" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
                   loading="lazy"
+                  width={800}
+                  height={450}
                 />
               </div>
               {!showNSFWImages && (
@@ -170,6 +182,8 @@ export const AboutSection = () => {
                   alt="Screenshot showing how to click the download button in HLS Downloader Pro" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
                   loading="lazy"
+                  width={800}
+                  height={450}
                 />
               </div>
               {!showNSFWImages && (
@@ -187,6 +201,8 @@ export const AboutSection = () => {
                   alt="Screenshot showing the download progress of the video in HLS Downloader Pro" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
                   loading="lazy"
+                  width={800}
+                  height={450}
                 />
               </div>
               {!showNSFWImages && (

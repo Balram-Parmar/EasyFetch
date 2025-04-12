@@ -1,17 +1,25 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
+import { useSearchParams } from 'next/navigation';
+import Hls from 'hls.js';
 
 function ParallelHLSDownloader() {
-  const [playlistUrl, setPlaylistUrl] = useState('');
+ 
+  const searchParams = useSearchParams();
+  const urlParam = searchParams.get('url') || '';
+  
+  const [playlistUrl, setPlaylistUrl] = useState(decodeURIComponent(urlParam));
   const [message, setMessage] = useState('Loading FFmpeg...');
   const [progress, setProgress] = useState(0);
   const [downloadLinks, setDownloadLinks] = useState([]);
   const [ffmpegLoaded, setFfmpegLoaded] = useState(false);
   const [ffmpeg, setFfmpeg] = useState(null);
+  const videoRef = useRef(null);
   
+
   // Target maximum bytes per chunk (100 MB)
-  const MAX_BYTES_PER_CHUNK = 100 * 1024 * 1024;
+  const MAX_BYTES_PER_CHUNK = 1000* 1024 * 1024;
   // Maximum concurrent downloads
   const MAX_CONCURRENT_DOWNLOADS = 10;
 
@@ -41,6 +49,85 @@ function ParallelHLSDownloader() {
     };
   }, []); // Removed ffmpeg from dependency array
 
+  // Initialize HLS.js when playlist URL changes or component mounts
+  useEffect(() => {
+    let hls;
+
+    const initializeHls = () => {
+      if (playlistUrl && videoRef.current) {
+        // Show message about loading the stream
+        setMessage('Attempting to load stream preview...');
+
+        // Destroy any existing HLS instance
+        if (hls) {
+          hls.destroy();
+        }
+
+        // Check if browser supports HLS natively (like Safari)
+        if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
+          videoRef.current.src = playlistUrl;
+        }
+        // For other browsers, use HLS.js if available
+        else if (Hls.isSupported()) {
+          hls = new Hls({
+            maxBufferLength: 30,
+            maxMaxBufferLength: 60,
+            // Add CORS settings to help with cross-origin issues
+            xhrSetup: function(xhr, url) {
+              xhr.withCredentials = false; // Set to true if authentication is needed
+            }
+          });
+
+          hls.loadSource(playlistUrl);
+          hls.attachMedia(videoRef.current);
+
+          hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            setMessage('Stream preview loaded. Ready to download.');
+            // Uncomment the next line if you want autoplay
+            // videoRef.current.play();
+          });
+
+          hls.on(Hls.Events.ERROR, (event, data) => {
+            console.error('HLS error:', data);
+            
+            // Handle different types of errors
+            if (data.fatal) {
+              switch(data.type) {
+                case Hls.ErrorTypes.NETWORK_ERROR:
+                  // Try to recover network error
+                  setMessage('Network error - The stream URL might be protected or requires authentication. Try downloading anyway.');
+                  hls.startLoad();
+                  break;
+                case Hls.ErrorTypes.MEDIA_ERROR:
+                  setMessage('Media error - Trying to recover...');
+                  hls.recoverMediaError();
+                  break;
+                default:
+                  // Cannot recover
+                  setMessage('Fatal error encountered. The stream might be protected or require authentication. Try downloading anyway.');
+                  break;
+              }
+            } else {
+              setMessage('Non-fatal error encountered. You can still try to download the video.');
+            }
+          });
+        } else {
+          setMessage('HLS is not supported in this browser. You can still try downloading.');
+          console.error('HLS is not supported in this browser.');
+        }
+      }
+    };
+
+    initializeHls();
+
+    // Cleanup function
+    return () => {
+      if (hls) {
+        hls.destroy();
+      }
+    };
+  }, [playlistUrl]);
+
   const downloadAndProcessChunks = async () => {
     if (!ffmpegLoaded || !ffmpeg) {
       setMessage('FFmpeg is not loaded yet. Please wait...');
@@ -56,6 +143,7 @@ function ParallelHLSDownloader() {
       setMessage('Fetching m3u8 playlist...');
       const playlistResponse = await fetch(playlistUrl);
       if (!playlistResponse.ok) {
+        setMessage(`Error fetching playlist: ${playlistResponse.statusText}, Make sure the extension is enabled!`);
         throw new Error(`Could not fetch playlist: ${playlistResponse.statusText}`);
       }
       const playlistText = await playlistResponse.text();
@@ -261,6 +349,7 @@ function ParallelHLSDownloader() {
     <div className="min-h-screen mt-20 bg-transparent p-6 flex flex-col items-center justify-center text-gray-100 font-sans">
       <div className="w-full max-w-2xl bg-gray-800 rounded-lg shadow-xl overflow-hidden">
         {/* Header */}
+
         <div className="bg-gray-700 p-4 border-b border-gray-600">
           <h2 className="text-2xl font-bold text-center">
             HLS Video Downloader
@@ -360,13 +449,45 @@ function ParallelHLSDownloader() {
                       </span>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clipRule="evenodd" />
+                      <path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                     </svg>
                   </a>
                 ))}
               </div>
             </div>
           )}
+        </div>
+      </div>
+      {/* HLS Player */}
+      <div className="w-full max-w-2xl mt-6 bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+        <div className="bg-gray-700 p-4 border-b border-gray-600">
+          <h2 className="text-lg font-semibold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+            </svg>
+            Preview Stream
+          </h2>
+        </div>
+        <div className="p-4">
+          {playlistUrl ? (
+            <div className="aspect-video w-full bg-black rounded overflow-hidden">
+              <video 
+                ref={videoRef}
+                className="w-full h-full"
+                controls
+                autoPlay={false}
+              >
+                Your browser does not support HTML5 video.
+              </video>
+            </div>
+          ) : (
+            <div className="aspect-video w-full bg-gray-900 rounded flex items-center justify-center">
+              <p className="text-gray-500">Enter an m3u8 URL to preview the stream</p>
+            </div>
+          )}
+          <div className="mt-3 text-sm text-gray-400">
+            Powered by HLS.js for better compatibility across browsers.
+          </div>
         </div>
       </div>
       

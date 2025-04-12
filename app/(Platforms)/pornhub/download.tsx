@@ -33,10 +33,11 @@ export const Download = () => {
   }, [showNotification]);
 
   function extractPornhubId(url: string): string | null {
-    // Support Pornhub video URLs
+    // Support Pornhub video URLs from all domains (main site, regional domains, and subdomains)
     const patterns = [
-      /^(?:https?:\/\/)?(?:www\.)?pornhub\.com\/view_video\.php\?viewkey=([\w\d]+)/i,
-      /^(?:https?:\/\/)?(?:www\.)?pornhub\.com\/video\/show\?viewkey=([\w\d]+)/i
+      /^(?:https?:\/\/)?(?:[\w-]+\.)?pornhub(?:premium)?\.(?:com|org|net|de|fr|es|it|pt|pl|rt|jp|nl)\/view_video\.php\?viewkey=([\w\d]+)/i,
+      /^(?:https?:\/\/)?(?:[\w-]+\.)?pornhub(?:premium)?\.(?:com|org|net|de|fr|es|it|pt|pl|rt|jp|nl)\/video\/show\?viewkey=([\w\d]+)/i,
+      /^(?:https?:\/\/)?(?:[\w-]+\.)?pornhub(?:premium)?\.(?:com|org|net|de|fr|es|it|pt|pl|rt|jp|nl)\/videos\/(\w+)/i
     ];
 
     for (const pattern of patterns) {
@@ -96,7 +97,7 @@ export const Download = () => {
       ];
 
       // Make API request
-      const response = await fetch("http://localhost:8000/download", {
+      const response = await fetch("https://easyfetchbackend.ddns.net/ph", {
         method: "POST",
         headers: {
           accept: "application/json",
@@ -164,6 +165,23 @@ export const Download = () => {
               <li>Paste the copied URL into the extension</li>
               <li>Select the quality and download your video</li>
             </ol>
+            
+            <div className="flex flex-col gap-3 mt-4">
+              <div className="text-center">
+                <span className="text-sm font-medium">- OR -</span>
+              </div>
+              
+                <Link 
+                href={`/downloader?url=${encodeURIComponent(downloadUrl)}`}
+                className="w-full bg-[#FF9000] hover:bg-[#FF9000]/80 text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-all"
+                target="_blank"
+                rel="noopener noreferrer"
+                >
+                Use Built-in Downloader
+                <ArrowRight className="h-4 w-4" />
+                </Link>
+            </div>
+            
             <div className="flex items-center justify-center mt-3">
               <Link 
                 href="#how-to-download" 
@@ -254,4 +272,4 @@ export const Download = () => {
       )}
     </div>
   );
-}; 
+};
