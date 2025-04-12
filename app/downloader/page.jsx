@@ -39,7 +39,7 @@ function ParallelHLSDownloader() {
         ffmpeg.terminate();
       }
     };
-  }, [ffmpeg]);
+  }, []); // Removed ffmpeg from dependency array
 
   const downloadAndProcessChunks = async () => {
     if (!ffmpegLoaded || !ffmpeg) {
