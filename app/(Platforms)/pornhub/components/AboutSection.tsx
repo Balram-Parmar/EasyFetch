@@ -24,11 +24,11 @@ export const AboutSection = () => {
           </p>
           
           <p>
-            Using our tool is straightforward - just copy the URL of the Pornhub video you want to download, paste it into the input field above, and click the download button. Our system will process the video and provide you with a download link. The download process is entirely free and doesn't require any registration or software installation.
+            Using our tool is straightforward - just copy the URL of the Pornhub video you want to download, paste it into the input field above, and click the download button. Our system will process the video and provide you with a download link. The download process is entirely free and doesn&apos;t require any registration or software installation.
           </p>
 
           <p>
-            We prioritize your privacy and security. All downloads are processed through secure connections, and we don't store any of your downloaded videos or personal information on our servers. Your data remains completely private throughout the process.
+            We prioritize your privacy and security. All downloads are processed through secure connections, and we don&apos;t store any of your downloaded videos or personal information on our servers. Your data remains completely private throughout the process.
           </p>
 
           <p>
@@ -61,9 +61,9 @@ export const AboutSection = () => {
           
           <ol className="list-decimal list-inside space-y-6 text-gray-600 dark:text-gray-300">
             <li>
-              Find the video you want to download on Pornhub and copy the URL from your browser's address bar
+              Find the video you want to download on Pornhub and copy the URL from your browser&apos;s address bar
               <div className={`mt-2 rounded-md overflow-hidden border border-gray-200 dark:border-gray-700 ${showNSFWImages ? 'block' : 'hidden'}`}>
-                <img 
+                <Image
                   src="/1.png" 
                   alt="Screenshot showing how to copy a Pornhub video URL from the browser address bar" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
@@ -80,7 +80,7 @@ export const AboutSection = () => {
             <li>
               Paste the Pornhub URL into our input field above and click the download button
               <div className={`mt-2 rounded-md overflow-hidden border border-gray-200 dark:border-gray-700 ${showNSFWImages ? 'block' : 'hidden'}`}>
-              <img 
+              <Image
                   src="/8.png" 
                   alt="Screenshot showing where to paste the Pornhub URL in our downloader tool" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
@@ -97,7 +97,7 @@ export const AboutSection = () => {
             <li>
               Copy the link that appears from our website
               <div className={`mt-2 rounded-md overflow-hidden border border-gray-200 dark:border-gray-700 ${showNSFWImages ? 'block' : 'hidden'}`}>
-              <img 
+              <Image
                   src="/8.png" 
                   alt="Screenshot showing the generated download link that needs to be copied" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
@@ -114,7 +114,7 @@ export const AboutSection = () => {
             <li>
               Install the HLS Downloader Pro extension from <a href="https://chromewebstore.google.com/detail/hls-downloader-pro/mdfhlmcipgjjilidofjpkookbfiakfdj" target="_blank" rel="noopener noreferrer" className="text-[#FF9000] hover:underline">Chrome Web Store  (Click Here To Download)  </a>
               <div className={`mt-2 rounded-md overflow-hidden border border-gray-200 dark:border-gray-700 ${showNSFWImages ? 'block' : 'hidden'}`}>
-              <img 
+              <Image
                   src="/2.png" 
                   alt="Screenshot showing the HLS Downloader Pro extension in Chrome Web Store" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
@@ -131,7 +131,7 @@ export const AboutSection = () => {
             <li>
               From The Extension Tab Click On HLS Downloader Pro as shown in the image below
               <div className={`mt-2 rounded-md overflow-hidden border border-gray-200 dark:border-gray-700 ${showNSFWImages ? 'block' : 'hidden'}`}>
-              <img 
+              <Image
                   src="/3.png" 
                   alt="Screenshot showing how to access the HLS Downloader Pro extension from browser toolbar" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
@@ -148,7 +148,7 @@ export const AboutSection = () => {
             <li>
               Now Paste The Link You Copied From Our Website Into The Extension as shown in the image below And Click (+) icon
               <div className={`mt-2 rounded-md overflow-hidden border border-gray-200 dark:border-gray-700 ${showNSFWImages ? 'block' : 'hidden'}`}>
-              <img 
+              <Image
                   src="/4.png" 
                   alt="Screenshot showing where to paste the copied link in the HLS Downloader Pro extension" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
@@ -165,7 +165,7 @@ export const AboutSection = () => {
             <li>
               Now Click The Download Button And Wait For The Video To Download
               <div className={`mt-2 rounded-md overflow-hidden border border-gray-200 dark:border-gray-700 ${showNSFWImages ? 'block' : 'hidden'}`}>
-              <img 
+              <Image
                   src="/5.png" 
                   alt="Screenshot showing how to click the download button in HLS Downloader Pro" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
@@ -182,7 +182,7 @@ export const AboutSection = () => {
             <li>
               The Video has started downloading, You can see the progress in the extension as shown in the image below. Enjoy ✌️
               <div className={`mt-2 rounded-md overflow-hidden border border-gray-200 dark:border-gray-700 ${showNSFWImages ? 'block' : 'hidden'}`}>
-              <img 
+              <Image
                   src="/6.png" 
                   alt="Screenshot showing the download progress of the video in HLS Downloader Pro" 
                   className="w-full max-w-2xl mx-auto h-auto shadow-sm"
@@ -201,4 +201,4 @@ export const AboutSection = () => {
       </div>
     </section>
   );
-}; 
+};
