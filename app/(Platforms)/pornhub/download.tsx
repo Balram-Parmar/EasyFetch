@@ -128,7 +128,7 @@ export const Download = () => {
       
       setStatusMessage(
         <div className="flex flex-col items-center gap-3">
-          <p className="text-sm font-medium mb-1">Copy this URL to use with HLS Downloader Pro:</p>
+          <p className="text-sm font-medium mb-1">Copy this URL And Download With A Download Manager (e.g. IDM,FDM etc.)</p>
           <div className="flex w-full items-center gap-2 bg-gray-100 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
             <div className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-xs sm:text-sm font-mono">
               {downloadUrl}
@@ -160,10 +160,10 @@ export const Download = () => {
           <div className="mt-4 p-4 bg-[#FF9000]/10 rounded-lg border border-[#FF9000]/20 text-sm">
             <h4 className="font-semibold text-[#FF9000] mb-2">What to do next:</h4>
             <ol className="list-decimal list-inside space-y-1 text-gray-700 dark:text-gray-300">
-              <li>Install the <a href="https://chromewebstore.google.com/detail/hls-downloader-pro/mdfhlmcipgjjilidofjpkookbfiakfdj" target="_blank" rel="noopener noreferrer" className="text-[#FF9000] hover:underline">HLS Downloader Pro</a> extension</li>
-              <li>Open the extension from your browser toolbar</li>
-              <li>Paste the copied URL into the extension</li>
-              <li>Select the quality and download your video</li>
+              <li>Install the <a href="https://chromewebstore.google.com/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino?hl=en" target="_blank" rel="noopener noreferrer" className="text-[#FF9000] hover:underline">HLS Downloader Pro</a> extension</li>
+              <li>Go To Our Downloader </li>
+              <li>From the extention tab click and turn on extention befor downloading</li>
+              <li>Press Download and Wait For it to download, ENJOY!</li>
             </ol>
             
             <div className="flex flex-col gap-3 mt-4">
@@ -187,7 +187,7 @@ export const Download = () => {
                 href="#how-to-download" 
                 className="inline-flex items-center text-[#FF9000] hover:underline text-sm font-medium"
               >
-                See detailed instructions <ArrowRight className="ml-1 h-3 w-3" />
+                See detailed instructions Here<ArrowRight className="ml-1 h-3 w-3" />
               </Link>
             </div>
           </div>
