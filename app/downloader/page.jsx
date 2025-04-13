@@ -1,11 +1,11 @@
 'use client'
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { useSearchParams } from 'next/navigation';
 import Hls from 'hls.js';
 
-function ParallelHLSDownloader() {
- 
+// Create a client component that wraps the useSearchParams hook
+function HLSDownloaderContent() {
   const searchParams = useSearchParams();
   const urlParam = searchParams.get('url') || '';
   
@@ -523,6 +523,31 @@ function ParallelHLSDownloader() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Fallback component to show while the main component is loading
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen mt-20 bg-transparent p-6 flex flex-col items-center justify-center text-gray-100 font-sans">
+      <div className="w-full max-w-2xl bg-gray-800 rounded-lg shadow-xl p-8 text-center">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-700 rounded w-3/4 mx-auto mb-4"></div>
+          <div className="h-32 bg-gray-700 rounded mb-4"></div>
+          <div className="h-8 bg-gray-700 rounded w-1/2 mx-auto"></div>
+        </div>
+        <p className="mt-4 text-gray-400">Loading downloader...</p>
+      </div>
+    </div>
+  );
+}
+
+// Main page component with Suspense boundary
+function ParallelHLSDownloader() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <HLSDownloaderContent />
+    </Suspense>
   );
 }
 
