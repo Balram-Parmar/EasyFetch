@@ -57,6 +57,7 @@ export default function Page() {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             "name": "EasyFetch Video Downloader",
+            "url": "https://easyfetch.me",
             "description": "Privacy-focused video downloader for YouTube Shorts, Instagram Reels, and Twitter videos. Fast, secure, and user-friendly platform for downloading high-quality videos.",
             "applicationCategory": "MultimediaApplication",
             "operatingSystem": "Web Browser",
@@ -79,7 +80,74 @@ export default function Page() {
               "@type": "AggregateRating",
               "ratingValue": "4.8",
               "reviewCount": "1000"
+            },
+            "author": {
+              "@type": "Organization",
+              "name": "EasyFetch",
+              "url": "https://easyfetch.me"
+            },
+            "potentialAction": {
+              "@type": "UseAction",
+              "target": "https://easyfetch.me"
             }
+          })
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "EasyFetch",
+            "url": "https://easyfetch.me",
+            "logo": "https://easyfetch.me/logo.png",
+            "sameAs": [
+              "https://twitter.com/easyfetch"
+            ]
+          })
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Which platforms are currently supported?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We currently support YouTube Shorts, Instagram Reels, and Twitter videos. More platforms are coming soon!"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What quality are the downloads?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We automatically select the maximum available quality for each video."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is my data safe?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes! We don't collect any personal data, and all downloads are processed securely."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "When will new platforms be added?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We're actively working on adding TikTok, Pinterest, Instagram Photos, and YouTube Videos. Stay tuned for updates!"
+                }
+              }
+            ]
           })
         }}
       />

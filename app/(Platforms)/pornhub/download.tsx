@@ -1,9 +1,23 @@
 "use client";
 import { useState, ReactNode, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
-import { Search, Loader2, ChevronRight, Clipboard, CheckCircle, ArrowRight, Bell } from "lucide-react";
+import {
+  Search,
+  Loader2,
+  ChevronRight,
+  Clipboard,
+  CheckCircle,
+  ArrowRight,
+  Bell,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+interface apiData {
+  title: string;
+  url: string;
+  message: string;
+  detail?: string;
+}
 
 export const Download = () => {
   const [url, setUrl] = useState<string>("");
@@ -15,12 +29,16 @@ export const Download = () => {
   const [showNotification, setShowNotification] = useState<boolean>(false);
   const copyButtonRef = useRef<HTMLButtonElement>(null);
 
+
   const clearStatusMessage = (timeout: number = 5000) => {
     setTimeout(() => {
       setStatusMessage("");
       setError("");
     }, timeout);
   };
+
+  // Effect to fetch and extract the title from the URL
+  // This effect runs when the URL changes
 
   // Effect to automatically hide the notification
   useEffect(() => {
@@ -37,7 +55,7 @@ export const Download = () => {
     const patterns = [
       /^(?:https?:\/\/)?(?:[\w-]+\.)?pornhub(?:premium)?\.(?:com|org|net|de|fr|es|it|pt|pl|rt|jp|nl)\/view_video\.php\?viewkey=([\w\d]+)/i,
       /^(?:https?:\/\/)?(?:[\w-]+\.)?pornhub(?:premium)?\.(?:com|org|net|de|fr|es|it|pt|pl|rt|jp|nl)\/video\/show\?viewkey=([\w\d]+)/i,
-      /^(?:https?:\/\/)?(?:[\w-]+\.)?pornhub(?:premium)?\.(?:com|org|net|de|fr|es|it|pt|pl|rt|jp|nl)\/videos\/(\w+)/i
+      /^(?:https?:\/\/)?(?:[\w-]+\.)?pornhub(?:premium)?\.(?:com|org|net|de|fr|es|it|pt|pl|rt|jp|nl)\/videos\/(\w+)/i,
     ];
 
     for (const pattern of patterns) {
@@ -55,7 +73,7 @@ export const Download = () => {
       setCopied(true);
       setShowTooltip(true);
       setShowNotification(true);
-      
+
       // Reset button state after 2 seconds
       setTimeout(() => {
         setCopied(false);
@@ -81,7 +99,9 @@ export const Download = () => {
 
       const videoId = extractPornhubId(inputUrl);
       if (!videoId) {
-        throw new Error("Invalid Pornhub URL. Please check the URL and try again.");
+        throw new Error(
+          "Invalid Pornhub URL. Please check the URL and try again."
+        );
       }
 
       // Show initial processing message
@@ -107,28 +127,39 @@ export const Download = () => {
       });
 
       // Clear progress timers
-      progressTimers.forEach(timer => clearTimeout(timer));
+      progressTimers.forEach((timer) => clearTimeout(timer));
 
       // Handle response
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         console.error("API Error:", errorData);
-        throw new Error(errorData.detail || `Failed to process video (Status: ${response.status}). Please try again.`);
+        throw new Error(
+          errorData.detail ||
+            `Failed to process video (Status: ${response.status}). Please try again.`
+        );
       }
 
-      const data = await response.json();
+      const data: apiData = await response.json();
       console.log("API Success Response:", data);
+ 
 
       if (data.message !== "success") {
-        throw new Error(data.detail || data.message || "Failed to process video. Please try again.");
+        throw new Error(
+          data.detail ||
+            data.message ||
+            "Failed to process video. Please try again."
+        );
       }
 
       // Success case - display URL with copy button
-      const downloadUrl = data.url || `https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`;
-      
+      const downloadUrl = data.url || "";
+
       setStatusMessage(
         <div className="flex flex-col items-center gap-3">
-          <p className="text-sm font-medium mb-1">Copy this URL And Download With A Download Manager (e.g. IDM,FDM etc.)</p>
+          <p className="text-sm font-medium mb-1">
+            Copy this URL And Download With A Download Manager (e.g. IDM,FDM
+            etc.)
+          </p>
           <div className="flex w-full items-center gap-2 bg-gray-100 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
             <div className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-xs sm:text-sm font-mono">
               {downloadUrl}
@@ -139,7 +170,11 @@ export const Download = () => {
                 onClick={() => handleCopyToClipboard(downloadUrl)}
                 variant="outline"
                 size="sm"
-                className={`flex-shrink-0 transition-all duration-300 ${copied ? 'bg-green-100 text-green-700 border-green-300 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800/50' : ''}`}
+                className={`flex-shrink-0 transition-all duration-300 ${
+                  copied
+                    ? "bg-green-100 text-green-700 border-green-300 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800/50"
+                    : ""
+                }`}
               >
                 {copied ? (
                   <CheckCircle className="h-4 w-4 text-green-500 mr-1" />
@@ -156,23 +191,39 @@ export const Download = () => {
               )}
             </div>
           </div>
-          
+
           <div className="mt-4 p-4 bg-[#FF9000]/10 rounded-lg border border-[#FF9000]/20 text-sm">
-            <h4 className="font-semibold text-[#FF9000] mb-2">What to do next:</h4>
+            <h4 className="font-semibold text-[#FF9000] mb-2">
+              What to do next:
+            </h4>
             <ol className="list-decimal list-inside space-y-1 text-gray-700 dark:text-gray-300">
-              <li>Install the <a href="https://chromewebstore.google.com/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino?hl=en" target="_blank" rel="noopener noreferrer" className="text-[#FF9000] hover:underline">HLS Downloader Pro</a> extension</li>
+              <li>
+                Install the{" "}
+                <a
+                  href="https://chromewebstore.google.com/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino?hl=en"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#FF9000] hover:underline"
+                >
+                  HLS Downloader Pro
+                </a>{" "}
+                extension
+              </li>
               <li>Go To Our Downloader </li>
-              <li>From the extention tab click and turn on extention befor downloading</li>
+              <li>
+                From the extention tab click and turn on extention befor
+                downloading
+              </li>
               <li>Press Download and Wait For it to download, ENJOY!</li>
             </ol>
-            
+
             <div className="flex flex-col gap-3 mt-4">
               <div className="text-center">
                 <span className="text-sm font-medium">- OR -</span>
               </div>
-              
-                <Link 
-                href={`/downloader?url=${encodeURIComponent(downloadUrl)}`}
+
+                <Link
+                href={`/downloader?url=${encodeURIComponent(downloadUrl)}&title=${encodeURIComponent(data.title || "")}`}
                 className="w-full bg-[#FF9000] hover:bg-[#FF9000]/80 text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-all"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -181,21 +232,22 @@ export const Download = () => {
                 <ArrowRight className="h-4 w-4" />
                 </Link>
             </div>
-            
+
             <div className="flex items-center justify-center mt-3">
-              <Link 
-                href="#how-to-download" 
+              <Link
+                href="#how-to-download"
                 className="inline-flex items-center text-[#FF9000] hover:underline text-sm font-medium"
               >
-                See detailed instructions Here<ArrowRight className="ml-1 h-3 w-3" />
+                See detailed instructions Here
+                <ArrowRight className="ml-1 h-3 w-3" />
               </Link>
             </div>
           </div>
         </div>
       );
-
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
+      const errorMessage =
+        error instanceof Error ? error.message : "An unexpected error occurred";
       setError(errorMessage);
       setStatusMessage("");
       clearStatusMessage(5000);
@@ -214,7 +266,7 @@ export const Download = () => {
           <span>URL copied to clipboard!</span>
         </div>
       )}
-    
+
       <h2 className="text-lg sm:text-2xl font-bold mb-2 text-gray-800 dark:text-white text-center">
         Pornhub Video Downloader
       </h2>
@@ -260,7 +312,10 @@ export const Download = () => {
       </div>
 
       {error && (
-        <div className="text-sm sm:text-base text-center mt-2 text-red-500 dark:text-red-400" role="alert">
+        <div
+          className="text-sm sm:text-base text-center mt-2 text-red-500 dark:text-red-400"
+          role="alert"
+        >
           {error}
         </div>
       )}
