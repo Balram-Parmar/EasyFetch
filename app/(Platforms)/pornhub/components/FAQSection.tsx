@@ -1,63 +1,60 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+const faqs = [
+  {
+    question: "Can I download private or premium Pornhub videos?",
+    answer:
+      "No, you can only download public videos that don't require a premium subscription. Private videos and premium content are not accessible for downloading.",
+  },
+  {
+    question: "Is it legal to download Pornhub videos?",
+    answer:
+      "Make sure to respect copyright laws and only download videos for personal use. Don't redistribute or use the content commercially without proper rights.",
+  },
+  {
+    question: "What quality options are available for downloads?",
+    answer:
+      "We provide multiple quality options ranging from 240p to 1080p, depending on what's available from the original video. You can choose the quality that best suits your needs.",
+  },
+  {
+    question: "Do I need to create an account to use the downloader?",
+    answer:
+      "No, our service is completely free and doesn't require any registration or account creation.",
+  },
+  {
+    question: "Why do I need to wait before downloading?",
+    answer:
+      "The brief waiting period helps us maintain our server resources and provides a better experience for all users.",
+  },
+];
+
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  return (
+    <details className="group border-b border-gray-700 py-3 sm:py-4">
+      <summary className="flex justify-between items-center cursor-pointer text-gray-300 hover:text-[#FF9000] transition-colors">
+        <span className="text-base sm:text-lg font-medium pr-4">
+          {question}
+        </span>
+        <span className="text-xl sm:text-2xl transition-transform group-open:rotate-180 shrink-0">
+          ▼
+        </span>
+      </summary>
+      <p className="mt-3 sm:mt-4 text-sm sm:text-base text-gray-300">
+        {answer}
+      </p>
+    </details>
+  );
+}
 
 export const FAQSection = () => {
   return (
-    <section className="py-6 sm:py-8">
-      <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white">
-        Frequently Asked Questions
+    <section className="bg-gray-900/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl border-2 border-gray-700 mx-4 sm:mx-0">
+      <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
+        FAQs for Pornhub Video Download
       </h2>
-
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger className="text-gray-800 dark:text-white font-medium text-left">
-            Is it legal to download videos from Pornhub?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-600 dark:text-gray-300">
-            This tool is intended for downloading videos for personal use only. Always respect copyright laws and the terms of service of Pornhub. Only download videos that you have permission to download, such as those marked as downloadable or videos you&apos;ve uploaded yourself.
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-2">
-          <AccordionTrigger className="text-gray-800 dark:text-white font-medium text-left">
-            Do I need to create an account to use this downloader?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-600 dark:text-gray-300">
-            No, our Pornhub video downloader is completely free to use and doesn&apos;t require any registration or account creation. You can start downloading videos instantly without signing up.
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-3">
-          <AccordionTrigger className="text-gray-800 dark:text-white font-medium text-left">
-            What video quality can I download?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-600 dark:text-gray-300">
-            Our downloader will attempt to fetch the highest quality version of the video available. The quality of downloaded videos depends on the original quality of the video on Pornhub.
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-4">
-          <AccordionTrigger className="text-gray-800 dark:text-white font-medium text-left">
-            Is there a limit to how many videos I can download?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-600 dark:text-gray-300">
-            No, there&apos;s no limit to the number of videos you can download using our tool. You can download as many videos as you want, completely free of charge.
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-5">
-          <AccordionTrigger className="text-gray-800 dark:text-white font-medium text-left">
-            Do you store the videos I download?
-          </AccordionTrigger>
-          <AccordionContent className="text-gray-600 dark:text-gray-300">
-            No, we don&apos;t store any videos or personal information on our servers. The entire download process happens through your browser, and the videos are saved directly to your device.
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+      <div className="space-y-3 sm:space-y-4">
+        {faqs.map((faq, index) => (
+          <FAQItem key={index} question={faq.question} answer={faq.answer} />
+        ))}
+      </div>
     </section>
   );
 };

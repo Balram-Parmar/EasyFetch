@@ -2,22 +2,13 @@ import "./globals.css";
 import Script from "next/script";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import type { Metadata } from 'next'
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
 
-  title: {
-    default: 'EasyFetch Video Downloader',
-    template: '%s | EasyFetch'
-  },
-  description: 'Free online video downloader for YouTube, Instagram, TikTok and more. Download videos in HD, FHD, 4K quality. No registration required, fast and secure.',
-  keywords: ['video downloader', 'youtube downloader', 'instagram downloader', 'tiktok downloader', 'hd video download', '4k video download', 'free video downloader'],
-
-};
 interface RootLayoutProps {
   children: React.ReactNode;
 }

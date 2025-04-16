@@ -1,157 +1,22 @@
-import { Suspense } from 'react';
-import { SelectPlatform } from './components/Select';
-import Disclaimer from './components/Disclaimer';
-import type { Metadata } from 'next';
+import { Suspense } from "react";
+import { SelectPlatform } from "./components/Select";
+import Disclaimer from "./components/Disclaimer";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Download YouTube, Instagram & More in HD | EasyFetch Video Downloader',
-  description: 'Free online video downloader for YouTube, Instagram, TikTok and more. Download videos in HD, FHD, 4K quality. No registration required, fast and secure.',
-  alternates: {
-    canonical: 'https://easyfetch.me',
-  },
-  openGraph: {
-    title: 'EasyFetch Video Downloader - Download YouTube, Instagram & More in HD',
-    description: 'Free online video downloader for YouTube, Instagram, TikTok and more. Download videos in HD, FHD, 4K quality.',
-    type: 'website',
-    url: 'https://easyfetch.me',
-    siteName: 'EasyFetch',
-    images: [
-      {
-        url: '/opengraph-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'EasyFetch Video Downloader - Download Videos in HD Quality',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'EasyFetch Video Downloader - Download YouTube, Instagram & More in HD',
-    description: 'Free online video downloader for YouTube, Instagram, TikTok and more. Download videos in HD, FHD, 4K quality.',
-    images: ['/opengraph-image.png'],
-    creator: '@easyfetch',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    google: 'your-google-site-verification',
-  },
-}
+  title: "Best Social Media Video Downloader YouTube, Instagram , Pornhub.",
+  description:
+    "Free online video downloader for YouTube, Instagram, TikTok and more. Download videos in HD, FHD, 4K quality. No registration required, fast and secure.",
+  keywords:
+    "video downloader, YouTube downloader, Instagram downloader, social media downloader, shorts downloader, reels downloader, twitter video downloader, HD video download, free video downloader",
+  authors: [{ name: "EasyFetch", url: "https://www.easyfetch.me" }],
+  creator: "EasyFetch",
+  publisher: "EasyFetch",
+};
 
 export default function Page() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": "EasyFetch Video Downloader",
-            "url": "https://easyfetch.me",
-            "description": "Privacy-focused video downloader for YouTube Shorts, Instagram Reels, and Twitter videos. Fast, secure, and user-friendly platform for downloading high-quality videos.",
-            "applicationCategory": "MultimediaApplication",
-            "operatingSystem": "Web Browser",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
-            "featureList": [
-              "YouTube Shorts download",
-              "Instagram Reels download",
-              "Twitter video download",
-              "Maximum quality by default",
-              "Privacy-focused service",
-              "No data collection",
-              "SSL encryption",
-              "Automatic file deletion"
-            ],
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "4.8",
-              "reviewCount": "1000"
-            },
-            "author": {
-              "@type": "Organization",
-              "name": "EasyFetch",
-              "url": "https://easyfetch.me"
-            },
-            "potentialAction": {
-              "@type": "UseAction",
-              "target": "https://easyfetch.me"
-            }
-          })
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "EasyFetch",
-            "url": "https://easyfetch.me",
-            "logo": "https://easyfetch.me/logo.png",
-            "sameAs": [
-              "https://twitter.com/easyfetch"
-            ]
-          })
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Which platforms are currently supported?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "We currently support YouTube Shorts, Instagram Reels, and Twitter videos. More platforms are coming soon!"
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "What quality are the downloads?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "We automatically select the maximum available quality for each video."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Is my data safe?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes! We don't collect any personal data, and all downloads are processed securely."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "When will new platforms be added?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "We're actively working on adding TikTok, Pinterest, Instagram Photos, and YouTube Videos. Stay tuned for updates!"
-                }
-              }
-            ]
-          })
-        }}
-      />
-
       <main className="text-center mt-24">
         {/* Enhanced Hero Section */}
         <header className="mb-20" role="banner">
@@ -160,8 +25,10 @@ export default function Page() {
           </h1>
 
           <p className="text-gray-400 text-lg md:text-2xl max-w-2xl mx-auto font-mono">
-            Download YouTube Shorts, Instagram Reels, and Twitter videos in maximum quality.
-            <span className="line-through">No Tracking</span>, high quality, free to use.
+            Download YouTube Shorts, Instagram Reels, and Twitter videos in
+            maximum quality.
+            <span className="line-through">No Tracking</span>, high quality,
+            free to use.
           </p>
 
           <div className="w-[86%] md:max-w-[50%] mx-auto mt-12">
@@ -181,19 +48,19 @@ export default function Page() {
             Currently Supported Platforms
           </h2>
           <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-            <PlatformCard 
+            <PlatformCard
               icon="🎥"
               title="YouTube Shorts"
               description="Download Shorts in maximum available quality"
               gradient="from-red-400 to-red-600"
             />
-            <PlatformCard 
+            <PlatformCard
               icon="📸"
               title="Instagram Reels"
               description="Download Reels with original quality"
               gradient="from-pink-400 to-purple-600"
             />
-            <PlatformCard 
+            <PlatformCard
               icon="🐦"
               title="Twitter Videos"
               description="Download Twitter videos in FHD"
@@ -203,22 +70,25 @@ export default function Page() {
         </section>
 
         {/* Quality Assurance */}
-        <section className="my-20 px-4 bg-gray-900/50 py-16" aria-label="Quality Assurance">
+        <section
+          className="my-20 px-4 bg-gray-900/50 py-16"
+          aria-label="Quality Assurance"
+        >
           <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-yellow-400 to-orange-600 bg-clip-text text-transparent mb-8">
             Maximum Quality by Default
           </h2>
           <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
-            <FeatureCard 
+            <FeatureCard
               icon="🎯"
               title="Auto Quality"
               description="Automatically selects the highest available quality"
             />
-            <FeatureCard 
+            <FeatureCard
               icon="⚡"
               title="Fast Processing"
               description="Quick conversion with our optimized servers"
             />
-            <FeatureCard 
+            <FeatureCard
               icon="🔒"
               title="Privacy First"
               description="No tracking, no data collection, no registration"
@@ -232,22 +102,18 @@ export default function Page() {
             Coming Soon
           </h2>
           <div className="max-w-5xl mx-auto grid md:grid-cols-4 gap-8">
-            <UpcomingPlatform 
+            <UpcomingPlatform
               icon="🎵"
               title="TikTok"
               status="In Development"
             />
-            <UpcomingPlatform 
-              icon="📌"
-              title="Pinterest"
-              status="Planned"
-            />
-            <UpcomingPlatform 
+            <UpcomingPlatform icon="📌" title="Pinterest" status="Planned" />
+            <UpcomingPlatform
               icon="📷"
               title="Instagram Photos"
               status="Planned"
             />
-            <UpcomingPlatform 
+            <UpcomingPlatform
               icon="▶️"
               title="YouTube Videos"
               status="Planned"
@@ -261,17 +127,17 @@ export default function Page() {
             How It Works
           </h2>
           <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
-            <StepCard 
+            <StepCard
               number="1"
               title="Paste URL"
               description="Copy and paste your video URL"
             />
-            <StepCard 
+            <StepCard
               number="2"
               title="Auto Quality"
               description="Maximum quality selected automatically"
             />
-            <StepCard 
+            <StepCard
               number="3"
               title="Download"
               description="Save the video to your device"
@@ -280,24 +146,27 @@ export default function Page() {
         </section>
 
         {/* FAQ Section */}
-        <section className="my-20 px-4 max-w-4xl mx-auto" aria-label="Frequently Asked Questions">
+        <section
+          className="my-20 px-4 max-w-4xl mx-auto"
+          aria-label="Frequently Asked Questions"
+        >
           <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-rose-600 bg-clip-text text-transparent mb-12">
             Frequently Asked Questions
           </h2>
           <div className="space-y-4">
-            <FAQItem 
+            <FAQItem
               question="Which platforms are currently supported?"
               answer="We currently support YouTube Shorts, Instagram Reels, and Twitter videos. More platforms are coming soon!"
             />
-            <FAQItem 
+            <FAQItem
               question="What quality are the downloads?"
               answer="We automatically select the maximum available quality for each video."
             />
-            <FAQItem 
+            <FAQItem
               question="Is my data safe?"
               answer="Yes! We don't collect any personal data, and all downloads are processed securely."
             />
-            <FAQItem 
+            <FAQItem
               question="When will new platforms be added?"
               answer="We're actively working on adding TikTok, Pinterest, Instagram Photos, and YouTube Videos. Stay tuned for updates!"
             />
@@ -310,7 +179,8 @@ export default function Page() {
             Start Downloading Now
           </h2>
           <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
-            Experience the fastest way to download videos from your favorite platforms
+            Experience the fastest way to download videos from your favorite
+            platforms
           </p>
           <div className="w-[86%] md:max-w-[40%] mx-auto mt-8">
             <Suspense fallback={<LoadingButton />}>
@@ -320,59 +190,100 @@ export default function Page() {
         </section>
       </main>
     </>
-  )
+  );
 }
 
 // New Component Definitions
-function PlatformCard({ icon, title, description, gradient }: { icon: string; title: string; description: string; gradient: string }) {
+function PlatformCard({
+  icon,
+  title,
+  description,
+  gradient,
+}: {
+  icon: string;
+  title: string;
+  description: string;
+  gradient: string;
+}) {
   return (
     <div className="p-8 border border-gray-700 rounded-xl hover:border-emerald-400 transition-all hover:shadow-lg hover:shadow-emerald-500/10">
       <div className="text-5xl mb-4">{icon}</div>
-      <h3 className={`text-2xl font-bold bg-gradient-to-r ${gradient} bg-clip-text text-transparent mb-2`}>
+      <h3
+        className={`text-2xl font-bold bg-gradient-to-r ${gradient} bg-clip-text text-transparent mb-2`}
+      >
         {title}
       </h3>
       <p className="text-gray-400">{description}</p>
     </div>
-  )
+  );
 }
 
-function UpcomingPlatform({ icon, title, status }: { icon: string; title: string; status: string }) {
+function UpcomingPlatform({
+  icon,
+  title,
+  status,
+}: {
+  icon: string;
+  title: string;
+  status: string;
+}) {
   return (
     <div className="p-6 border border-gray-700 rounded-xl hover:border-emerald-400 transition-all">
       <div className="text-4xl mb-4">{icon}</div>
       <h4 className="text-xl font-semibold text-gray-100 mb-2">{title}</h4>
       <span className="text-emerald-400 text-sm">{status}</span>
     </div>
-  )
+  );
 }
 
 // Enhanced Component Definitions
-function PlatformFeature({ title, features, gradient }: { title: string; features: string[]; gradient: string }) {
+function PlatformFeature({
+  title,
+  features,
+  gradient,
+}: {
+  title: string;
+  features: string[];
+  gradient: string;
+}) {
   return (
     <div className="p-6 border border-gray-700 rounded-xl hover:border-emerald-400 transition-all hover:shadow-lg hover:shadow-emerald-500/10">
-      <h4 className={`text-2xl font-bold bg-gradient-to-r ${gradient} bg-clip-text text-transparent mb-4`}>
+      <h4
+        className={`text-2xl font-bold bg-gradient-to-r ${gradient} bg-clip-text text-transparent mb-4`}
+      >
         {title}
       </h4>
       <ul className="space-y-3">
         {features.map((feature, index) => (
-          <li key={index} className="flex items-center text-gray-300 hover:text-emerald-400 transition-colors">
+          <li
+            key={index}
+            className="flex items-center text-gray-300 hover:text-emerald-400 transition-colors"
+          >
             <span className="text-emerald-400 mr-2">✓</span>
             {feature}
           </li>
         ))}
       </ul>
     </div>
-  )
+  );
 }
 
-function FeatureCard({ icon, title, description }: { icon: string; title: string; description: string }) {
+function FeatureCard({
+  icon,
+  title,
+  description,
+}: {
+  icon: string;
+  title: string;
+  description: string;
+}) {
   return (
     <div className="text-center p-6 border border-gray-700 rounded-xl hover:border-emerald-400 transition-all hover:shadow-lg hover:shadow-emerald-500/10">
       <div className="text-4xl mb-4">{icon}</div>
       <h4 className="text-xl font-semibold text-gray-100 mb-3">{title}</h4>
       <p className="text-gray-400 text-sm">{description}</p>
     </div>
-  )
+  );
 }
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
@@ -380,14 +291,24 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
     <details className="group border-b border-gray-700 py-6">
       <summary className="flex justify-between items-center cursor-pointer text-gray-300 hover:text-emerald-400 transition-colors">
         <span className="text-lg font-medium">{question}</span>
-        <span className="text-2xl transition-transform group-open:rotate-180">▼</span>
+        <span className="text-2xl transition-transform group-open:rotate-180">
+          ▼
+        </span>
       </summary>
       <p className="mt-4 text-gray-400">{answer}</p>
     </details>
-  )
+  );
 }
 
-function StepCard({ number, title, description }: { number: string; title: string; description: string }) {
+function StepCard({
+  number,
+  title,
+  description,
+}: {
+  number: string;
+  title: string;
+  description: string;
+}) {
   return (
     <div className="text-center p-6 border border-gray-700 rounded-xl hover:border-emerald-400 transition-all">
       <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
@@ -396,20 +317,20 @@ function StepCard({ number, title, description }: { number: string; title: strin
       <h4 className="text-xl font-semibold text-gray-100 mb-3">{title}</h4>
       <p className="text-gray-400 text-sm">{description}</p>
     </div>
-  )
+  );
 }
 
 // Loading Fallback Components
 function LoadingSpinner() {
   return (
     <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-emerald-400 mx-auto"></div>
-  )
+  );
 }
 
 function LoadingText() {
-  return <p className="text-gray-500 text-center">Loading...</p>
+  return <p className="text-gray-500 text-center">Loading...</p>;
 }
 
 function LoadingButton() {
-  return <div className="h-12 bg-emerald-500 animate-pulse rounded-md"></div>
+  return <div className="h-12 bg-emerald-500 animate-pulse rounded-md"></div>;
 }

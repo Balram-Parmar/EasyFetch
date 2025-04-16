@@ -1,83 +1,75 @@
-import { ShieldCheck, Zap, Download, Cloud, RefreshCw } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+
+const features = [
+  {
+    title: "Fast Downloading",
+    description:
+      "Download Pornhub videos with ultra-fast speed. We do not limit speed for downloading media.",
+    icon: "⚡",
+  },
+  {
+    title: "High Quality",
+    description:
+      "We provide multiple quality options for all downloads. Select the resolution that works best for your needs, from SD to HD.",
+    icon: "🎯",
+  },
+  {
+    title: "Fully Secure",
+    description:
+      "Our Pornhub Video Downloader is 100% secure. It has an active SSL certificate that ensures all data is encrypted while in transit.",
+    icon: "🔒",
+  },
+  {
+    title: "User-Friendly",
+    description:
+      "Our website is specially designed for all users. Fully user-friendly interface to make downloading videos quick and easy.",
+    icon: "📱",
+  },
+  {
+    title: "Free to Use",
+    description:
+      "Yes, it is completely free and easy to use. All you need is a good internet connection.",
+    icon: "🎁",
+  },
+  {
+    title: "No Watermark",
+    description:
+      "Download Pornhub videos without any watermarks. Get clean, high-quality videos every time.",
+    icon: "✨",
+  },
+];
+
+function FeatureCard({
+  title,
+  description,
+  icon,
+}: {
+  title: string;
+  description: string;
+  icon: string;
+}) {
+  return (
+    <Card className="bg-gray-900/50 backdrop-blur-sm border-2 border-gray-700 hover:border-[#FF9000]/50 transition-all duration-300">
+      <CardContent className="p-4 sm:p-6">
+        <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">{icon}</div>
+        <h3 className="text-lg sm:text-xl font-bold mb-2">{title}</h3>
+        <p className="text-sm sm:text-base text-gray-300">{description}</p>
+      </CardContent>
+    </Card>
+  );
+}
 
 export const FeaturesSection = () => {
   return (
-    <section className="py-6 sm:py-8">
-      <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 sm:mb-10 text-gray-800 dark:text-white">
-        Why Use Our Pornhub Downloader?
-      </h2>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition duration-300">
-          <div className="flex items-start space-x-4">
-            <div className="bg-[#FF9000]/10 rounded-full p-3">
-              <ShieldCheck className="h-6 w-6 text-[#FF9000]" aria-hidden="true" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-800 dark:text-white">Secure & Private</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                We don&apos;t store your videos or personal data. All downloads are processed securely and privately.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition duration-300">
-          <div className="flex items-start space-x-4">
-            <div className="bg-[#FF9000]/10 rounded-full p-3">
-              <Zap className="h-6 w-6 text-[#FF9000]" aria-hidden="true" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-800 dark:text-white">Lightning Fast</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Our optimized servers ensure rapid video processing and quick downloads without any hassle.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition duration-300">
-          <div className="flex items-start space-x-4">
-            <div className="bg-[#FF9000]/10 rounded-full p-3">
-              <Download className="h-6 w-6 text-[#FF9000]" aria-hidden="true" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-800 dark:text-white">High Quality</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Download videos in the highest available quality to enjoy them in full resolution.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition duration-300">
-          <div className="flex items-start space-x-4">
-            <div className="bg-[#FF9000]/10 rounded-full p-3">
-              <Cloud className="h-6 w-6 text-[#FF9000]" aria-hidden="true" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-800 dark:text-white">No Installation</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                100% web-based solution, Just Need to Install One Extention If you want to download in FHD
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition duration-300 sm:col-span-2">
-          <div className="flex items-start space-x-4">
-            <div className="bg-[#FF9000]/10 rounded-full p-3">
-              <RefreshCw className="h-6 w-6 text-[#FF9000]" aria-hidden="true" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg mb-2 text-gray-800 dark:text-white">Unlimited Downloads</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Download as many videos as you want without any limits, completely free of charge.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4 sm:px-0">
+      {features.map((feature, index) => (
+        <FeatureCard
+          key={index}
+          title={feature.title}
+          description={feature.description}
+          icon={feature.icon}
+        />
+      ))}
     </section>
   );
 };

@@ -10,7 +10,7 @@ export const Download = () => {
   const [statusMessage, setStatusMessage] = useState<string | ReactNode>("");
   const [error, setError] = useState<string>("");
 
-  const clearStatusMessage = (timeout: number = 5000) => {
+  const clearStatusMessage = (timeout: number = 10000) => {
     setTimeout(() => {
       setStatusMessage("");
       setError("");

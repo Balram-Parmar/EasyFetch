@@ -1,36 +1,37 @@
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { FaPlay } from "react-icons/fa";
 
 export const Header = () => {
   return (
-    <header className="flex flex-col items-center justify-center text-center mb-8 sm:mb-12">
-      <div className="flex items-center justify-center mb-4">
-        <FaPlay className="h-8 w-8 sm:h-10 sm:w-10 text-[#FF9000]" aria-hidden="true" />
-        <h1 className="text-2xl sm:text-4xl font-bold ml-2 text-gray-800 dark:text-white">
-          Pornhub Downloader
+    <div className="flex flex-col sm:flex-row items-center gap-4 mb-8 sm:mb-12 px-4 sm:px-0">
+      <Link href="/" className="w-full sm:w-auto">
+        <Button
+          variant="outline"
+          className="w-full sm:w-auto border-gray-800/50 hover:border-[#FF9000]/50 
+                     hover:scale-[1.02] transition-all duration-200 
+                     backdrop-blur-sm bg-card text-sm sm:text-base"
+        >
+          ← Back to platforms
+        </Button>
+      </Link>
+
+      <div className="flex flex-col sm:flex-row items-center w-full gap-4 sm:gap-6">
+        <div
+          className="p-2 sm:p-3 rounded-xl bg-black/20 backdrop-blur-lg 
+                        border border-gray-800/30 shadow-lg"
+        >
+          <FaPlay className="w-8 h-8 sm:w-10 sm:h-10 text-[#FF9000] drop-shadow-[0_0_15px_rgba(255,144,0,0.3)]" />
+        </div>
+
+        <h1
+          className="text-xl sm:text-2xl md:text-4xl font-bold text-center 
+                      bg-gradient-to-r from-[#FF9000] to-[#FF5000] 
+                      bg-clip-text text-transparent px-4 sm:px-0"
+        >
+          Pornhub Video Downloader
         </h1>
       </div>
-
-      <div className="max-w-3xl mx-auto">
-        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-4">
-          Download your favorite Pornhub videos in the highest quality with our free online downloader.
-          No registration, no software installation, and no limits.
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-3 mt-2">
-          <div className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-800 dark:bg-gray-800 dark:text-gray-200">
-            <span className="mr-1 text-[#FF9000]">✓</span> Free to use
-          </div>
-          <div className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-800 dark:bg-gray-800 dark:text-gray-200">
-            <span className="mr-1 text-[#FF9000]">✓</span> No registration
-          </div>
-          <div className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-800 dark:bg-gray-800 dark:text-gray-200">
-            <span className="mr-1 text-[#FF9000]">✓</span> High-quality videos
-          </div>
-          <div className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-800 dark:bg-gray-800 dark:text-gray-200">
-            <span className="mr-1 text-[#FF9000]">✓</span> Fast downloads
-          </div>
-        </div>
-      </div>
-    </header>
+    </div>
   );
-}; 
+};

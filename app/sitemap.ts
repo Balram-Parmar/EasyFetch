@@ -3,50 +3,56 @@ import { MetadataRoute } from 'next';
 export default function sitemap(): MetadataRoute.Sitemap {
     return [
         {
-            url: 'https://easyfetch.me/youtube',
+            url: 'https://www.easyfetch.me/pornhub',
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 1,
         },
         {
-            url: 'https://easyfetch.me/instagram',
+            url: 'https://www.easyfetch.me/youtube',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 1,
+        },
+        {
+            url: 'https://www.easyfetch.me/instagram',
             lastModified: new Date(),
             changeFrequency: 'monthly', 
             priority: 1,
         },
         {
-            url: 'https://easyfetch.me/twitter',
+            url: 'https://www.easyfetch.me/twitter',
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 1,
         },
    
         {
-            url: 'https://easyfetch.me',
+            url: 'https://www.easyfetch.me',
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.8,
         },
         {
-            url: 'https://easyfetch.me/privacypolicy',
+            url: 'https://www.easyfetch.me/privacypolicy',
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.5,
         },
         {
-            url: 'https://easyfetch.me/contactus',
+            url: 'https://www.easyfetch.me/contactus',
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.5,
         },
         {
-            url: 'https://easyfetch.me/termsofservice',
+            url: 'https://www.easyfetch.me/termsofservice',
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.5,
         },
         {
-            url: 'https://easyfetch.me/aboutus',
+            url: 'https://www.easyfetch.me/aboutus',
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.5,

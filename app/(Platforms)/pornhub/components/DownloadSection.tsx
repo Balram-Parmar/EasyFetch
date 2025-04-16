@@ -1,9 +1,28 @@
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Download } from "../download";
+import Disclaimer from "@/app/components/Disclaimer";
 
 export const DownloadSection = () => {
   return (
-    <section className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100 dark:border-gray-700">
-      <Download />
-    </section>
+    <Card className="bg-gray-900/50 backdrop-blur-sm border-2 border-gray-700 mb-12 sm:mb-20 mx-4 sm:mx-0">
+      <CardHeader className="px-4 sm:px-6">
+        <CardTitle className="text-xl sm:text-2xl font-bold text-center">
+          Pornhub Video Download
+        </CardTitle>
+        <CardDescription className="text-center text-base sm:text-lg">
+          Download Pornhub videos for free
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="px-4 sm:px-6">
+        <Download />
+        <Disclaimer />
+      </CardContent>
+    </Card>
   );
-}; 
+};
