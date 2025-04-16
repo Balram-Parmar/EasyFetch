@@ -2,13 +2,14 @@
 import React, { useState, useEffect, useRef, Suspense } from "react";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { useSearchParams } from "next/navigation";
-import Hls from "hls.js";
 
 // Create a client component that wraps the useSearchParams hook
 function HLSDownloaderContent() {
   const searchParams = useSearchParams();
   const urlParam = searchParams.get("url") || "";
-  console.log("URL Param:", urlParam);
+  const id = decodeURIComponent(searchParams.get("id") || "");
+  // console.log("URL Param:", urlParam);
+  console.log("ID Param:", id);
   const titleParam = sanitizeName(
     decodeURIComponent(
       searchParams.get("title") || "EasyFetch Pornhub Downloader"
@@ -31,13 +32,12 @@ function HLSDownloaderContent() {
   const [downloadLinks, setDownloadLinks] = useState([]);
   const [ffmpegLoaded, setFfmpegLoaded] = useState(false);
   const [ffmpeg, setFfmpeg] = useState(null);
-  const videoRef = useRef(null);
   const [downloadSpeed, setDownloadSpeed] = useState(0);
 
   // Target maximum bytes per chunk (100 MB)
   const MAX_BYTES_PER_CHUNK = 1000 * 1024 * 1024;
   // Maximum concurrent downloads
-  const MAX_CONCURRENT_DOWNLOADS = 10;
+  const MAX_CONCURRENT_DOWNLOADS = 20;
 
   // Load FFmpeg when the component mounts
   useEffect(() => {
@@ -65,91 +65,7 @@ function HLSDownloaderContent() {
     };
   }, []); // Removed ffmpeg from dependency array
 
-  // Initialize HLS.js when playlist URL changes or component mounts
-  useEffect(() => {
-    let hls;
-
-    const initializeHls = () => {
-      if (playlistUrl && videoRef.current) {
-        // Show message about loading the stream
-        setMessage("Attempting to load stream preview...");
-
-        // Destroy any existing HLS instance
-        if (hls) {
-          hls.destroy();
-        }
-
-        // Check if browser supports HLS natively (like Safari)
-        if (videoRef.current.canPlayType("application/vnd.apple.mpegurl")) {
-          videoRef.current.src = playlistUrl;
-        }
-        // For other browsers, use HLS.js if available
-        else if (Hls.isSupported()) {
-          hls = new Hls({
-            maxBufferLength: 30,
-            maxMaxBufferLength: 60,
-            // Add CORS settings to help with cross-origin issues
-            xhrSetup: function (xhr, url) {
-              xhr.withCredentials = false; // Set to true if authentication is needed
-            },
-          });
-
-          hls.loadSource(playlistUrl);
-          hls.attachMedia(videoRef.current);
-
-          hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            setMessage("Stream preview loaded. Ready to download.");
-            // Uncomment the next line if you want autoplay
-            // videoRef.current.play();
-          });
-
-          hls.on(Hls.Events.ERROR, (event, data) => {
-            console.error("HLS error:", data);
-
-            // Handle different types of errors
-            if (data.fatal) {
-              switch (data.type) {
-                case Hls.ErrorTypes.NETWORK_ERROR:
-                  // Try to recover network error
-                  setMessage(
-                    "Network error - The stream URL might be protected or requires authentication. Try downloading anyway."
-                  );
-                  hls.startLoad();
-                  break;
-                case Hls.ErrorTypes.MEDIA_ERROR:
-                  setMessage("Media error - Trying to recover...");
-                  hls.recoverMediaError();
-                  break;
-                default:
-                  // Cannot recover
-                  setMessage(
-                    "Fatal error encountered. The stream might be protected or require authentication. Try downloading anyway."
-                  );
-                  break;
-              }
-            } else {
-              setMessage(
-                "Non-fatal error encountered. You can still try to download the video."
-              );
-            }
-          });
-        } else {
-          setMessage(
-            "HLS is not supported in this browser. You can still try downloading."
-          );
-          console.error("HLS is not supported in this browser.");
-        }
-      }
-    };
-    initializeHls();
-
-    // Cleanup function
-    return () => {
-      if (hls) {
-        hls.destroy();
-      }
-    };
-  }, [playlistUrl]);
+  // No need for HLS.js initialization since we're using iframe embed
 
   const downloadAndProcessChunks = async () => {
     if (!ffmpegLoaded || !ffmpeg) {
@@ -611,7 +527,7 @@ function HLSDownloaderContent() {
           )}
         </div>
       </div>
-      {/* HLS Player */}
+      {/* Embedded Video Player (replacing HLS Player) */}
       <div className="w-full max-w-2xl mt-6 bg-gray-800 rounded-lg shadow-lg overflow-hidden">
         <div className="bg-gray-700 p-4 border-b border-gray-600">
           <h2 className="text-lg font-semibold flex items-center">
@@ -627,30 +543,29 @@ function HLSDownloaderContent() {
                 clipRule="evenodd"
               />
             </svg>
-            Preview Stream
+            Video Preview
           </h2>
         </div>
         <div className="p-4">
-          {playlistUrl ? (
+          {id ? (
             <div className="aspect-video w-full bg-black rounded overflow-hidden">
-              <video
-                ref={videoRef}
-                className="w-full h-full"
-                controls
-                autoPlay={false}
-              >
-                Your browser does not support HTML5 video.
-              </video>
+              <iframe
+                src={`https://pornhub.org/embed/${id}`}
+                frameBorder="0"
+                width="100%"
+                height="100%"
+                scrolling="no"
+                allowFullScreen
+                className="w-full h-full aspect-video"
+              ></iframe>
             </div>
           ) : (
             <div className="aspect-video w-full bg-gray-900 rounded flex items-center justify-center">
-              <p className="text-gray-500">
-                Enter an m3u8 URL to preview the stream
-              </p>
+              <p className="text-gray-500">No video ID provided for preview</p>
             </div>
           )}
           <div className="mt-3 text-sm text-gray-400">
-            Powered by HLS.js for better compatibility across browsers.
+            Embedded video player for preview purposes.
           </div>
         </div>
       </div>

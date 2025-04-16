@@ -7,16 +7,21 @@ import {
   ChevronRight,
   Clipboard,
   CheckCircle,
-  ArrowRight,
   Bell,
+  Lock,
+  Unlock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 interface apiData {
   title: string;
-  url: string;
+  url?: string;
   message: string;
   detail?: string;
+  resolutions?: {
+    [key: string]: string; // e.g. "144p": "https://url-for-144p-resolution"
+  };
 }
 
 export const Download = () => {
@@ -28,7 +33,18 @@ export const Download = () => {
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
   const [showNotification, setShowNotification] = useState<boolean>(false);
   const copyButtonRef = useRef<HTMLButtonElement>(null);
-
+  const [downloadData, setDownloadData] = useState<{
+    url?: string;
+    title: string;
+    resolutions?: {
+      [key: string]: string;
+    };
+  } | null>(null);
+  const [id, setId] = useState<string>("");
+  const [isDownloadLocked, setIsDownloadLocked] = useState<boolean>(true);
+  const [secondsRemaining, setSecondsRemaining] = useState<number>(15);
+  const [currentBanner, setCurrentBanner] = useState<number>(0); // Start with the first banner
+  const banners = ["/banner1.gif", "/banner2.gif", "/banner3.jpg"];
 
   const clearStatusMessage = (timeout: number = 5000) => {
     setTimeout(() => {
@@ -37,8 +53,37 @@ export const Download = () => {
     }, timeout);
   };
 
-  // Effect to fetch and extract the title from the URL
-  // This effect runs when the URL changes
+  // Effect for timer and banner rotation
+  useEffect(() => {
+    // Only run the timer if we have download data and links are locked
+    if (downloadData && isDownloadLocked && secondsRemaining > 0) {
+      // Set initial banner to the first one (index 0)
+      setCurrentBanner(0);
+
+      // Timer for countdown
+      const timer = setInterval(() => {
+        setSecondsRemaining((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            setIsDownloadLocked(false);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      // Rotate banners every 5 seconds
+      const bannerRotator = setInterval(() => {
+        setCurrentBanner((prev) => (prev + 1) % banners.length);
+      }, 5000);
+
+      // Clear both timers on cleanup
+      return () => {
+        clearInterval(timer);
+        clearInterval(bannerRotator);
+      };
+    }
+  }, [downloadData, isDownloadLocked, secondsRemaining]);
 
   // Effect to automatically hide the notification
   useEffect(() => {
@@ -50,6 +95,11 @@ export const Download = () => {
     }
   }, [showNotification]);
 
+  useEffect(() => {
+    const extractedId = extractPornhubId(url) || "";
+    setId(extractedId);
+    console.log("Extracted ID:", extractedId);
+  }, [url]);
   function extractPornhubId(url: string): string | null {
     // Support Pornhub video URLs from all domains (main site, regional domains, and subdomains)
     const patterns = [
@@ -90,6 +140,9 @@ export const Download = () => {
     setCopied(false);
     setShowTooltip(false);
     setShowNotification(false);
+    setDownloadData(null);
+    setIsDownloadLocked(true);
+    setSecondsRemaining(15);
 
     try {
       // Input validation
@@ -103,6 +156,9 @@ export const Download = () => {
           "Invalid Pornhub URL. Please check the URL and try again."
         );
       }
+
+      // Save the video ID
+      setId(videoId);
 
       // Show initial processing message
       setStatusMessage("Preparing your download...");
@@ -141,7 +197,6 @@ export const Download = () => {
 
       const data: apiData = await response.json();
       console.log("API Success Response:", data);
- 
 
       if (data.message !== "success") {
         throw new Error(
@@ -151,100 +206,15 @@ export const Download = () => {
         );
       }
 
-      // Success case - display URL with copy button
-      const downloadUrl = data.url || "";
+      // Success case - store download data
+      setDownloadData({
+        url: data.url || "",
+        title: data.title || "video",
+        resolutions: data.resolutions || {},
+      });
 
-      setStatusMessage(
-        <div className="flex flex-col items-center gap-3">
-          <p className="text-sm font-medium mb-1">
-            Copy this URL And Download With A Download Manager (e.g. IDM,FDM
-            etc.)
-          </p>
-          <div className="flex w-full items-center gap-2 bg-gray-100 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
-            <div className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-xs sm:text-sm font-mono">
-              {downloadUrl}
-            </div>
-            <div className="relative">
-              <Button
-                ref={copyButtonRef}
-                onClick={() => handleCopyToClipboard(downloadUrl)}
-                variant="outline"
-                size="sm"
-                className={`flex-shrink-0 transition-all duration-300 ${
-                  copied
-                    ? "bg-green-100 text-green-700 border-green-300 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800/50"
-                    : ""
-                }`}
-              >
-                {copied ? (
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-1" />
-                ) : (
-                  <Clipboard className="h-4 w-4 mr-1" />
-                )}
-                <span className="ml-1">{copied ? "Copied!" : "Copy URL"}</span>
-              </Button>
-              {showTooltip && (
-                <div className="absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-green-500 text-white text-xs rounded-md shadow-lg whitespace-nowrap animate-bounce">
-                  URL copied successfully!
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-transparent border-t-green-500"></div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="mt-4 p-4 bg-[#FF9000]/10 rounded-lg border border-[#FF9000]/20 text-sm">
-            <h4 className="font-semibold text-[#FF9000] mb-2">
-              What to do next:
-            </h4>
-            <ol className="list-decimal list-inside space-y-1 text-gray-700 dark:text-gray-300">
-              <li>
-                Install the{" "}
-                <a
-                  href="https://chromewebstore.google.com/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino?hl=en"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#FF9000] hover:underline"
-                >
-                  HLS Downloader Pro
-                </a>{" "}
-                extension
-              </li>
-              <li>Go To Our Downloader </li>
-              <li>
-                From the extention tab click and turn on extention befor
-                downloading
-              </li>
-              <li>Press Download and Wait For it to download, ENJOY!</li>
-            </ol>
-
-            <div className="flex flex-col gap-3 mt-4">
-              <div className="text-center">
-                <span className="text-sm font-medium">- OR -</span>
-              </div>
-
-                <Link
-                href={`/downloader?url=${encodeURIComponent(downloadUrl)}&title=${encodeURIComponent(data.title || "")}`}
-                className="w-full bg-[#FF9000] hover:bg-[#FF9000]/80 text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-all"
-                target="_blank"
-                rel="noopener noreferrer"
-                >
-                Use Built-in Downloader
-                <ArrowRight className="h-4 w-4" />
-                </Link>
-            </div>
-
-            <div className="flex items-center justify-center mt-3">
-              <Link
-                href="#how-to-download"
-                className="inline-flex items-center text-[#FF9000] hover:underline text-sm font-medium"
-              >
-                See detailed instructions Here
-                <ArrowRight className="ml-1 h-3 w-3" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      );
+      // Set status message for timer
+      setStatusMessage(`Your download will be available in 15 seconds...`);
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "An unexpected error occurred";
@@ -253,7 +223,8 @@ export const Download = () => {
       clearStatusMessage(5000);
     } finally {
       setIsProcessing(false);
-      setUrl("");
+      // Don't clear the URL here as it would affect the ID as well
+      // setUrl("");
     }
   };
 
@@ -323,6 +294,165 @@ export const Download = () => {
       {statusMessage && (
         <div className="text-sm sm:text-base text-center mt-2 text-gray-600 dark:text-gray-300">
           {statusMessage}
+        </div>
+      )}
+
+      {downloadData && (
+        <div className="flex flex-col items-center gap-6 mt-4">
+          {/* Timer Status and Banner Display */}
+          {isDownloadLocked && (
+            <div className="w-full flex flex-col items-center gap-4">
+              <div className="w-full text-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                <p className="text-amber-600 dark:text-amber-400 font-medium">
+                  Download will be available in {secondsRemaining} seconds...
+                </p>
+              </div>
+
+              {/* Banner Display */}
+              <div className="w-full max-w-3xl aspect-[21/9] relative overflow-hidden rounded-lg">
+                <Image
+                  src={banners[currentBanner]}
+                  alt="Advertisement"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
+                  Advertisement
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Download Buttons */}
+          <div className="w-full mt-4">
+            {isDownloadLocked ? (
+              <div className="w-full py-3 px-6 rounded-lg flex items-center justify-center gap-2 font-bold text-white bg-gray-500 cursor-not-allowed">
+                <Lock className="h-5 w-5" />
+                Download Locked
+              </div>
+            ) : (
+              <>
+                <h3 className="text-center font-bold text-lg mb-3 text-gray-800 dark:text-white">
+                  Select Quality to Download
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {downloadData?.resolutions ? (
+                    // Display up to 6 resolution buttons
+                    Object.entries(downloadData.resolutions)
+                      .slice(0, 6)
+                      .map(([resolution, downloadUrl]) => (
+                        <Link
+                          key={resolution}
+                          href={`/downloader?url=${encodeURIComponent(
+                            downloadUrl
+                          )}&title=${encodeURIComponent(
+                            `${downloadData.title} (${resolution})`
+                          )}&id=${encodeURIComponent(id)}`}
+                          className="py-3 px-4 rounded-lg flex items-center justify-center gap-2 font-bold text-white transition-all duration-300 bg-[#FF9000] hover:bg-[#FF9000]/80 shadow-[0_0_15px_rgba(255,144,0,0.5)] hover:shadow-[0_0_20px_rgba(255,144,0,0.7)]"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Unlock className="h-4 w-4" />
+                          Download {resolution}
+                        </Link>
+                      ))
+                  ) : downloadData?.url ? (
+                    // Fallback for legacy API format (single URL)
+                    <Link
+                      href={`/downloader?url=${encodeURIComponent(
+                        downloadData.url
+                      )}&title=${encodeURIComponent(
+                        downloadData.title
+                      )}&id=${encodeURIComponent(id)}`}
+                      className="py-3 px-6 col-span-2 sm:col-span-3 rounded-lg flex items-center justify-center gap-2 font-bold text-white transition-all duration-300 bg-[#FF9000] hover:bg-[#FF9000]/80 shadow-[0_0_15px_rgba(255,144,0,0.5)] hover:shadow-[0_0_20px_rgba(255,144,0,0.7)]"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Unlock className="h-5 w-5" />
+                      Download Now
+                    </Link>
+                  ) : (
+                    <div className="col-span-2 sm:col-span-3 text-center text-gray-500">
+                      No download options available
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Copy URL section - Only visible when download is unlocked */}
+          {!isDownloadLocked && (
+            <div className="w-full mt-2">
+              <p className="text-sm font-medium mb-2 text-center">
+                {downloadData?.resolutions
+                  ? "Or copy a direct download URL:"
+                  : "Or copy the direct download URL:"}
+              </p>
+              {downloadData?.resolutions ? (
+                <div className="flex flex-col gap-2">
+                  <select
+                    className="w-full p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-sm sm:text-base"
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        handleCopyToClipboard(e.target.value);
+                      }
+                    }}
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      Select a resolution to copy
+                    </option>
+                    {Object.entries(downloadData.resolutions).map(
+                      ([resolution, url]) => (
+                        <option key={resolution} value={url}>
+                          {resolution}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </div>
+              ) : downloadData?.url ? (
+                <div className="flex w-full items-center gap-2 bg-gray-100 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                  <div className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-xs sm:text-sm font-mono">
+                    {downloadData.url}
+                  </div>
+                  <div className="relative">
+                    <Button
+                      ref={copyButtonRef}
+                      onClick={() =>
+                        downloadData.url &&
+                        handleCopyToClipboard(downloadData.url)
+                      }
+                      variant="outline"
+                      size="sm"
+                      className={`flex-shrink-0 transition-all duration-300 ${
+                        copied
+                          ? "bg-green-100 text-green-700 border-green-300 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800/50"
+                          : ""
+                      }`}
+                    >
+                      {copied ? (
+                        <CheckCircle className="h-4 w-4 text-green-500 mr-1" />
+                      ) : (
+                        <Clipboard className="h-4 w-4 mr-1" />
+                      )}
+                      <span className="ml-1">
+                        {copied ? "Copied!" : "Copy URL"}
+                      </span>
+                    </Button>
+                    {showTooltip && (
+                      <div className="absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-green-500 text-white text-xs rounded-md shadow-lg whitespace-nowrap animate-bounce">
+                        URL copied successfully!
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-transparent border-t-green-500"></div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          )}
         </div>
       )}
     </div>

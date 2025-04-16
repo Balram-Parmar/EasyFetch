@@ -23,13 +23,13 @@ export const platforms = [
       <FaTwitter className="h-5 w-5 text-red-500 transition-transform duration-200 hover:scale-110" />
     ),
   },
-  // {
-  //   id: 'pornhub',
-  //   name: 'Pornhub',
-  //   icon: (
-  //     <FaPlay className="h-5 w-5 text-[#FF9000] transition-transform duration-200 hover:scale-110" />
-  //   ),
-  // },
+  {
+    id: 'pornhub',
+    name: 'Pornhub',
+    icon: (
+      <FaPlay className="h-5 w-5 text-[#FF9000] transition-transform duration-200 hover:scale-110" />
+    ),
+  },
 ] as const;
 
 export type PlatformId = typeof platforms[number]['id'];

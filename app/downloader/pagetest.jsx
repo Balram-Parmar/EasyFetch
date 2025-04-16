@@ -15,6 +15,8 @@ function HLSDownloaderContent() {
     )
   );
 //"https://cors-proxy-vercel.thcoc460.workers.dev?url=" 
+//smart link
+//https://t.slext2.com/370013/5165?bo=2753,2754,2755,2756&popUnder=true&aff_sub5=SF_006OG000004lmDN
   const [playlistUrl, setPlaylistUrl] = useState((url) => {
   
       decodeURIComponent(urlParam);
