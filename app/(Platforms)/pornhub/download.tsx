@@ -55,11 +55,16 @@ export const Download = () => {
 
   // Effect for timer and banner rotation
   useEffect(() => {
-    // Only run the timer if we have download data and links are locked
-    if (downloadData && isDownloadLocked && secondsRemaining > 0) {
-      // Set initial banner to the first one (index 0)
-      setCurrentBanner(0);
+    // Set initial banner to the first one (index 0)
+    setCurrentBanner(0);
 
+    // Rotate banners every 5 seconds regardless of download state
+    const bannerRotator = setInterval(() => {
+      setCurrentBanner((prev) => (prev + 1) % banners.length);
+    }, 5000);
+
+    // Only run the countdown timer if we have download data and links are locked
+    if (downloadData && isDownloadLocked && secondsRemaining > 0) {
       // Timer for countdown
       const timer = setInterval(() => {
         setSecondsRemaining((prev) => {
@@ -72,17 +77,17 @@ export const Download = () => {
         });
       }, 1000);
 
-      // Rotate banners every 5 seconds
-      const bannerRotator = setInterval(() => {
-        setCurrentBanner((prev) => (prev + 1) % banners.length);
-      }, 5000);
-
-      // Clear both timers on cleanup
+      // Clear the timer on cleanup
       return () => {
         clearInterval(timer);
         clearInterval(bannerRotator);
       };
     }
+
+    // Clear banner rotator on cleanup if no timer
+    return () => {
+      clearInterval(bannerRotator);
+    };
   }, [downloadData, isDownloadLocked, secondsRemaining]);
 
   // Effect to automatically hide the notification
@@ -299,30 +304,39 @@ export const Download = () => {
 
       {downloadData && (
         <div className="flex flex-col items-center gap-6 mt-4">
-          {/* Timer Status and Banner Display */}
+          {/* Timer Status */}
           {isDownloadLocked && (
-            <div className="w-full flex flex-col items-center gap-4">
-              <div className="w-full text-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                <p className="text-amber-600 dark:text-amber-400 font-medium">
-                  Download will be available in {secondsRemaining} seconds...
-                </p>
-              </div>
+            <div className="w-full text-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+              <p className="text-amber-600 dark:text-amber-400 font-medium">
+                Download will be available in {secondsRemaining} seconds...
+              </p>
+            </div>
+          )}
 
-              {/* Banner Display */}
-              <div className="w-full max-w-3xl aspect-[21/9] relative overflow-hidden rounded-lg">
+          {/* Banner Grid Display - Always visible */}
+          <div className="w-full max-w-3xl grid grid-cols-3 gap-2 mb-4">
+            {banners.map((banner, index) => (
+              <div
+                key={index}
+                className={`aspect-square relative overflow-hidden rounded-lg ${
+                  index === currentBanner
+                    ? "ring-2 ring-[#FF9000] ring-offset-2"
+                    : ""
+                }`}
+              >
                 <Image
-                  src={banners[currentBanner]}
-                  alt="Advertisement"
+                  src={banner}
+                  alt={`Advertisement ${index + 1}`}
                   fill
                   className="object-cover"
                   priority
                 />
                 <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
-                  Advertisement
+                  Ad {index + 1}
                 </div>
               </div>
-            </div>
-          )}
+            ))}
+          </div>
 
           {/* Download Buttons */}
           <div className="w-full mt-4">
