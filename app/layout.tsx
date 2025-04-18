@@ -16,7 +16,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="dark">
       <head>
-        <meta name="referrer" content="no-referrer-when-downgrade" />
+        <meta
+          name="59330c6ac59bd33b36ca473799fc7e2483d76e01"
+          content="59330c6ac59bd33b36ca473799fc7e2483d76e01"
+        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GM8MXXP029"
           strategy="afterInteractive"
