@@ -8,18 +8,15 @@ import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
-
 interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-
-export default function RootLayout({
-  children,
-}: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="dark">
       <head>
+        <meta name="referrer" content="no-referrer-when-downgrade" />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GM8MXXP029"
           strategy="afterInteractive"
