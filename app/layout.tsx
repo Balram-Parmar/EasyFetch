@@ -16,7 +16,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="dark">
       <head>
-        <meta name="monetag" content="a9c180b8e8aba5caa710dde5a086148f" />
+        <meta
+          name="59330c6ac59bd33b36ca473799fc7e2483d76e01"
+          content="59330c6ac59bd33b36ca473799fc7e2483d76e01"
+        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GM8MXXP029"
           strategy="afterInteractive"
