@@ -22,7 +22,7 @@ export const Download = () => {
     const patterns = [
       /^(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([\w-]+)(?:\/|\?|$)/i,
       /^(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([\w-]+)/i,
-      /^(?:https?:\/\/)?youtu\.be\/([\w-]+)/i
+      /^(?:https?:\/\/)?youtu\.be\/([\w-]+)/i,
     ];
 
     for (const pattern of patterns) {
@@ -35,11 +35,14 @@ export const Download = () => {
   }
 
   const triggerDownload = (url: string) => {
+    // Open the tab with the provided URL
     const link = document.createElement("a");
     link.href = url;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   };
 
   const handleDownload = async (inputUrl: string) => {
@@ -56,7 +59,9 @@ export const Download = () => {
 
       const videoId = extractYouTubeId(inputUrl);
       if (!videoId) {
-        throw new Error("Invalid YouTube URL. Please check the URL and try again.");
+        throw new Error(
+          "Invalid YouTube URL. Please check the URL and try again."
+        );
       }
 
       // Show initial processing message
@@ -82,12 +87,14 @@ export const Download = () => {
       });
 
       // Clear progress timers
-      progressTimers.forEach(timer => clearTimeout(timer));
+      progressTimers.forEach((timer) => clearTimeout(timer));
 
       // Handle response
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.detail || "Failed to process video. Please try again.");
+        throw new Error(
+          errorData.detail || "Failed to process video. Please try again."
+        );
       }
 
       const data = await response.json();
@@ -99,16 +106,22 @@ export const Download = () => {
       // Success case
       setStatusMessage(
         <Button
-          onClick={() => triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)}
+          onClick={() => {
+            // Open first download link
+            triggerDownload(
+              `https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`
+            );
+            // Add a small delay before opening the second link to ensure both work
+          }}
           className="bg-red-500 hover:bg-red-600 text-white"
           aria-label="Download video"
         >
           Click To Download Video
         </Button>
       );
-
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
+      const errorMessage =
+        error instanceof Error ? error.message : "An unexpected error occurred";
       setError(errorMessage);
       setStatusMessage("");
       clearStatusMessage(5000);
@@ -165,7 +178,10 @@ export const Download = () => {
       </div>
 
       {error && (
-        <div className="text-sm sm:text-base text-center mt-2 text-red-500 dark:text-red-400" role="alert">
+        <div
+          className="text-sm sm:text-base text-center mt-2 text-red-500 dark:text-red-400"
+          role="alert"
+        >
           {error}
         </div>
       )}
@@ -178,4 +194,3 @@ export const Download = () => {
     </div>
   );
 };
-
