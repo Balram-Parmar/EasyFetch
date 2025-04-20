@@ -16,10 +16,20 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="dark">
       <head>
-        <meta
-          name="59330c6ac59bd33b36ca473799fc7e2483d76e01"
-          content="59330c6ac59bd33b36ca473799fc7e2483d76e01"
+        {/* <Script
+          id="ad-2"
+          dangerouslySetInnerHTML={{
+            __html: `(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9230112,document.body||document.documentElement)`,
+          }}
+        /> */}
+
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9797854118319954"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
         />
+
         <meta name="monetag" content="a9c180b8e8aba5caa710dde5a086148f"></meta>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GM8MXXP029"
