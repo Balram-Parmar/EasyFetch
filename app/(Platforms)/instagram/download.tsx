@@ -1,123 +1,183 @@
 "use client";
-import { useState, ReactNode } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Input } from "@/components/ui/input";
-import { Search, Loader2, ChevronRight } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Regex for extracting Instagram Reel ID
+const REEL_REGEX =
+  /^(?:https?:\/\/)?(?:www\.)?instagram\.com\/(?:reel|reels)\/([\w-]+)(?:\/|\?|$)/i;
+
 export const Download = () => {
-  const [url, setUrl] = useState<string>("");
-  const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const [statusMessage, setStatusMessage] = useState<string | ReactNode>("");
-  const [error, setError] = useState<string>("");
+  const [url, setUrl] = useState("");
+  const [mediaId, setMediaId] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState("");
+  const [audioSrc, setAudioSrc] = useState<string | undefined>(undefined);
+  const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined);
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const skipAutoFetch = useRef(false);
 
-  const clearStatusMessage = (timeout: number = 5000) => {
-    setTimeout(() => {
-      setStatusMessage("");
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Derive combined source URL from mediaId
+  const combinedSrc = useMemo(
+    () =>
+      mediaId ? `https://easyfetchbackend.ddns.net/v/${mediaId}.mp4` : null,
+    [mediaId]
+  );
+
+  const clearFeedback = useCallback((timeout = 5000) => {
+    setTimeout(() => setError(""), timeout);
+  }, []);
+
+  const extractInstagramId = useCallback((inputUrl: string) => {
+    const match = inputUrl.match(REEL_REGEX);
+    return match?.[1] ?? null;
+  }, []);
+
+  const handleDownload = useCallback(
+    async (inputUrl: string) => {
+      if (isProcessing || (inputUrl === url && audioSrc)) return;
       setError("");
-    }, timeout);
-  };
+      setAudioSrc(undefined);
+      setVideoSrc(undefined);
+      setMediaId(null);
+      setIsProcessing(true);
 
-  // This function tries to extract an Instagram Reel ID from an Instagram URL.
-  // It supports only reel URLs.
-  function extractInstagramId(url: string): string | null {
-    // Only accept URLs with /reel/ or /reels/ in the path.
-    const reelPattern = /^(?:https?:\/\/)?(?:www\.)?instagram\.com\/(?:reel|reels)\/([\w-]+)(?:\/|\?|$)/i;
-    const match = url.match(reelPattern);
-    return match && match[1] ? match[1] : null;
-  }
+      // Cancel any in-flight request
+      abortControllerRef.current?.abort();
+      const controller = new AbortController();
+      abortControllerRef.current = controller;
 
-  const triggerDownload = (url: string) => {
+      try {
+        if (!inputUrl.trim())
+          throw new Error("Please enter a valid Instagram URL.");
+        if (!REEL_REGEX.test(inputUrl))
+          throw new Error("Only Instagram Reels are supported at this time.");
+
+        const id = extractInstagramId(inputUrl);
+        if (!id)
+          throw new Error(
+            "Invalid Instagram Reel URL. Please check and try again."
+          );
+
+        const token = btoa(`${inputUrl}instagram`).split("").reverse().join("");
+        const response = await fetch(
+          "https://easyfetchbackend.ddns.net/download",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              url: inputUrl,
+              type: "instagram",
+              x: token,
+            }),
+            signal: controller.signal,
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.detail || "Failed to process video. Please try again."
+          );
+        }
+
+        const data = await response.json();
+        if (data.message !== "success")
+          throw new Error("Failed to process video. Please try again.");
+
+        setAudioSrc(data.audio);
+        setVideoSrc(data.video);
+        setMediaId(id);
+        
+        // Clear input box after successful fetch
+        setUrl("");
+      } catch (err) {
+        if ((err as any).name === "AbortError") return;
+        const message =
+          err instanceof Error ? err.message : "An unexpected error occurred.";
+        setError(message);
+        clearFeedback();
+      } finally {
+        setIsProcessing(false);
+      }
+    },
+    [audioSrc, extractInstagramId, isProcessing, url, clearFeedback]
+  );
+
+  const handleUrlChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const inputUrl = e.target.value;
+      setUrl(inputUrl);
+      if (skipAutoFetch.current) {
+        skipAutoFetch.current = false;
+        return;
+      }
+      if (REEL_REGEX.test(inputUrl)) {
+        handleDownload(inputUrl);
+      }
+    },
+    [handleDownload]
+  );
+
+  const handlePaste = useCallback(
+    (e: React.ClipboardEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      const pasted = e.clipboardData.getData("text");
+      if (REEL_REGEX.test(pasted)) {
+        // Set skip flag to prevent duplicate processing
+        skipAutoFetch.current = true;
+        // Set URL value in the input
+        setUrl(pasted);
+        // Manually trigger download only once
+        handleDownload(pasted);
+      }
+    },
+    [handleDownload]
+  );
+
+  // Sync video and audio playback
+  useEffect(() => {
+    const videoEl = videoRef.current;
+    const audioEl = audioRef.current;
+    if (!videoEl || !audioEl) return;
+
+    const sync = () => {
+      if (Math.abs(audioEl.currentTime - videoEl.currentTime) > 0.2) {
+        audioEl.currentTime = videoEl.currentTime;
+      }
+    };
+
+    videoEl.addEventListener("play", () => audioEl.play().catch(console.error));
+    videoEl.addEventListener("pause", () => audioEl.pause());
+    videoEl.addEventListener("seeked", sync);
+    videoEl.addEventListener("timeupdate", sync);
+
+    return () => {
+      videoEl.removeEventListener("play", () => audioEl.play());
+      videoEl.removeEventListener("pause", () => audioEl.pause());
+      videoEl.removeEventListener("seeked", sync);
+      videoEl.removeEventListener("timeupdate", sync);
+    };
+  }, [audioSrc, videoSrc]);
+
+  const triggerDownload = useCallback((src: string) => {
     const link = document.createElement("a");
-    link.href = url;
+    link.href = src;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     link.click();
-  };
-
-  const handleDownload = async (inputUrl: string) => {
-    // Reset states
-    setError("");
-    setStatusMessage("");
-    setIsProcessing(true);
-
-    try {
-      // Input validation
-      if (!inputUrl.trim()) {
-        throw new Error("Please enter a valid Instagram URL.");
-      }
-
-      // URL format validation
-      if (!/instagram\.com\/(?:reel|reels)\//i.test(inputUrl)) {
-        throw new Error("Only Instagram Reels are supported at this time.");
-      }
-
-      const mediaId = extractInstagramId(inputUrl);
-      if (!mediaId) {
-        throw new Error("Invalid Instagram Reel URL. Please check the URL and try again.");
-      }
-
-      // Show initial processing message
-      setStatusMessage("Preparing your download...");
-
-      // Generate secure token
-      const token = btoa(`${inputUrl}instagram`).split("").reverse().join("");
-
-      // Set up progress indicators
-      const progressTimers = [
-        setTimeout(() => setStatusMessage("Processing video..."), 1000),
-        setTimeout(() => setStatusMessage("Optimizing quality..."), 3000),
-      ];
-
-      // Make API request
-      const response = await fetch("https://easyfetchbackend.ddns.net/insta", {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: inputUrl, type: "instagram", x: token }),
-      });
-
-      // Clear progress timers
-      progressTimers.forEach(timer => clearTimeout(timer));
-
-      // Handle response
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || "Failed to process video. Please try again.");
-      }
-
-      const data = await response.json();
-
-      if (data.message !== "success") {
-        throw new Error("Failed to process video. Please try again.");
-      }
-
-      // Success case
-      setStatusMessage(
-        <Button
-          onClick={() => triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)}
-          className="bg-emerald-500 hover:bg-emerald-600 text-white"
-          aria-label="Download video"
-        >
-          Click To Download Video
-        </Button>
-      );
-
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
-      setError(errorMessage);
-      setStatusMessage("");
-      clearStatusMessage(5000);
-    } finally {
-      setIsProcessing(false);
-      setUrl("");
-    }
-  };
+  }, []);
 
   return (
     <div className="flex flex-col gap-4 bg-white rounded-2xl shadow-md dark:bg-card p-4 sm:p-6">
-      <h2 className="text-lg sm:text-2xl font-bold mb-2 text-gray-800 dark:text-white text-center">
+      <h2 className="text-center text-xl sm:text-2xl font-bold text-gray-800 dark:text-white">
         Instagram Reels Downloader
       </h2>
 
@@ -129,47 +189,84 @@ export const Download = () => {
           <Input
             type="text"
             placeholder="Paste your Instagram Reel URL here..."
-            className="w-full pl-10 pr-4 py-3 sm:py-5 text-sm sm:text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="w-full pl-10 pr-4 py-4 sm:py-5 text-sm sm:text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
             value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            onPaste={(e) => {
-              e.preventDefault();
-              const pastedText = e.clipboardData.getData("text");
-              setUrl(pastedText);
-              handleDownload(pastedText);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleDownload(url);
-              }
-            }}
+            onChange={handleUrlChange}
+            onPaste={handlePaste}
+            onKeyDown={(e) => e.key === "Enter" && handleDownload(url)}
             aria-label="Instagram Reel URL input"
           />
         </div>
-
         <Button
           onClick={() => handleDownload(url)}
           disabled={isProcessing}
-          className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:shadow-[0_0_20px_rgba(16,185,129,0.7)] transition-all duration-300 px-4 py-3 sm:px-5 sm:py-5 rounded-xl w-full sm:w-auto"
-          aria-label={isProcessing ? "Processing video" : "Download video"}
+          className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white shadow-md transition-all duration-300 px-4 py-4 sm:px-5 sm:py-5 rounded-xl"
         >
           {isProcessing ? (
-            <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
+            <Loader2 className="w-5 h-5 animate-spin" />
           ) : (
-            <ChevronRight className="w-5 h-5" aria-hidden="true" />
+            "START"
           )}
         </Button>
       </div>
 
       {error && (
-        <div className="text-sm sm:text-base text-center mt-2 text-red-500 dark:text-red-400" role="alert">
+        <div
+          className="text-center text-sm text-red-500 dark:text-red-400"
+          role="alert"
+        >
           {error}
         </div>
       )}
 
-      {statusMessage && (
-        <div className="text-sm sm:text-base text-center mt-2 text-gray-600 dark:text-gray-300">
-          {statusMessage}
+      
+      {(audioSrc && videoSrc && combinedSrc)?(<div className="text-center text-base sm:text-xl font-mono text-red-500 dark:text-red-400 underline">Scroll Down And Download Your Reel!!</div>):null}
+      {(audioSrc || videoSrc || combinedSrc) && (
+        <div className="flex flex-col gap-4 max-w-sm mx-auto">
+          <div className="relative">
+            <video
+              ref={videoRef}
+              src={videoSrc}
+              controls
+              className="w-full rounded-xl bg-black"
+              preload="auto"
+            />
+            {audioSrc && (
+              <audio
+                ref={audioRef}
+                src={audioSrc}
+                preload="auto"
+                className="hidden"
+              />
+            )}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-2">
+            {audioSrc && (
+              <Button
+                onClick={() => triggerDownload(audioSrc)}
+                className="flex-1 bg-blue-500 hover:bg-blue-600 text-white rounded-xl py-3"
+              >
+                Audio Only
+              </Button>
+            )}
+            {videoSrc && (
+              <Button
+                onClick={() => triggerDownload(videoSrc)}
+                className="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl py-3"
+              >
+                Video Only
+              </Button>
+            )}
+            {combinedSrc && (
+              <Button
+                onClick={() => triggerDownload(combinedSrc)}
+                className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-3"
+              >
+                Audio + Video
+              </Button>
+            )}
+          </div>
         </div>
       )}
     </div>

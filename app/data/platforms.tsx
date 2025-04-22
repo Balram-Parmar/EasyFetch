@@ -1,4 +1,4 @@
-import { FaYoutube, FaTwitter } from "react-icons/fa";
+import { FaYoutube, FaTwitter, FaInstagram } from "react-icons/fa";
 
 export const platforms = [
   {
@@ -8,13 +8,13 @@ export const platforms = [
       <FaYoutube className="h-5 w-5 text-red-500 transition-transform duration-200 hover:scale-110" />
     ),
   },
-  // {
-  //   id: 'instagram',
-  //   name: 'Instagram',
-  //   icon: (
-  //     <FaInstagram className="h-5 w-5 text-red-500 transition-transform duration-200 hover:scale-110" />
-  //   ),
-  // },
+  {
+    id: 'instagram',
+    name: 'Instagram',
+    icon: (
+      <FaInstagram className="h-5 w-5 text-red-500 transition-transform duration-200 hover:scale-110" />
+    ),
+  },
   {
     id: "twitter",
     name: "Twitter",
