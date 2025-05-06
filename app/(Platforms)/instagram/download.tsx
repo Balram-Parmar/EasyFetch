@@ -64,12 +64,12 @@ export const Download = () => {
           );
 
         const token = btoa(`${inputUrl}instagram`).split("").reverse().join("");
+
         const response = await fetch(
           "https://easyfetchbackend.ddns.net/download",
           {
             method: "POST",
             headers: {
-              Accept: "application/json",
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -77,7 +77,6 @@ export const Download = () => {
               type: "instagram",
               x: token,
             }),
-            signal: controller.signal,
           }
         );
 
@@ -95,7 +94,7 @@ export const Download = () => {
         setAudioSrc(data.audio);
         setVideoSrc(data.video);
         setMediaId(id);
-        
+
         // Clear input box after successful fetch
         setUrl("");
       } catch (err) {
@@ -219,8 +218,11 @@ export const Download = () => {
         </div>
       )}
 
-      
-      {(audioSrc && videoSrc && combinedSrc)?(<div className="text-center text-base sm:text-xl font-mono text-red-500 dark:text-red-400 underline">Scroll Down And Download Your Reel!!</div>):null}
+      {audioSrc && videoSrc && combinedSrc ? (
+        <div className="text-center text-base sm:text-xl font-mono text-red-500 dark:text-red-400 underline">
+          Scroll Down And Download Your Reel!!
+        </div>
+      ) : null}
       {(audioSrc || videoSrc || combinedSrc) && (
         <div className="flex flex-col gap-4 max-w-sm mx-auto">
           <div className="relative">
