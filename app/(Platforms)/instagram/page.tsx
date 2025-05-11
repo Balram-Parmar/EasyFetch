@@ -3,7 +3,12 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { Download } from "./download";
-import { Seo, HowToDownload, WhatIsInstagram,HowToDownloadReelsGuide } from "./Components/Seo";
+import {
+  Seo,
+  HowToDownload,
+  WhatIsInstagram,
+  HowToDownloadReelsGuide,
+} from "./Components/Seo";
 import { Features } from "./Components/Features";
 import { Faq } from "./Components/Faq";
 import { ShareStrip } from "./Components/Share";
@@ -87,16 +92,13 @@ export default function Page() {
             </CardContent>
           </Card>
         </div>
-<div className="mt-20 w-full">
+        <div className="mt-20 w-full">
           <Card className="shadow-xl">
-          <CardContent className="p-4 sm:p-8">
-              <HowToDownloadReelsGuide/>
+            <CardContent className="p-4 sm:p-8">
+              <HowToDownloadReelsGuide />
             </CardContent>
-            </Card>
-
-</div>
-
-
+          </Card>
+        </div>
       </div>
     </div>
   );
