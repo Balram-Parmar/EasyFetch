@@ -15,9 +15,9 @@ import { ShareStrip } from "./Components/Share";
 
 export const metadata: Metadata = {
   title:
-    "Instagram To MP4 Converter - Download Instagram Reels, Videos 1080p & 4K",
+    "Instagram To MP4 Converter - Download Instagram Reels, Videos 1080p HD",
   description:
-    "EasyFetch.me is a free tool to convert Instagram Reels to MP4 in 1080p or 4K quality. Download Instagram videos, extract audio, and save content without watermarks on any device.",
+    "A free tool to convert Instagram Reels to MP4 / MP3  in 1080p . Download Instagram videos, extract audio, and save content without watermarks on any device.",
   keywords:
     "instagram video downloader free, insta saver reel, insta reels saver, instagram to mp4 converter, instagram to mp4 converter reels, instagram to mp4 converter 4k, instagram to mp4 converter reddit, instagram to mp4 converter 1080p, instagram to mp4 converter audio, insta reel to mp4 converter, download reels video, insta reels downloader, ig reels downloader, instagram reel download er, ins reels download, download ig reels, download ig reel video, download instagram mp4 to mp3, download instagram mp4 hd, download instagram mp4 link, download instagram mp4 reels, instagram download mp4 format, download instagram video mp4 online, download insta reels to mp4",
 };

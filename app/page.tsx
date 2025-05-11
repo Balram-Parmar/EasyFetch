@@ -4,14 +4,61 @@ import Disclaimer from "./components/Disclaimer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Best Social Media Video Downloader YouTube, Instagram , Pornhub.",
+  title:
+    "Instagram To MP4 Converter - Download Instagram Reels, Videos 1080p HD",
   description:
-    "Free online video downloader for YouTube, Instagram, TikTok and more. Download videos in HD, FHD, 4K quality. No registration required, fast and secure.",
+    "EasyFetch.me offers a free Instagram to MP4 converter for downloading Reels, Videos & Stories in full 1080p HD quality. Save Instagram content without watermarks, extract audio to MP3, and convert posts on any device without login. Fast, secure, and unlimited downloads.",
   keywords:
-    "video downloader, YouTube downloader, Instagram downloader, social media downloader, shorts downloader, reels downloader, twitter video downloader, HD video download, free video downloader",
-  authors: [{ name: "EasyFetch", url: "https://www.easyfetch.me" }],
-  creator: "EasyFetch",
-  publisher: "EasyFetch",
+    "instagram video downloader free, insta saver reel, insta reels saver, instagram to mp4 converter, instagram to mp4 converter reels, instagram to mp4 converter 4k, instagram to mp4 converter reddit, instagram to mp4 converter 1080p, instagram to mp4 converter audio, insta reel to mp4 converter, download reels video, insta reels downloader, ig reels downloader, instagram reel download er, ins reels download, download ig reels, download ig reel video, download instagram mp4 to mp3, download instagram mp4 hd, download instagram mp4 link, download instagram mp4 reels, instagram download mp4 format, download instagram video mp4 online, download insta reels to mp4",
+
+  // Open Graph / Facebook
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://easyfetch.me/instagram",
+    title:
+      "Instagram to MP4 Converter - Download Instagram Reels & Videos in HD",
+    description:
+      "EasyFetch.me: Free tool to download Instagram Reels, Videos & Stories in 1080p HD quality. Save content without watermarks on any device. No login required.",
+    siteName: "EasyFetch.me",
+  },
+
+  // Twitter
+  twitter: {
+    card: "summary_large_image",
+    title: "Instagram to MP4 Converter - Download Reels & Videos in HD",
+    description:
+      "EasyFetch.me: Instagram downloader for Reels, Videos & Stories in 1080p. No watermarks, no login, works on all devices.",
+    creator: "@easyfetch",
+  },
+
+  // Additional metadata
+  robots: "index, follow",
+  category: "social media tools",
+  applicationName: "EasyFetch.me",
+  referrer: "origin-when-cross-origin",
+  authors: [{ name: "EasyFetch Team" }],
+  alternates: {
+    canonical: "https://easyfetch.me/instagram",
+    languages: {
+      "en-US": "https://easyfetch.me/instagram",
+    },
+  },
+
+  // Mobile app related (if you have mobile apps)
+  appleWebApp: {
+    capable: true,
+    title: "EasyFetch.me",
+    statusBarStyle: "black-translucent",
+  },
+
+  // Other important properties
+  viewport: "width=device-width, initial-scale=1.0",
+  formatDetection: {
+    telephone: false,
+  },
+
+  // LD+JSON structured data can be added in your component directly
 };
 
 export default function Page() {
