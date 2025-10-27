@@ -1,27 +1,28 @@
 "use client";
-import { useState, ReactNode } from "react";
+import { useState, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BACKEND_URL } from "../var";
 
 export const Download = () => {
   const [url, setUrl] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const [statusMessage, setStatusMessage] = useState<string | ReactNode>("");
+  const [success, setSuccess] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  const clearStatusMessage = (timeout: number = 5000) => {
+  const clearMessages = useCallback((timeout: number = 5000) => {
     setTimeout(() => {
-      setStatusMessage("");
+      setSuccess("");
       setError("");
     }, timeout);
-  };
+  }, []);
 
-  function extractTwitterId(url: string): string | null {
+  const extractTwitterId = useCallback((url: string): string | null => {
     // Support both twitter.com and x.com URLs
     const patterns = [
       /^(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:i\/web\/status\/|status\/)([\w-]+)(?:\/|\?|$)/i,
-      /^(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:[\w-]+)\/status\/([\w-]+)(?:\/|\?|$)/i
+      /^(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:[\w-]+)\/status\/([\w-]+)(?:\/|\?|$)/i,
     ];
 
     for (const pattern of patterns) {
@@ -31,91 +32,65 @@ export const Download = () => {
       }
     }
     return null;
-  }
+  }, []);
 
-  const triggerDownload = (url: string) => {
-    const link = document.createElement("a");
-    link.href = url;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.click();
-  };
+  const handleDownload = useCallback(
+    async (inputUrl: string) => {
+      // Reset states
+      setError("");
+      setSuccess("");
+      setIsProcessing(true);
 
-  const handleDownload = async (inputUrl: string) => {
-    // Reset states
-    setError("");
-    setStatusMessage("");
-    setIsProcessing(true);
+      try {
+        // Input validation
+        if (!inputUrl.trim()) {
+          throw new Error("Please enter a valid Twitter URL.");
+        }
 
-    try {
-      // Input validation
-      if (!inputUrl.trim()) {
-        throw new Error("Please enter a valid Twitter URL.");
+        const tweetId = extractTwitterId(inputUrl);
+        if (!tweetId) {
+          throw new Error(
+            "Invalid Twitter URL. Please check the URL and try again."
+          );
+        }
+
+        // Make API request
+        const response = await fetch(`${BACKEND_URL}/x`, {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url: inputUrl }),
+        });
+
+        // Handle response
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.detail || "Failed to process video. Please try again."
+          );
+        }
+
+        const data = await response.json();
+
+        // Success case
+        setSuccess("Your request was processed successfully!" + data);
+        setUrl(""); // Clear URL on success
+        clearMessages(5000);
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred";
+        setError(errorMessage);
+        clearMessages(5000);
+      } finally {
+        setIsProcessing(false);
       }
-
-      const tweetId = extractTwitterId(inputUrl);
-      if (!tweetId) {
-        throw new Error("Invalid Twitter URL. Please check the URL and try again.");
-      }
-
-      // Show initial processing message
-      setStatusMessage("Preparing your download...");
-
-      // Generate secure token
-      const token = btoa(`${inputUrl}twitter`).split("").reverse().join("");
-
-      // Set up progress indicators
-      const progressTimers = [
-        setTimeout(() => setStatusMessage("Processing video..."), 1000),
-        setTimeout(() => setStatusMessage("Optimizing quality..."), 3000),
-      ];
-
-      // Make API request
-      const response = await fetch("https://easyfetchbackend.ddns.net/tw", {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: inputUrl, type: "twitter", x: token }),
-      });
-
-      // Clear progress timers
-      progressTimers.forEach(timer => clearTimeout(timer));
-
-      // Handle response
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || "Failed to process video. Please try again.");
-      }
-
-      const data = await response.json();
-
-      if (data.message !== "success") {
-        throw new Error("Failed to process video. Please try again.");
-      }
-
-      // Success case
-      setStatusMessage(
-        <Button
-          onClick={() => triggerDownload(`https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`)}
-          className="bg-blue-500 hover:bg-blue-600 text-white"
-          aria-label="Download video"
-        >
-          Click To Download Video
-        </Button>
-      );
-
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
-      setError(errorMessage);
-      setStatusMessage("");
-      clearStatusMessage(5000);
-    } finally {
-      setIsProcessing(false);
-      setUrl("");
-    }
-  };
+    },
+    [isProcessing, clearMessages, extractTwitterId]
+  );
 
   return (
     <div className="flex flex-col gap-4 bg-white rounded-2xl shadow-md dark:bg-card p-4 sm:p-6">
@@ -138,7 +113,6 @@ export const Download = () => {
               e.preventDefault();
               const pastedText = e.clipboardData.getData("text");
               setUrl(pastedText);
-              handleDownload(pastedText);
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
@@ -164,14 +138,20 @@ export const Download = () => {
       </div>
 
       {error && (
-        <div className="text-sm sm:text-base text-center mt-2 text-red-500 dark:text-red-400" role="alert">
+        <div
+          className="text-sm sm:text-base text-center mt-2 text-red-500 dark:text-red-400"
+          role="alert"
+        >
           {error}
         </div>
       )}
 
-      {statusMessage && (
-        <div className="text-sm sm:text-base text-center mt-2 text-gray-600 dark:text-gray-300">
-          {statusMessage}
+      {success && (
+        <div
+          className="text-sm sm:text-base text-center mt-2 text-green-500 dark:text-green-400"
+          role="status"
+        >
+          {success}
         </div>
       )}
     </div>

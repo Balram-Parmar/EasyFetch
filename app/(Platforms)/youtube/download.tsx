@@ -3,6 +3,7 @@ import { useState, ReactNode } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BACKEND_URL } from "../var";
 
 export const Download = () => {
   const [url, setUrl] = useState<string>("");
@@ -33,16 +34,6 @@ export const Download = () => {
     }
     return null;
   }
-
-  const triggerDownload = (url: string) => {
-    const link = document.createElement("a");
-    link.href = url;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
 
   const handleDownload = async (inputUrl: string) => {
     // Reset states
@@ -76,7 +67,7 @@ export const Download = () => {
       ];
 
       // Make API request
-      const response = await fetch("https://easyfetchbackend.ddns.net/yt", {
+      const response = await fetch(`${BACKEND_URL}/yt`, {
         method: "POST",
         headers: {
           accept: "application/json",
@@ -102,55 +93,9 @@ export const Download = () => {
         throw new Error("Failed to process video. Please try again.");
       }
 
-      // Success case
-      setStatusMessage(
-        <div className="flex flex-col items-center gap-4">
-          <p className="text-lg font-semibold underline text-red-500">
-            Scroll down to download
-          </p>
-
-          <a
-            href="https://one.exnesstrack.org/intl/en/a/c_rzh3zauo7y"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="https://d3dpet1g0ty5ed.cloudfront.net/EN_Trade_20the_20biggest_20stocks_20in_20the_20world_1200x628.png"
-              width="100%"
-              height="auto"
-              alt="Trade the biggest stocks"
-              className="rounded-lg max-w-full"
-            />
-          </a>
-
-          <a
-            href="https://one.exnesstrack.org/intl/en/a/c_rzh3zauo7y"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="https://d3dpet1g0ty5ed.cloudfront.net/EN_It_s_20the_20most_20efficient_20way_20to_20trade_20stocks_1200x628.png"
-              width="100%"
-              height="auto"
-              alt="Efficient way to trade stocks"
-              className="rounded-lg max-w-full"
-            />
-          </a>
-          <Button
-            onClick={() => {
-              // Open first download link
-              triggerDownload(
-                `https://easyfetchbackend.ddns.net/v/${data.video_id}.mp4`
-              );
-              // Add a small delay before opening the second link to ensure both work
-            }}
-            className="bg-red-500 hover:bg-red-600 text-white"
-            aria-label="Download video"
-          >
-            Click To Download Video
-          </Button>
-        </div>
-      );
+      // Success case - UPDATED
+      setStatusMessage("download successfull check your Server folder");
+      clearStatusMessage(10000); // Clear message after 10 seconds
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "An unexpected error occurred";
