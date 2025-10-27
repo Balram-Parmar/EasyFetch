@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import { SelectPlatform } from "./components/Select";
 import Disclaimer from "./components/Disclaimer";
 import type { Metadata } from "next";
