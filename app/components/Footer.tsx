@@ -94,17 +94,6 @@ const Footer = () => {
                   Twitter Downloader
                 </Link>
               </li>
-              <li className="flex items-center gap-2">
-                <span className="text-xs font-bold w-4 h-4 flex items-center justify-center text-gray-500">
-                  PH
-                </span>
-                <Link
-                  href="/pornhub"
-                  className="text-gray-400 hover:text-green-500 transition-colors"
-                >
-                  Pornhub Downloader
-                </Link>
-              </li>
             </ul>
           </div>
 
