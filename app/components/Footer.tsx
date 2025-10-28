@@ -51,12 +51,6 @@ const Footer = () => {
                 >
                   <Twitter size={18} />
                 </Link>
-                <Link
-                  href="/pornhub"
-                  className="p-2 rounded-full bg-gradient-to-br from-gray-800 to-gray-700 hover:from-green-600 hover:to-emerald-700 text-gray-300 hover:text-white transition-all duration-300"
-                >
-                  <span className="text-xs font-bold">PH</span>
-                </Link>
               </div>
             </div>
           </div>
