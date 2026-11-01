@@ -3,7 +3,8 @@ import { useState, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { BACKEND_URL } from "../var";
+import { BACKEND_URL, apiErrorMessage } from "../var";
+import { VideoPreview } from "../VideoPreview";
 
 // Regex for extracting Instagram Reel ID
 const REEL_REGEX =
@@ -14,6 +15,7 @@ export const Download = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [fileName, setFileName] = useState<string | null>(null);
 
   const clearMessages = useCallback((timeout = 5000) => {
     setTimeout(() => {
@@ -32,6 +34,7 @@ export const Download = () => {
       if (isProcessing) return;
       setError("");
       setSuccess("");
+      setFileName(null);
       setIsProcessing(true);
 
       try {
@@ -56,18 +59,21 @@ export const Download = () => {
           }),
         });
 
+        const data = await response.json().catch(() => null);
+
         if (!response.ok) {
-          const errorData = await response.json();
           throw new Error(
-            errorData.detail || "Failed to process video. Please try again."
+            apiErrorMessage(data, "Failed to process video. Please try again.")
           );
         }
 
-        const data = await response.json();
+        if (data?.message !== "success" || !data?.fileName) {
+          throw new Error("Failed to process video. Please try again.");
+        }
 
-        setSuccess("Your request was processed successfully!" + data);
+        setSuccess("Download ready");
+        setFileName(data.fileName);
         setUrl(""); // Clear input box after successful fetch
-        clearMessages();
       } catch (err) {
         const message =
           err instanceof Error ? err.message : "An unexpected error occurred.";
@@ -138,6 +144,8 @@ export const Download = () => {
           {success}
         </div>
       )}
+
+      {fileName && <VideoPreview fileName={fileName} />}
     </div>
   );
 };

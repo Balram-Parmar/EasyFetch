@@ -1,14 +1,16 @@
 "use client";
-import { useState, ReactNode } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { BACKEND_URL } from "../var";
+import { BACKEND_URL, apiErrorMessage } from "../var";
+import { VideoPreview } from "../VideoPreview";
 
 export const Download = () => {
   const [url, setUrl] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const [statusMessage, setStatusMessage] = useState<string | ReactNode>("");
+  const [statusMessage, setStatusMessage] = useState<string>("");
+  const [fileName, setFileName] = useState<string | null>(null);
   const [error, setError] = useState<string>("");
 
   const clearStatusMessage = (timeout: number = 10000) => {
@@ -39,7 +41,10 @@ export const Download = () => {
     // Reset states
     setError("");
     setStatusMessage("");
+    setFileName(null);
     setIsProcessing(true);
+
+    const progressTimers: ReturnType<typeof setTimeout>[] = [];
 
     try {
       // Input validation
@@ -57,14 +62,11 @@ export const Download = () => {
       // Show initial processing message
       setStatusMessage("Preparing your download...");
 
-      // Generate secure token
-      const token = btoa(`${inputUrl}youtube`).split("").reverse().join("");
-
       // Set up progress indicators
-      const progressTimers = [
+      progressTimers.push(
         setTimeout(() => setStatusMessage("Processing video..."), 1000),
-        setTimeout(() => setStatusMessage("Optimizing quality..."), 3000),
-      ];
+        setTimeout(() => setStatusMessage("Optimizing quality..."), 3000)
+      );
 
       // Make API request
       const response = await fetch(`${BACKEND_URL}/yt`, {
@@ -73,29 +75,25 @@ export const Download = () => {
           accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url: inputUrl, type: "youtube", x: token }),
+        body: JSON.stringify({ url: inputUrl }),
       });
 
-      // Clear progress timers
-      progressTimers.forEach((timer) => clearTimeout(timer));
+      const data = await response.json().catch(() => null);
 
       // Handle response
       if (!response.ok) {
-        const errorData = await response.json();
         throw new Error(
-          errorData.detail || "Failed to process video. Please try again."
+          apiErrorMessage(data, "Failed to process video. Please try again.")
         );
       }
 
-      const data = await response.json();
-
-      if (data.message !== "success") {
+      if (data?.message !== "success" || !data?.fileName) {
         throw new Error("Failed to process video. Please try again.");
       }
 
-      // Success case - UPDATED
-      setStatusMessage("download successfull check your Server folder");
-      clearStatusMessage(10000); // Clear message after 10 seconds
+      // Success case - preview it straight from the backend
+      setStatusMessage("Download ready");
+      setFileName(data.fileName);
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "An unexpected error occurred";
@@ -103,6 +101,7 @@ export const Download = () => {
       setStatusMessage("");
       clearStatusMessage(5000);
     } finally {
+      progressTimers.forEach((timer) => clearTimeout(timer));
       setIsProcessing(false);
       setUrl("");
     }
@@ -168,6 +167,8 @@ export const Download = () => {
           {statusMessage}
         </div>
       )}
+
+      {fileName && <VideoPreview fileName={fileName} />}
     </div>
   );
 };

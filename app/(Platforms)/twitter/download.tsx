@@ -3,12 +3,14 @@ import { useState, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { BACKEND_URL } from "../var";
+import { BACKEND_URL, apiErrorMessage } from "../var";
+import { VideoPreview } from "../VideoPreview";
 
 export const Download = () => {
   const [url, setUrl] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [success, setSuccess] = useState<string>("");
+  const [fileName, setFileName] = useState<string | null>(null);
   const [error, setError] = useState<string>("");
 
   const clearMessages = useCallback((timeout: number = 5000) => {
@@ -39,6 +41,7 @@ export const Download = () => {
       // Reset states
       setError("");
       setSuccess("");
+      setFileName(null);
       setIsProcessing(true);
 
       try {
@@ -64,20 +67,23 @@ export const Download = () => {
           body: JSON.stringify({ url: inputUrl }),
         });
 
+        const data = await response.json().catch(() => null);
+
         // Handle response
         if (!response.ok) {
-          const errorData = await response.json();
           throw new Error(
-            errorData.detail || "Failed to process video. Please try again."
+            apiErrorMessage(data, "Failed to process video. Please try again.")
           );
         }
 
-        const data = await response.json();
+        if (data?.message !== "success" || !data?.fileName) {
+          throw new Error("Failed to process video. Please try again.");
+        }
 
-        // Success case
-        setSuccess("Your request was processed successfully!" + data);
+        // Success case - preview it straight from the backend
+        setSuccess("Download ready");
+        setFileName(data.fileName);
         setUrl(""); // Clear URL on success
-        clearMessages(5000);
       } catch (error) {
         const errorMessage =
           error instanceof Error
@@ -154,6 +160,8 @@ export const Download = () => {
           {success}
         </div>
       )}
+
+      {fileName && <VideoPreview fileName={fileName} />}
     </div>
   );
 };

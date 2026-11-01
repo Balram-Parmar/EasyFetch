@@ -149,6 +149,19 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+### Backend URL
+
+The API base URL is defined in `app/(Platforms)/var.tsx` and defaults to
+`https://backend.transends.space`. To point the app at a different backend,
+set `NEXT_PUBLIC_BACKEND_URL` (for example in `.env.local`):
+
+```env
+NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+```
+
+Downloaded files are linked as `<backend>/downloads/<fileName>`, which the
+backend deployment serves from its `videos/` directory.
+
 ### Available Scripts
 
 | Command | Description |
