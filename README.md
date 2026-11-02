@@ -12,7 +12,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://easyfetch.me)
 
-[![Live Site](https://img.shields.io/badge/🌐_Live_Site-easyfetch.me-10B981?style=flat-square)](https://easyfetch.me)
+[![Live Site](https://img.shields.io/badge/🌐_Live_Site-easyfetch-downloader.vercel.app-10B981?style=flat-square)](https://easyfetch.me)
 [![Discord](https://img.shields.io/badge/💬_Discord-Join_the_community-5865F2?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/dqZ9B3ASFp)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/Balram-Parmar/EasyFetch/pulls)
 
